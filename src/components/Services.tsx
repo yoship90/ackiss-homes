@@ -1,3 +1,5 @@
+import ScrollReveal from "./ScrollReveal";
+
 const services = [
   {
     title: "Buying",
@@ -45,31 +47,32 @@ export default function Services() {
   return (
     <section id="services" className="py-24 px-6 bg-dark-800">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-4">
-            What We Offer
-          </p>
-          <h2 className="text-4xl md:text-5xl font-heading font-bold">
-            Our Services
-          </h2>
-        </div>
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-4">
+              What We Offer
+            </p>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold">
+              Our Services
+            </h2>
+          </div>
+        </ScrollReveal>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service) => (
-            <div
-              key={service.title}
-              className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:border-gold-500/30 transition-colors duration-300 group"
-            >
-              <div className="text-gold-400 mb-5 group-hover:text-gold-500 transition-colors">
-                {service.icon}
+          {services.map((service, i) => (
+            <ScrollReveal key={service.title} delay={i * 100}>
+              <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:border-gold-500/30 transition-colors duration-300 group h-full">
+                <div className="text-gold-400 mb-5 group-hover:text-gold-500 transition-colors">
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-heading font-semibold mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {service.description}
+                </p>
               </div>
-              <h3 className="text-xl font-heading font-semibold mb-3">
-                {service.title}
-              </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                {service.description}
-              </p>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

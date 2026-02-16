@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import ScrollReveal from "./ScrollReveal";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -13,18 +14,20 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 px-6 bg-dark-800">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-4">
-            Reach Out
-          </p>
-          <h2 className="text-4xl md:text-5xl font-heading font-bold">
-            Get in Touch
-          </h2>
-        </div>
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-4">
+              Reach Out
+            </p>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold">
+              Get in Touch
+            </h2>
+          </div>
+        </ScrollReveal>
 
         <div className="grid md:grid-cols-2 gap-12">
           {/* Contact form */}
-          <div>
+          <ScrollReveal direction="left">
             {submitted ? (
               <div className="bg-dark-700 border border-gold-500/30 rounded-sm p-8 text-center">
                 <p className="text-gold-400 text-lg font-heading font-semibold mb-2">
@@ -95,43 +98,45 @@ export default function Contact() {
                 </button>
               </form>
             )}
-          </div>
+          </ScrollReveal>
 
           {/* Business info */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-xl font-heading font-semibold mb-3 text-gold-400">
-                Office
-              </h3>
-              <p className="text-gray-400 leading-relaxed">
-                123 Main Street, Suite 200
-                <br />
-                Your City, State 12345
-              </p>
+          <ScrollReveal direction="right">
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-xl font-heading font-semibold mb-3 text-gold-400">
+                  Office
+                </h3>
+                <p className="text-gray-400 leading-relaxed">
+                  123 Main Street, Suite 200
+                  <br />
+                  Your City, State 12345
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-heading font-semibold mb-3 text-gold-400">
+                  Contact Info
+                </h3>
+                <p className="text-gray-400 leading-relaxed">
+                  Phone: (555) 123-4567
+                  <br />
+                  Email: hello@ackisshomes.com
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-heading font-semibold mb-3 text-gold-400">
+                  Hours
+                </h3>
+                <p className="text-gray-400 leading-relaxed">
+                  Monday &ndash; Friday: 9:00 AM &ndash; 6:00 PM
+                  <br />
+                  Saturday: 10:00 AM &ndash; 4:00 PM
+                  <br />
+                  Sunday: By Appointment
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-xl font-heading font-semibold mb-3 text-gold-400">
-                Contact Info
-              </h3>
-              <p className="text-gray-400 leading-relaxed">
-                Phone: (555) 123-4567
-                <br />
-                Email: hello@ackisshomes.com
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-heading font-semibold mb-3 text-gold-400">
-                Hours
-              </h3>
-              <p className="text-gray-400 leading-relaxed">
-                Monday &ndash; Friday: 9:00 AM &ndash; 6:00 PM
-                <br />
-                Saturday: 10:00 AM &ndash; 4:00 PM
-                <br />
-                Sunday: By Appointment
-              </p>
-            </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
