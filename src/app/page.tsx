@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import Listings from "@/components/Listings";
+import MLSSearch from "@/components/MLSSearch";
 import Testimonials from "@/components/Testimonials";
 import SocialFeed from "@/components/SocialFeed";
 import Contact from "@/components/Contact";
@@ -17,6 +18,7 @@ export default function Home() {
         <About />
         <Services />
         <Listings />
+        <MLSSearch />
         <Testimonials />
         <SocialFeed />
         <Contact />
