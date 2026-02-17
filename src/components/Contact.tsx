@@ -12,7 +12,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 px-6 bg-dark-800 relative">
+    <section id="contact" className="py-24 px-6 relative">
       <div className="max-w-6xl mx-auto">
         {/* Heading — right-aligned to contrast with About's left-aligned heading */}
         <div className="grid md:grid-cols-[3fr_2fr] gap-8 mb-16">

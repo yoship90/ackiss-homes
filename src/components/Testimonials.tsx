@@ -87,7 +87,7 @@ export default function Testimonials() {
   const t = testimonials[current];
 
   return (
-    <section id="testimonials" className="py-24 px-6">
+    <section id="testimonials" className="py-24 px-6 bg-dark-800">
       <div className="max-w-4xl mx-auto">
         <ScrollReveal>
           <div className="text-center mb-16">

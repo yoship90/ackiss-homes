@@ -47,7 +47,7 @@ export default function Listings() {
   if (listings.length === 0) return null;
 
   return (
-    <section id="listings" className="py-24 px-6 bg-dark-800">
+    <section id="listings" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
           <div className="text-center mb-16">

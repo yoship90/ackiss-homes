@@ -23,21 +23,19 @@ export default function Home() {
         <main>
           <Hero />
           <About />
-          <SectionDivider from="dark-900" to="dark-800" />
           <Team />
+          <SectionDivider from="dark-900" to="dark-800" />
           <Services />
           <Neighborhoods />
           <SectionDivider from="dark-800" to="dark-900" />
           <MortgageCalculator />
-          <SectionDivider from="dark-900" to="dark-800" />
           <Listings />
-          <SectionDivider from="dark-800" to="dark-900" />
           <MLSSearch />
+          <SectionDivider from="dark-900" to="dark-800" />
           <Testimonials />
           <SocialFeed />
-          <SectionDivider from="dark-900" to="dark-800" />
-          <Contact />
           <SectionDivider from="dark-800" to="dark-900" />
+          <Contact />
         </main>
         <Footer />
       </PageReveal>

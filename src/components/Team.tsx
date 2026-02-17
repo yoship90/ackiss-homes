@@ -13,7 +13,7 @@ const agents = [
 
 export default function Team() {
   return (
-    <section id="team" className="py-24 px-6 bg-dark-800 overflow-hidden">
+    <section id="team" className="py-24 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         {agents.map((agent, i) => (
           <div key={agent.name} className="grid md:grid-cols-[2fr_3fr] gap-0 items-stretch">
