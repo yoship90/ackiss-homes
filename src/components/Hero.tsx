@@ -1,5 +1,8 @@
 "use client";
 
+// Hero design: Option C (full-bleed photo + floating cards) — currently live.
+// See CLAUDE.md "Hero Design Options" for full descriptions of Options A and B.
+
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -23,7 +26,6 @@ export default function Hero() {
   const [done, setDone] = useState(false);
   const logoRef = useRef<HTMLDivElement>(null);
 
-  // Typed headline — skip animation if reduced motion preferred
   useEffect(() => {
     if (prefersReducedMotion) {
       setDisplayed(fullText);
@@ -42,13 +44,12 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, [prefersReducedMotion]);
 
-  // Parallax on scroll — skip if reduced motion preferred
+  // Parallax on logo watermark
   useEffect(() => {
     if (prefersReducedMotion) return;
     function handleScroll() {
       if (logoRef.current) {
-        const y = window.scrollY;
-        logoRef.current.style.transform = `translateY(${y * 0.3}px)`;
+        logoRef.current.style.transform = `translateY(${window.scrollY * 0.3}px)`;
       }
     }
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -60,77 +61,61 @@ export default function Hero() {
       id="hero"
       className="relative h-[60rem] flex items-center justify-center px-6 pt-20 overflow-hidden"
     >
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 animate-gradient-shift bg-[length:200%_200%] bg-gradient-to-br from-dark-900 via-dark-800 to-dark-700" />
+      {/* Full-bleed background photo */}
+      <div className="absolute inset-0">
+        <Image
+          src="/hero-bg.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          priority
+        />
+      </div>
 
-      {/* Logo background with parallax — home photo masked through logo strokes */}
+      {/* Dark overlay — heavier at center/bottom, lighter at edges to let photo breathe */}
+      <div className="absolute inset-0 bg-gradient-to-b from-dark-900/70 via-dark-900/60 to-dark-900/80" />
+      <div className="absolute inset-0 bg-gradient-to-r from-dark-900/40 via-transparent to-dark-900/40" />
+
+      {/* Logo watermark with parallax */}
       <div
         ref={logoRef}
         className="absolute inset-0 flex items-center justify-center will-change-transform"
         aria-hidden="true"
       >
-        {/* Base gold logo at low opacity */}
         <Image
           src="/logo.png"
           alt=""
           width={1200}
           height={1200}
-          className="opacity-15 w-[65rem] h-auto object-contain"
+          className="opacity-10 w-[65rem] h-auto object-contain mix-blend-lighten"
           priority
         />
-        {/* Home photo masked by logo shape */}
-        <div
-          className="absolute w-[65rem] h-[65rem] opacity-25"
-          style={{
-            maskImage: "url('/logo.png')",
-            WebkitMaskImage: "url('/logo.png')",
-            maskSize: "contain",
-            WebkitMaskSize: "contain",
-            maskRepeat: "no-repeat",
-            WebkitMaskRepeat: "no-repeat",
-            maskPosition: "center",
-            WebkitMaskPosition: "center",
-          }}
-        >
-          <Image
-            src="/hero-bg.jpg"
-            alt=""
-            width={1200}
-            height={1200}
-            className="w-full h-full object-cover"
-            priority
-          />
-        </div>
       </div>
-
 
       {/* Floating accent photo cards */}
       <div className="hidden md:block">
-        {/* Left card — tilted left */}
-        <div className="absolute bottom-44 left-8 lg:left-16 -rotate-6 opacity-70">
-          <div className="border-2 border-gold-500/30 rounded-sm shadow-[0_0_25px_rgba(201,149,46,0.1)] overflow-hidden">
+        {/* Left card */}
+        <div className="absolute bottom-44 left-8 lg:left-16 -rotate-6 opacity-80">
+          <div className="border-2 border-gold-500/30 rounded-sm shadow-[0_0_25px_rgba(201,149,46,0.15)] overflow-hidden">
             <Image src="/hero-1.jpg" alt="" width={260} height={180} className="w-[200px] lg:w-[240px] h-auto object-cover" />
           </div>
         </div>
-        {/* Right card top — tilted right */}
-        <div className="absolute top-40 right-8 lg:right-16 rotate-3 opacity-70">
-          <div className="border-2 border-gold-500/30 rounded-sm shadow-[0_0_25px_rgba(201,149,46,0.1)] overflow-hidden">
+        {/* Right card top */}
+        <div className="absolute top-40 right-8 lg:right-16 rotate-3 opacity-80">
+          <div className="border-2 border-gold-500/30 rounded-sm shadow-[0_0_25px_rgba(201,149,46,0.15)] overflow-hidden">
             <Image src="/hero-2.jpg" alt="" width={260} height={180} className="w-[200px] lg:w-[240px] h-auto object-cover" />
           </div>
         </div>
-        {/* Right card bottom — tilted slightly */}
-        <div className="absolute bottom-32 right-12 lg:right-28 rotate-6 opacity-70">
-          <div className="border-2 border-gold-500/30 rounded-sm shadow-[0_0_25px_rgba(201,149,46,0.1)] overflow-hidden">
+        {/* Right card bottom */}
+        <div className="absolute bottom-32 right-12 lg:right-28 rotate-6 opacity-80">
+          <div className="border-2 border-gold-500/30 rounded-sm shadow-[0_0_25px_rgba(201,149,46,0.15)] overflow-hidden">
             <Image src="/hero-3.jpg" alt="" width={260} height={180} className="w-[200px] lg:w-[240px] h-auto object-cover" />
           </div>
         </div>
       </div>
 
-      {/* Noise grain texture overlay */}
+      {/* Grain overlay */}
       <div className="absolute inset-0 hero-grain opacity-[0.035] pointer-events-none mix-blend-overlay" aria-hidden="true" />
-
-      {/* Dark overlay to keep text readable */}
-      <div className="absolute inset-0 bg-dark-900/40" />
 
       {/* Scroll indicator */}
       <div
@@ -145,6 +130,7 @@ export default function Hero() {
         </svg>
       </div>
 
+      {/* Text content */}
       <div className="relative text-center max-w-5xl mx-auto">
         <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-6">
           Real Estate
@@ -164,7 +150,7 @@ export default function Hero() {
           )}
         </h1>
         <p
-          className={`text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed transition-opacity duration-700 ${
+          className={`text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed transition-opacity duration-700 ${
             done ? "opacity-100" : "opacity-0"
           }`}
         >

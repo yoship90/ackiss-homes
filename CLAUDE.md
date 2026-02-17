@@ -37,6 +37,13 @@ Professional real estate website for Ackiss Homes. Single-page site with dark/lu
 - Social feed section is placeholder — will connect to Instagram via Behold or similar service
 - Contact form is client-side only (no backend yet) — planned to push leads to FUB
 
+## Hero Design Options
+Three versions were built and reviewed. Currently live: **Option C**.
+
+- **Option A — Original (animated gradient + floating cards):** Dark animated gradient background (no photo), large logo watermark with hero-bg.jpg masked through the logo strokes, three tilted floating photo cards (hero-1/2/3.jpg) on the left and right edges, centered headline/CTA. Most creative/unique, least "real estate" feeling.
+- **Option B — Split-screen:** Solid dark-900 left panel with left-aligned text/CTA and subtle logo watermark, full-height hero-bg.jpg photo on the right half with a gradient fade bridging the two halves. No floating cards. Most premium/editorial feel. Mobile falls back to full-bleed photo with dark overlay.
+- **Option C — Full-bleed photo + floating cards (CURRENT):** hero-bg.jpg fills the entire hero with a layered dark gradient overlay, large parallax logo watermark, three tilted floating photo cards on left/right edges, centered headline/CTA, grain texture. Best balance of real estate imagery and creative personality.
+
 ## Future TODO
 - Wire up FUB API for featured listings
 - Connect Instagram feed (Behold widget)
