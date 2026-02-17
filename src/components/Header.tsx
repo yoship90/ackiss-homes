@@ -3,12 +3,15 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const navLinks = [
+const leftNav = [
   { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
   { label: "Team", href: "#team" },
   { label: "Services", href: "#services" },
   { label: "Neighborhoods", href: "#neighborhoods" },
+];
+
+const rightNav = [
   { label: "Mortgage\nCalculator", href: "#calculator" },
   { label: "Listings", href: "#listings" },
   { label: "Testimonials", href: "#testimonials" },
@@ -16,30 +19,37 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+const allLinks = [...leftNav, ...rightNav];
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-dark-900/90 backdrop-blur-md border-b border-dark-600/50">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
         <a href="#hero" className="flex items-center gap-3 shrink-0">
-          <Image src="/logo.png" alt="Ackiss Homes" width={40} height={40} className="rounded-sm" />
-          <span className="text-2xl font-heading font-bold text-gold-400 tracking-wide whitespace-nowrap">
-            Ackiss Homes
+          <Image src="/logo.png" alt="Ackiss Homes" width={68} height={68} className="mix-blend-lighten drop-shadow-[0_0_8px_rgba(201,149,46,0.4)]" />
+          <span
+            className="font-brand text-[2.1rem] font-semibold tracking-[0.08em] whitespace-nowrap bg-clip-text text-transparent"
+            style={{
+              backgroundImage: "linear-gradient(135deg, #d4a853 0%, #f5d89a 25%, #c9952e 50%, #f5d89a 75%, #d4a853 100%)",
+            }}
+          >
+            Ackiss{" "}<span className="-ml-[0.15em]">Homes</span>
           </span>
         </a>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-5">
-          {navLinks.map((link) => (
+          {allLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 transition-colors duration-300 text-center leading-tight"
+              className="text-[0.7rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 transition-colors duration-300 text-center leading-tight"
             >
               {link.label.includes("\n") ? (
                 <>
-                  <span className="block text-[0.6rem] tracking-[0.2em]">{link.label.split("\n")[0]}</span>
+                  <span className="block text-[0.55rem] tracking-[0.2em]">{link.label.split("\n")[0]}</span>
                   <span className="block">{link.label.split("\n")[1]}</span>
                 </>
               ) : (
@@ -68,14 +78,14 @@ export default function Header() {
       {/* Mobile menu */}
       {mobileOpen && (
         <nav className="md:hidden bg-dark-800 border-t border-dark-600/50 px-6 pb-4">
-          {navLinks.map((link) => (
+          {allLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
               className="block py-3 text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 transition-colors"
             >
-              {link.label.replace("\n", " ")}
+              {link.label}
             </a>
           ))}
         </nav>

@@ -11,6 +11,7 @@
   --color-gold-600: #b8841a;
   --font-heading: "Playfair Display", serif;
   --font-body: "Inter", sans-serif;
+  --font-brand: "Lora", serif;
   --animate-gradient-shift: gradient-shift 8s ease infinite;
   --animate-fade-in: fade-in 0.5s ease-out;
   --animate-page-reveal: page-reveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;

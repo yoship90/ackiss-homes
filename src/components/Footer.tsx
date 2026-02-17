@@ -13,10 +13,15 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <Image src="/logo.png" alt="Ackiss Homes" width={48} height={48} className="rounded-sm" />
+            <Image src="/logo.png" alt="Ackiss Homes" width={68} height={68} className="mix-blend-lighten drop-shadow-[0_0_8px_rgba(201,149,46,0.4)]" />
             <div>
-              <p className="text-2xl font-heading font-bold text-gold-400 tracking-wide">
-                Ackiss Homes
+              <p
+                className="text-2xl font-brand font-semibold tracking-[0.08em] bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: "linear-gradient(135deg, #d4a853 0%, #f5d89a 25%, #c9952e 50%, #f5d89a 75%, #d4a853 100%)",
+                }}
+              >
+                Ackiss{" "}<span className="-ml-[0.15em]">Homes</span>
               </p>
               <p className="text-sm text-gray-500 mt-1">
                 Premium real estate services
