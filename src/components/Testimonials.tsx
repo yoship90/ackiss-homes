@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import ScrollReveal from "./ScrollReveal";
 
 const testimonials = [
@@ -58,6 +58,26 @@ export default function Testimonials() {
     goTo((current - 1 + testimonials.length) % testimonials.length);
   }, [current, goTo]);
 
+  // Touch swipe support
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    const diff = touchStartX.current - touchEndX.current;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) next();
+      else prev();
+    }
+  }, [next, prev]);
+
   // Auto-rotate
   useEffect(() => {
     const timer = setInterval(next, 6000);
@@ -83,7 +103,12 @@ export default function Testimonials() {
         <ScrollReveal>
           <div className="relative">
             {/* Card */}
-            <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-10 md:p-14 text-center min-h-[280px] flex flex-col justify-center">
+            <div
+              className="bg-dark-700 border border-dark-600/50 rounded-sm p-10 md:p-14 text-center min-h-[280px] flex flex-col justify-center touch-pan-y"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
               <div
                 key={current}
                 className="animate-fade-in"
