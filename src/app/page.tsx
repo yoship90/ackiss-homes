@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Team from "@/components/Team";
 import Services from "@/components/Services";
+import Neighborhoods from "@/components/Neighborhoods";
 import MortgageCalculator from "@/components/MortgageCalculator";
 import Listings from "@/components/Listings";
 import MLSSearch from "@/components/MLSSearch";
@@ -25,6 +26,7 @@ export default function Home() {
           <SectionDivider from="dark-900" to="dark-800" />
           <Team />
           <Services />
+          <Neighborhoods />
           <SectionDivider from="dark-800" to="dark-900" />
           <MortgageCalculator />
           <SectionDivider from="dark-900" to="dark-800" />

@@ -8,7 +8,8 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "Team", href: "#team" },
   { label: "Services", href: "#services" },
-  { label: "Calculator", href: "#calculator" },
+  { label: "Neighborhoods", href: "#neighborhoods" },
+  { label: "Mortgage\nCalculator", href: "#calculator" },
   { label: "Listings", href: "#listings" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Social", href: "#social" },
@@ -21,22 +22,29 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-dark-900/90 backdrop-blur-md border-b border-dark-600/50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#hero" className="flex items-center gap-3">
+        <a href="#hero" className="flex items-center gap-3 shrink-0">
           <Image src="/logo.png" alt="Ackiss Homes" width={40} height={40} className="rounded-sm" />
-          <span className="text-2xl font-heading font-bold text-gold-400 tracking-wide">
+          <span className="text-2xl font-heading font-bold text-gold-400 tracking-wide whitespace-nowrap">
             Ackiss Homes
           </span>
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex gap-8">
+        <nav className="hidden md:flex items-center gap-5">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 transition-colors duration-300"
+              className="text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 transition-colors duration-300 text-center leading-tight"
             >
-              {link.label}
+              {link.label.includes("\n") ? (
+                <>
+                  <span className="block text-[0.6rem] tracking-[0.2em]">{link.label.split("\n")[0]}</span>
+                  <span className="block">{link.label.split("\n")[1]}</span>
+                </>
+              ) : (
+                link.label
+              )}
             </a>
           ))}
         </nav>
@@ -67,7 +75,7 @@ export default function Header() {
               onClick={() => setMobileOpen(false)}
               className="block py-3 text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 transition-colors"
             >
-              {link.label}
+              {link.label.replace("\n", " ")}
             </a>
           ))}
         </nav>
