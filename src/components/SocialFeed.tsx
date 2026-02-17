@@ -37,7 +37,7 @@ export default function SocialFeed() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {placeholderPosts.map((post, i) => (
             <ScrollReveal key={post.id} delay={i * 75}>
-              <div className="aspect-square bg-dark-700 border border-dark-600/50 rounded-sm flex items-center justify-center group hover:border-gold-500/30 transition-colors duration-300">
+              <div className="aspect-square bg-dark-700 border border-dark-600/50 rounded-sm flex items-center justify-center group hover:border-gold-500/30 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/5 transition-all duration-300">
                 <div className="text-center px-4">
                   <svg
                     className="w-10 h-10 mx-auto text-gray-600 group-hover:text-gold-400 transition-colors duration-300"

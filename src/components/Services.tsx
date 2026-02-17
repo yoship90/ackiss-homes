@@ -61,7 +61,7 @@ export default function Services() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, i) => (
             <ScrollReveal key={service.title} delay={i * 100}>
-              <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:border-gold-500/30 transition-colors duration-300 group h-full">
+              <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:border-gold-500/30 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/5 transition-all duration-300 group h-full">
                 <div className="text-gold-400 mb-5 group-hover:text-gold-500 transition-colors">
                   {service.icon}
                 </div>

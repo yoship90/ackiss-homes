@@ -44,6 +44,8 @@ const listings = [
 ];
 
 export default function Listings() {
+  if (listings.length === 0) return null;
+
   return (
     <section id="listings" className="py-24 px-6 bg-dark-800">
       <div className="max-w-6xl mx-auto">
@@ -65,7 +67,7 @@ export default function Listings() {
                 href={listing.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block bg-dark-700 border border-dark-600/50 rounded-sm overflow-hidden group hover:border-gold-500/30 transition-colors duration-300"
+                className="block bg-dark-700 border border-dark-600/50 rounded-sm overflow-hidden group hover:border-gold-500/30 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/5 transition-all duration-300"
               >
                 {/* Placeholder image area */}
                 <div className="h-48 bg-dark-600 relative overflow-hidden">
