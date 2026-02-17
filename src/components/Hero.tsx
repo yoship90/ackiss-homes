@@ -150,12 +150,21 @@ export default function Hero() {
           )}
         </h1>
         <p
-          className={`text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed transition-opacity duration-700 ${
+          className={`text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-3 leading-relaxed transition-opacity duration-700 ${
             done ? "opacity-100" : "opacity-0"
           }`}
         >
           Ackiss Homes delivers exceptional real estate experiences — whether
-          you&apos;re buying, selling, or investing. Your next chapter starts here.
+          you&apos;re buying, selling, or investing.
+        </p>
+        <p
+          className={`text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed transition-opacity duration-700 ${
+            done ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          Already browsing homes online? Let us know the address and get live,
+          fresh MLS data — availability, price history, days on market, and
+          everything the listing sites aren&apos;t showing you. Free, no obligation.
         </p>
         <a
           href="#property-inquiry"
@@ -163,7 +172,7 @@ export default function Hero() {
             done ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          Get in Touch
+          Get Live MLS Data &rarr;
         </a>
       </div>
     </section>

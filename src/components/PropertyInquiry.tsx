@@ -5,7 +5,7 @@ import ScrollReveal from "./ScrollReveal";
 import SplitHeading from "./SplitHeading";
 
 const perks = [
-  "Up-to-date listing data — not 24–48 hrs stale",
+  "Live, fresh listing data — not 24–48 hrs stale",
   "Full price reduction & days-on-market history",
   "Comparable sales in the neighborhood",
   "Disclosure info & showing availability",
@@ -14,9 +14,17 @@ const perks = [
 
 export default function PropertyInquiry() {
   const [submitted, setSubmitted] = useState(false);
+  const [address, setAddress] = useState("");
+  const [mlsId, setMlsId] = useState("");
+  const [propertyError, setPropertyError] = useState(false);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!address.trim() && !mlsId.trim()) {
+      setPropertyError(true);
+      return;
+    }
+    setPropertyError(false);
     setSubmitted(true);
   }
 
@@ -50,8 +58,8 @@ export default function PropertyInquiry() {
 
             <ScrollReveal direction="left" delay={150}>
               <p className="text-gray-400 leading-relaxed text-lg mb-8">
-                Found a home you love on a listing site? Before you make any moves,
-                let us pull the real MLS data — the details the portals don&apos;t always show you.
+                Found a home you love online? Before you make any moves, let us
+                pull live, fresh MLS data — the details the listing sites aren&apos;t showing you.
               </p>
               <ul className="space-y-3">
                 {perks.map((perk) => (
@@ -85,18 +93,42 @@ export default function PropertyInquiry() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4" aria-label="Property MLS inquiry">
+                  {/* Address OR MLS ID — either/or required */}
                   <div>
-                    <label htmlFor="inquiry-address" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
-                      Property Address
-                    </label>
-                    <input
-                      type="text"
-                      id="inquiry-address"
-                      name="address"
-                      required
-                      className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
-                      placeholder="123 Main St, Virginia Beach, VA"
-                    />
+                    <div className="flex items-end gap-2">
+                      <div className="flex-1">
+                        <label htmlFor="inquiry-address" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
+                          Property Address
+                        </label>
+                        <input
+                          type="text"
+                          id="inquiry-address"
+                          name="address"
+                          value={address}
+                          onChange={(e) => { setAddress(e.target.value); setPropertyError(false); }}
+                          className={`w-full bg-dark-800 border rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors ${propertyError ? "border-red-500/70" : "border-dark-600"}`}
+                          placeholder="123 Main St, Virginia Beach, VA"
+                        />
+                      </div>
+                      <span className="text-xs text-gray-600 uppercase tracking-widest pb-3.5">or</span>
+                      <div className="w-28">
+                        <label htmlFor="inquiry-mls" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
+                          MLS ID #
+                        </label>
+                        <input
+                          type="text"
+                          id="inquiry-mls"
+                          name="mls_id"
+                          value={mlsId}
+                          onChange={(e) => { setMlsId(e.target.value); setPropertyError(false); }}
+                          className={`w-full bg-dark-800 border rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors ${propertyError ? "border-red-500/70" : "border-dark-600"}`}
+                          placeholder="10054321"
+                        />
+                      </div>
+                    </div>
+                    {propertyError && (
+                      <p className="text-red-400/80 text-xs mt-1.5">Please enter a property address or MLS ID.</p>
+                    )}
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
@@ -146,12 +178,12 @@ export default function PropertyInquiry() {
 
                   <button
                     type="submit"
-                    className="w-full bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold px-8 py-4 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.25)] hover:shadow-[0_0_30px_rgba(201,149,46,0.4)] transition-all duration-300"
+                    className="w-full bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold px-8 py-4 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.25)] hover:shadow-[0_0_30px_rgba(201,149,46,0.4)] transition-all duration-300 cursor-pointer"
                   >
-                    Get Fresh MLS Data &rarr;
+                    Get Live MLS Data &rarr;
                   </button>
                   <p className="text-xs text-gray-600 text-center">
-                    No obligation. We&apos;ll reach out within the hour.
+                    No obligation.
                   </p>
                 </form>
               )}
