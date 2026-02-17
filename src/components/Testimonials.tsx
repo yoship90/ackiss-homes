@@ -103,7 +103,7 @@ export default function Testimonials() {
   const t = testimonials[current];
 
   return (
-    <section id="testimonials" className="py-28 px-6 bg-dark-800">
+    <section id="testimonials" className="py-28 px-6 bg-dark-800 section-texture">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <ScrollReveal>

@@ -2,7 +2,7 @@
 
 @theme {
   --color-dark-900: #0a0a0a;
-  --color-dark-800: #171717;
+  --color-dark-800: #1c1c1c;
   --color-dark-700: #1a1a1a;
   --color-dark-600: #2a2a2a;
   --color-dark-500: #3a3a3a;
@@ -88,6 +88,24 @@ h4 {
 .gold-shimmer {
   animation: shimmer 3s ease-in-out infinite;
   border-image: linear-gradient(90deg, transparent, var(--color-gold-500), transparent) 1;
+}
+
+/* Subtle noise texture for alternate sections */
+.section-texture {
+  position: relative;
+  isolation: isolate;
+}
+.section-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 150px 150px;
+  opacity: 0.15;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Noise grain texture for Hero */

@@ -63,7 +63,7 @@ export default function Neighborhoods() {
 
   return (
     <>
-      <section id="neighborhoods" className="py-24 px-6 bg-dark-800">
+      <section id="neighborhoods" className="py-24 px-6 bg-dark-800 section-texture">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <ScrollReveal>

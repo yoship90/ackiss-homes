@@ -12,7 +12,7 @@ const placeholderPosts = [
 
 export default function SocialFeed() {
   return (
-    <section id="social" className="py-28 px-6 bg-dark-800">
+    <section id="social" className="py-28 px-6 bg-dark-800 section-texture">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <ScrollReveal>

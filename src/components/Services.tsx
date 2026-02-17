@@ -46,7 +46,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 px-6 bg-dark-800">
+    <section id="services" className="py-24 px-6 bg-dark-800 section-texture">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <ScrollReveal>
