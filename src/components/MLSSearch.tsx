@@ -23,12 +23,16 @@ export default function MLSSearch() {
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="border border-dark-600/50 rounded-sm overflow-hidden">
+          <div
+            className="border border-dark-600/50 rounded-sm overflow-y-auto mls-scroll"
+            style={{ height: "80vh", minHeight: "600px" }}
+          >
             <iframe
               src="https://www.triumphrealtyva.com/listings/residential/"
               title="MLS Listings Search"
               className="w-full bg-white"
-              style={{ height: "80vh", minHeight: "600px" }}
+              style={{ height: "200vh" }}
+              scrolling="no"
               loading="lazy"
             />
           </div>
