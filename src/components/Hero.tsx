@@ -131,7 +131,18 @@ export default function Hero() {
         </svg>
       </div>
 
-      {/* Text content */}
+      {/* Mortgage rate chart — absolutely positioned on far left */}
+      <div
+        className={`hidden md:block absolute left-8 lg:left-14 xl:left-20 top-36 w-[360px] lg:w-[420px] transition-opacity duration-1000 ${
+          done ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <div className="bg-dark-900 border border-white/[0.09] rounded-sm px-4 py-4 shadow-2xl">
+          <MortgageRateChart />
+        </div>
+      </div>
+
+      {/* Text content — centered */}
       <div className="relative text-center max-w-5xl mx-auto">
         <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-6">
           Real Estate
@@ -175,15 +186,6 @@ export default function Hero() {
         >
           Get Live MLS Data &rarr;
         </a>
-
-        {/* Mortgage rate chart — desktop only */}
-        <div
-          className={`hidden md:block mt-12 bg-dark-900/60 backdrop-blur-sm border border-dark-600/40 rounded-sm px-6 py-4 transition-opacity duration-1000 ${
-            done ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <MortgageRateChart />
-        </div>
       </div>
     </section>
   );

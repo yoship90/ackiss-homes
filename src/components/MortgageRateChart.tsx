@@ -4,6 +4,7 @@ import {
   AreaChart,
   Area,
   XAxis,
+  YAxis,
   Tooltip,
   ResponsiveContainer,
   ReferenceLine,
@@ -57,7 +58,7 @@ function CustomTooltip({
 }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-dark-800/95 border border-gold-500/30 rounded-sm px-3 py-2 text-xs shadow-lg">
+    <div className="bg-dark-800 border border-gold-500/40 rounded-sm px-3 py-2 text-xs shadow-xl">
       <p className="text-gray-400 mb-0.5">{label}</p>
       <p className="text-gold-400 font-semibold">{payload[0].value.toFixed(2)}%</p>
     </div>
@@ -68,14 +69,17 @@ export default function MortgageRateChart() {
   const current = data[data.length - 1].rate;
 
   return (
-    <div className="w-full max-w-xl mx-auto">
+    <div className="w-full">
       {/* Header row */}
-      <div className="flex items-end justify-between mb-2 px-1">
-        <p className="text-[10px] uppercase tracking-[0.25em] text-gray-500">
-          30-Yr Fixed Rate
-        </p>
+      <div className="flex items-end justify-between mb-3">
+        <div>
+          <p className="text-[10px] uppercase tracking-[0.25em] text-gray-500 mb-0.5">
+            30-Yr Fixed Mortgage Rate
+          </p>
+          <p className="text-[10px] text-gray-600">2019 – Present</p>
+        </div>
         <div className="flex items-baseline gap-1.5">
-          <span className="text-gold-400 font-heading font-bold text-lg leading-none">
+          <span className="text-gold-400 font-heading font-bold text-2xl leading-none">
             {current.toFixed(2)}%
           </span>
           <span className="text-[10px] text-gray-500 uppercase tracking-wider">today</span>
@@ -83,20 +87,30 @@ export default function MortgageRateChart() {
       </div>
 
       {/* Chart */}
-      <div className="h-[90px]">
+      <div className="h-[240px]">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ top: 4, right: 4, left: 4, bottom: 0 }}>
+          <AreaChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="rateGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#c9952e" stopOpacity={0.35} />
-                <stop offset="100%" stopColor="#c9952e" stopOpacity={0.02} />
+                <stop offset="0%" stopColor="#c9952e" stopOpacity={0.12} />
+                <stop offset="100%" stopColor="#c9952e" stopOpacity={0} />
               </linearGradient>
             </defs>
+
+            <YAxis
+              domain={[1, 10]}
+              ticks={[2, 4, 6, 8, 10]}
+              tick={{ fill: "#9ca3af", fontSize: 11, fontFamily: "inherit" }}
+              tickLine={false}
+              axisLine={false}
+              width={30}
+              tickFormatter={(v) => `${v}%`}
+            />
 
             <XAxis
               dataKey="label"
               ticks={yearTicks}
-              tick={{ fill: "#6b7280", fontSize: 9, fontFamily: "inherit" }}
+              tick={{ fill: "#9ca3af", fontSize: 11, fontFamily: "inherit" }}
               tickLine={false}
               axisLine={false}
               interval="preserveStartEnd"
@@ -106,27 +120,30 @@ export default function MortgageRateChart() {
               }}
             />
 
-            <Tooltip content={<CustomTooltip />} cursor={{ stroke: "rgba(201,149,46,0.3)", strokeWidth: 1 }} />
+            <Tooltip
+              content={<CustomTooltip />}
+              cursor={{ stroke: "rgba(201,149,46,0.35)", strokeWidth: 1 }}
+            />
 
-            {/* Subtle reference lines at key rates */}
-            <ReferenceLine y={7} stroke="rgba(201,149,46,0.12)" strokeDasharray="3 3" />
-            <ReferenceLine y={3} stroke="rgba(201,149,46,0.12)" strokeDasharray="3 3" />
+            {/* Reference lines at notable levels */}
+            <ReferenceLine y={3} stroke="rgba(201,149,46,0.18)" strokeDasharray="3 3" />
+            <ReferenceLine y={7} stroke="rgba(201,149,46,0.18)" strokeDasharray="3 3" />
 
             <Area
               type="monotone"
               dataKey="rate"
               stroke="#c9952e"
-              strokeWidth={1.5}
+              strokeWidth={2}
               fill="url(#rateGradient)"
               dot={false}
-              activeDot={{ r: 3, fill: "#c9952e", stroke: "#0a0a0a", strokeWidth: 1.5 }}
+              activeDot={{ r: 4, fill: "#c9952e", stroke: "#0a0a0a", strokeWidth: 2 }}
             />
           </AreaChart>
         </ResponsiveContainer>
       </div>
 
       {/* Footer note */}
-      <p className="text-[9px] text-gray-600 text-right mt-1 px-1">
+      <p className="text-[9px] text-gray-600 text-right mt-1.5">
         Freddie Mac PMMS · 30-yr fixed · quarterly avg
       </p>
     </div>
