@@ -1,4 +1,5 @@
 import ScrollReveal from "./ScrollReveal";
+import SplitHeading from "./SplitHeading";
 
 const placeholderPosts = [
   { id: 1 },
@@ -11,16 +12,18 @@ const placeholderPosts = [
 
 export default function SocialFeed() {
   return (
-    <section id="social" className="py-24 px-6 bg-dark-800">
+    <section id="social" className="py-28 px-6 bg-dark-800">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-4">
-              Follow Along
-            </p>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Follow Along</p>
+              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+            </div>
+            <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
               @AckissHomes
-            </h2>
+            </SplitHeading>
             <p className="text-gray-400 mt-4 max-w-xl mx-auto">
               Check out our latest videos, listings, and behind-the-scenes content.
             </p>
@@ -37,7 +40,8 @@ export default function SocialFeed() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {placeholderPosts.map((post, i) => (
             <ScrollReveal key={post.id} delay={i * 75}>
-              <div className="aspect-square bg-dark-700 border border-dark-600/50 rounded-sm flex items-center justify-center group hover:border-gold-500/30 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/5 transition-all duration-300">
+              <div className="relative overflow-hidden aspect-square bg-dark-700 border border-dark-600/50 rounded-sm flex items-center justify-center group hover:border-gold-500/50 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 transition-all duration-300">
+                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
                 <div className="text-center px-4">
                   <svg
                     className="w-10 h-10 mx-auto text-gray-600 group-hover:text-gold-400 transition-colors duration-300"

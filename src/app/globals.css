@@ -9,6 +9,7 @@
   --color-gold-400: #d4a853;
   --color-gold-500: #c9952e;
   --color-gold-600: #b8841a;
+  --color-warm-400: #b0a89e;
   --font-heading: "Playfair Display", serif;
   --font-body: "Inter", sans-serif;
   --font-brand: "Lora", serif;
@@ -37,6 +38,12 @@
   html {
     scroll-behavior: smooth;
   }
+}
+
+/* Gold text selection */
+::selection {
+  background-color: rgba(201, 149, 46, 0.25);
+  color: #f5f5f5;
 }
 
 body {
@@ -71,4 +78,37 @@ h4 {
 .mls-scroll {
   scrollbar-color: var(--color-gold-500) var(--color-dark-700);
   scrollbar-width: auto;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.gold-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+  border-image: linear-gradient(90deg, transparent, var(--color-gold-500), transparent) 1;
+}
+
+/* Noise grain texture for Hero */
+.hero-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Marquee scrolling text */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-animate {
+  animation: marquee 55s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-animate {
+    animation-play-state: paused;
+  }
 }

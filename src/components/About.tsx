@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ScrollReveal from "./ScrollReveal";
+import SplitHeading from "./SplitHeading";
 
 function AnimatedCounter({
   target,
@@ -73,12 +74,13 @@ export default function About() {
         {/* Heading — left-aligned instead of centered */}
         <div className="grid md:grid-cols-[1fr_2fr] gap-8 mb-20">
           <ScrollReveal direction="left">
-            <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-4">
-              Who We Are
-            </p>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold">
+            <div className="flex items-center gap-3 mb-4">
+              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Who We Are</p>
+              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+            </div>
+            <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
               About Ackiss Homes
-            </h2>
+            </SplitHeading>
           </ScrollReveal>
 
           <ScrollReveal direction="right">
@@ -102,16 +104,20 @@ export default function About() {
         {/* Stats — offset row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:pl-12">
           {stats.map((stat, i) => (
-            <ScrollReveal key={stat.label} delay={i * 100}>
-              <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 text-center hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/5 hover:border-gold-500/30 transition-all duration-300">
+            <ScrollReveal key={stat.label} delay={i * 100} direction="scale">
+              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 text-center hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
+                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden="true">
+                  <span className="text-[6rem] font-heading font-bold text-gold-400/[0.06] leading-none">{stat.target}{stat.suffix}</span>
+                </div>
 
-                <p className="text-3xl md:text-4xl font-heading font-bold text-gold-400 mb-1">
+                <p className="text-3xl md:text-4xl font-heading font-bold text-gold-400 mb-1 relative z-10">
                   <AnimatedCounter
                     target={stat.target}
                     suffix={stat.suffix}
                   />
                 </p>
-                <p className="text-sm text-gray-400 uppercase tracking-wider">
+                <p className="text-sm text-gray-400 uppercase tracking-wider relative z-10">
                   {stat.label}
                 </p>
               </div>

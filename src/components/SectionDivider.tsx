@@ -23,7 +23,7 @@ export default function SectionDivider({ from, to }: SectionDividerProps) {
           <linearGradient id={`gold-accent-${from}-${to}`} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#c9952e" stopOpacity="0" />
             <stop offset="30%" stopColor="#d4a853" stopOpacity="0.4" />
-            <stop offset="50%" stopColor="#c9952e" stopOpacity="0.6" />
+            <stop offset="50%" stopColor="#c9952e" stopOpacity="0.4" />
             <stop offset="70%" stopColor="#d4a853" stopOpacity="0.4" />
             <stop offset="100%" stopColor="#c9952e" stopOpacity="0" />
           </linearGradient>

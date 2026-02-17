@@ -126,8 +126,24 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Noise grain texture overlay */}
+      <div className="absolute inset-0 hero-grain opacity-[0.035] pointer-events-none mix-blend-overlay" aria-hidden="true" />
+
       {/* Dark overlay to keep text readable */}
       <div className="absolute inset-0 bg-dark-900/40" />
+
+      {/* Scroll indicator */}
+      <div
+        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-gold-400/40 transition-opacity duration-1000 ${
+          done ? "opacity-100" : "opacity-0"
+        }`}
+        aria-hidden="true"
+      >
+        <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+        <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
 
       <div className="relative text-center max-w-5xl mx-auto">
         <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-6">
@@ -157,7 +173,7 @@ export default function Hero() {
         </p>
         <a
           href="#contact"
-          className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-10 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_30px_rgba(201,149,46,0.5)] hover:scale-105 transition-all duration-700 ${
+          className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-10 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_35px_rgba(201,149,46,0.6)] hover:scale-[1.07] transition-all duration-700 ${
             done ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >

@@ -35,9 +35,10 @@ export default function Team() {
             {/* Agent info — right side with heading above */}
             <ScrollReveal direction="right">
               <div className="p-8 md:p-14 md:pl-16">
-                <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-3">
-                  Meet the Team
-                </p>
+                <div className="flex items-center gap-3 mb-3">
+                  <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Meet the Team</p>
+                  <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+                </div>
                 <h2 className="text-3xl md:text-4xl font-heading font-bold mb-1">
                   {agent.name}
                 </h2>

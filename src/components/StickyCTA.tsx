@@ -3,7 +3,7 @@ export default function StickyCTA() {
     <a
       href="#contact"
       aria-label="Get in Touch"
-      className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-gold-500 hover:bg-gold-600 text-dark-900 shadow-lg shadow-black/30 transition-colors duration-300"
+      className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-gold-500 hover:bg-gold-600 text-dark-900 shadow-[0_0_15px_rgba(201,149,46,0.3)] transition-colors duration-300"
     >
       <svg
         className="w-5 h-5 md:w-6 md:h-6"

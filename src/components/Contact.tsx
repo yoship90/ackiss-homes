@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import ScrollReveal from "./ScrollReveal";
+import SplitHeading from "./SplitHeading";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -12,18 +13,28 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 px-6 relative">
+    <section id="contact" className="py-20 px-6 relative overflow-hidden">
+      {/* Radial warm background glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 70% 50%, rgba(201,149,46,0.045) 0%, transparent 60%)",
+        }}
+        aria-hidden="true"
+      />
       <div className="max-w-6xl mx-auto">
         {/* Heading — right-aligned to contrast with About's left-aligned heading */}
         <div className="grid md:grid-cols-[3fr_2fr] gap-8 mb-16">
           <div className="hidden md:block" />
           <ScrollReveal direction="right">
-            <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-4">
-              Reach Out
-            </p>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Reach Out</p>
+            </div>
+            <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
               Get in Touch
-            </h2>
+            </SplitHeading>
           </ScrollReveal>
         </div>
 
@@ -100,7 +111,7 @@ export default function Contact() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold px-8 py-4 rounded-sm text-sm uppercase tracking-widest transition-colors duration-300"
+                    className="w-full bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold px-8 py-4 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.25)] hover:shadow-[0_0_30px_rgba(201,149,46,0.4)] transition-all duration-300"
                   >
                     Send Message
                   </button>
@@ -112,7 +123,8 @@ export default function Contact() {
           {/* Business info — narrower column, offset up */}
           <ScrollReveal direction="right">
             <div className="md:-mt-8 space-y-8">
-              <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-6 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/5 hover:border-gold-500/30 transition-all duration-300">
+              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-6 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
+                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
                 <h3 className="text-lg font-heading font-semibold mb-3 text-gold-400">
                   Office
                 </h3>
@@ -122,7 +134,8 @@ export default function Contact() {
                   Your City, State 12345
                 </p>
               </div>
-              <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-6 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/5 hover:border-gold-500/30 transition-all duration-300">
+              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-6 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
+                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
                 <h3 className="text-lg font-heading font-semibold mb-3 text-gold-400">
                   Contact Info
                 </h3>
@@ -138,7 +151,8 @@ export default function Contact() {
                   </a>
                 </p>
               </div>
-              <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-6 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/5 hover:border-gold-500/30 transition-all duration-300">
+              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-6 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
+                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
                 <h3 className="text-lg font-heading font-semibold mb-3 text-gold-400">
                   Hours
                 </h3>

@@ -1,4 +1,5 @@
 import ScrollReveal from "./ScrollReveal";
+import SplitHeading from "./SplitHeading";
 
 const listings = [
   {
@@ -51,12 +52,14 @@ export default function Listings() {
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-4">
-              On the Market
-            </p>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">On the Market</p>
+              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+            </div>
+            <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
               Featured Listings
-            </h2>
+            </SplitHeading>
           </div>
         </ScrollReveal>
 
@@ -67,8 +70,9 @@ export default function Listings() {
                 href={listing.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block bg-dark-700 border border-dark-600/50 rounded-sm overflow-hidden group hover:border-gold-500/30 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/5 transition-all duration-300"
+                className="relative block bg-dark-700 border border-dark-600/50 rounded-sm overflow-hidden group hover:border-gold-500/50 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 transition-all duration-300"
               >
+                <div className="absolute top-0 left-0 z-10 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
                 {/* Placeholder image area */}
                 <div className="h-48 bg-dark-600 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-dark-500/50 to-dark-700/50 flex items-center justify-center">

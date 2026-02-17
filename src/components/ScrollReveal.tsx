@@ -6,7 +6,7 @@ interface ScrollRevealProps {
   children: ReactNode;
   className?: string;
   delay?: number;
-  direction?: "up" | "left" | "right" | "none";
+  direction?: "up" | "left" | "right" | "none" | "scale";
 }
 
 export default function ScrollReveal({
@@ -41,6 +41,7 @@ export default function ScrollReveal({
     left: "translate-x-8",
     right: "-translate-x-8",
     none: "",
+    scale: "scale-95",
   };
 
   return (
@@ -48,7 +49,7 @@ export default function ScrollReveal({
       ref={ref}
       className={`transition-all duration-700 ease-out ${
         isVisible
-          ? "opacity-100 translate-y-0 translate-x-0"
+          ? "opacity-100 translate-y-0 translate-x-0 scale-100"
           : `opacity-0 ${directionStyles[direction]}`
       } ${className}`}
       style={{ transitionDelay: `${delay}ms` }}

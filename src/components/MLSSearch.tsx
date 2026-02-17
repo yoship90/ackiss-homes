@@ -1,4 +1,5 @@
 import ScrollReveal from "./ScrollReveal";
+import SplitHeading from "./SplitHeading";
 
 export default function MLSSearch() {
   return (
@@ -6,12 +7,14 @@ export default function MLSSearch() {
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
           <div className="text-center mb-10">
-            <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-4">
-              Full MLS Access
-            </p>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Full MLS Access</p>
+              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+            </div>
+            <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
               Search All Listings
-            </h2>
+            </SplitHeading>
             <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
               Browse the full MLS database below. See something you like?{" "}
               <a href="#contact" className="text-gold-400 hover:text-gold-500 underline underline-offset-4">

@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import ScrollReveal from "./ScrollReveal";
+import SplitHeading from "./SplitHeading";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -330,17 +331,18 @@ export default function MortgageCalculator() {
     "block text-sm text-gray-400 mb-1.5 uppercase tracking-wider";
 
   return (
-    <section id="calculator" className="py-24 px-6">
+    <section id="calculator" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Heading — left-aligned asymmetric like About */}
         <div className="grid md:grid-cols-[2fr_3fr] gap-8 mb-16">
           <ScrollReveal direction="left">
-            <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-4">
-              Plan Your Purchase
-            </p>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold">
+            <div className="flex items-center gap-3 mb-4">
+              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Plan Your Purchase</p>
+              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+            </div>
+            <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
               Mortgage Calculator
-            </h2>
+            </SplitHeading>
           </ScrollReveal>
         </div>
 
@@ -709,7 +711,8 @@ export default function MortgageCalculator() {
             <div className="space-y-6">
               {/* Total Cost Breakdown with Donut Chart */}
               {pieSegments.length > 0 && (
-                <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/5 hover:border-gold-500/30 transition-all duration-300">
+                <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
+                  <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
                   <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
                     Total Cost Breakdown
                   </h3>
@@ -781,7 +784,7 @@ export default function MortgageCalculator() {
               )}
 
               {/* Monthly Payment Summary */}
-              <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/5 hover:border-gold-500/30 transition-all duration-300">
+              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
                 <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
                   Monthly Payment
                 </h3>
@@ -851,7 +854,7 @@ export default function MortgageCalculator() {
               </div>
 
               {/* Loan Summary */}
-              <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/5 hover:border-gold-500/30 transition-all duration-300">
+              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
                 <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
                   Loan Summary
                 </h3>

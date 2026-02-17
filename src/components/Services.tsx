@@ -1,4 +1,5 @@
 import ScrollReveal from "./ScrollReveal";
+import SplitHeading from "./SplitHeading";
 
 const services = [
   {
@@ -49,19 +50,22 @@ export default function Services() {
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-4">
-              What We Offer
-            </p>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">What We Offer</p>
+              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+            </div>
+            <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
               Our Services
-            </h2>
+            </SplitHeading>
           </div>
         </ScrollReveal>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, i) => (
-            <ScrollReveal key={service.title} delay={i * 100}>
-              <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:border-gold-500/30 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/5 transition-all duration-300 group h-full">
+            <ScrollReveal key={service.title} delay={i * 100} direction="scale">
+              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:border-gold-500/50 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 transition-all duration-300 group h-full">
+                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
                 <div className="text-gold-400 mb-5 group-hover:text-gold-500 transition-colors">
                   {service.icon}
                 </div>

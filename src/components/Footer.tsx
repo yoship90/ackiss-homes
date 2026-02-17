@@ -9,7 +9,8 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-dark-900 border-t border-dark-600/50 py-12 px-6">
+    <footer className="bg-dark-900 py-12 px-6 relative">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/35 to-transparent" aria-hidden="true" />
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
