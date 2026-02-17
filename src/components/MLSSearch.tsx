@@ -23,7 +23,8 @@ export default function MLSSearch() {
         </ScrollReveal>
 
         <ScrollReveal>
-          <div
+          {/* TODO: Re-enable Triumph IDX iframe once we have broker approval */}
+          {/* <div
             className="border border-dark-600/50 rounded-sm overflow-y-auto mls-scroll"
             style={{ height: "80vh", minHeight: "600px" }}
           >
@@ -35,6 +36,16 @@ export default function MLSSearch() {
               scrolling="no"
               loading="lazy"
             />
+          </div> */}
+          <div className="border border-dark-600/50 rounded-sm flex flex-col items-center justify-center py-24 text-center">
+            <p className="text-gold-400 text-4xl font-heading mb-4">Coming Soon</p>
+            <p className="text-gray-400 max-w-md">
+              Full MLS search will be available here soon. In the meantime,{" "}
+              <a href="#contact" className="text-gold-400 hover:text-gold-500 underline underline-offset-4">
+                contact us
+              </a>{" "}
+              and we&apos;ll help you find your perfect home.
+            </p>
           </div>
         </ScrollReveal>
 
