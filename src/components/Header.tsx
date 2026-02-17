@@ -40,12 +40,12 @@ export default function Header() {
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-5">
+        <nav className="hidden md:flex items-center gap-5 ml-8">
           {allLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-[0.7rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 transition-colors duration-300 text-center leading-tight"
+              className="text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 transition-colors duration-300 text-center leading-tight"
             >
               {link.label.includes("\n") ? (
                 <>
