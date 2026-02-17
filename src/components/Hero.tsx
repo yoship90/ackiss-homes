@@ -44,11 +44,12 @@ export default function Hero() {
       {/* Animated gradient background */}
       <div className="absolute inset-0 animate-gradient-shift bg-[length:200%_200%] bg-gradient-to-br from-dark-900 via-dark-800 to-dark-700" />
 
-      {/* Logo background with parallax */}
+      {/* Logo background with parallax — home photo masked through logo strokes */}
       <div
         ref={logoRef}
         className="absolute inset-0 flex items-center justify-center will-change-transform"
       >
+        {/* Base gold logo at low opacity */}
         <Image
           src="/logo.png"
           alt=""
@@ -57,6 +58,28 @@ export default function Hero() {
           className="opacity-15 w-[65rem] h-auto object-contain"
           priority
         />
+        {/* Home photo masked by logo shape */}
+        <div
+          className="absolute w-[65rem] h-[65rem] opacity-25"
+          style={{
+            maskImage: "url('/logo.png')",
+            WebkitMaskImage: "url('/logo.png')",
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskPosition: "center",
+          }}
+        >
+          <Image
+            src="/hero-bg.jpg"
+            alt=""
+            width={1200}
+            height={1200}
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
 
       {/* Dark overlay to keep text readable */}
