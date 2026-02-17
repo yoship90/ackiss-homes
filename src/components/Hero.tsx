@@ -82,6 +82,29 @@ export default function Hero() {
         </div>
       </div>
 
+
+      {/* Floating accent photo cards */}
+      <div className="hidden md:block">
+        {/* Left card — tilted left */}
+        <div className="absolute bottom-44 left-8 lg:left-16 -rotate-6 opacity-70">
+          <div className="border-2 border-gold-500/30 rounded-sm shadow-[0_0_25px_rgba(201,149,46,0.1)] overflow-hidden">
+            <Image src="/hero-1.jpg" alt="" width={260} height={180} className="w-[200px] lg:w-[240px] h-auto object-cover" />
+          </div>
+        </div>
+        {/* Right card top — tilted right */}
+        <div className="absolute top-40 right-8 lg:right-16 rotate-3 opacity-70">
+          <div className="border-2 border-gold-500/30 rounded-sm shadow-[0_0_25px_rgba(201,149,46,0.1)] overflow-hidden">
+            <Image src="/hero-2.jpg" alt="" width={260} height={180} className="w-[200px] lg:w-[240px] h-auto object-cover" />
+          </div>
+        </div>
+        {/* Right card bottom — tilted slightly */}
+        <div className="absolute bottom-32 right-12 lg:right-28 rotate-6 opacity-70">
+          <div className="border-2 border-gold-500/30 rounded-sm shadow-[0_0_25px_rgba(201,149,46,0.1)] overflow-hidden">
+            <Image src="/hero-3.jpg" alt="" width={260} height={180} className="w-[200px] lg:w-[240px] h-auto object-cover" />
+          </div>
+        </div>
+      </div>
+
       {/* Dark overlay to keep text readable */}
       <div className="absolute inset-0 bg-dark-900/40" />
 
