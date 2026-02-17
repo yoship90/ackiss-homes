@@ -14,19 +14,25 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <Image src="/logo.png" alt="Ackiss Homes" width={68} height={68} className="mix-blend-lighten drop-shadow-[0_0_8px_rgba(201,149,46,0.4)]" />
+            <Image src="/logo.png" alt="Ackiss Homes" width={56} height={56} className="mix-blend-lighten drop-shadow-[0_0_8px_rgba(201,149,46,0.4)]" />
+            {/* Thin vertical divider */}
+            <div className="h-8 w-px bg-gold-500/40 shrink-0" aria-hidden="true" />
             <div>
-              <a
-                href="#hero"
-                className="text-2xl font-brand font-semibold tracking-[0.08em] bg-clip-text text-transparent"
-                style={{
-                  backgroundImage: "linear-gradient(135deg, #d4a853 0%, #f5d89a 25%, #c9952e 50%, #f5d89a 75%, #d4a853 100%)",
-                }}
-              >
-                Ackiss{" "}<span className="-ml-[0.15em]">Homes</span>
+              <a href="#hero" className="flex items-baseline gap-2 whitespace-nowrap">
+                <span
+                  className="font-brand text-[1.6rem] font-semibold tracking-[0.06em] bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: "linear-gradient(135deg, #d4a853 0%, #f5d89a 25%, #c9952e 50%, #f5d89a 75%, #d4a853 100%)",
+                  }}
+                >
+                  Ackiss
+                </span>
+                <span className="font-body text-[0.7rem] uppercase tracking-[0.3em] text-gold-400/65">
+                  Homes
+                </span>
               </a>
-              <p className="text-sm text-gray-500 mt-1">
-                Real estate services
+              <p className="text-xs text-gray-500 mt-1 uppercase tracking-[0.2em]">
+                Real Estate Services
               </p>
             </div>
           </div>

@@ -28,15 +28,23 @@ export default function Header() {
     <header className="fixed top-0 left-0 w-full z-50 bg-dark-900/90 backdrop-blur-md border-b border-dark-600/50">
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
         <a href="#hero" className="flex items-center gap-3 shrink-0">
-          <Image src="/logo.png" alt="Ackiss Homes" width={68} height={68} className="mix-blend-lighten drop-shadow-[0_0_8px_rgba(201,149,46,0.4)]" />
-          <span
-            className="font-brand text-[1.8rem] font-semibold tracking-[0.08em] whitespace-nowrap bg-clip-text text-transparent"
-            style={{
-              backgroundImage: "linear-gradient(135deg, #d4a853 0%, #f5d89a 25%, #c9952e 50%, #f5d89a 75%, #d4a853 100%)",
-            }}
-          >
-            Ackiss{" "}<span className="-ml-[0.15em]">Homes</span>
-          </span>
+          <Image src="/logo.png" alt="Ackiss Homes" width={48} height={48} className="mix-blend-lighten drop-shadow-[0_0_8px_rgba(201,149,46,0.4)]" />
+          {/* Thin vertical divider */}
+          <div className="h-7 w-px bg-gold-500/40 shrink-0" aria-hidden="true" />
+          {/* Horizontal brand name: script + dot + small-caps */}
+          <div className="flex items-baseline gap-2 whitespace-nowrap">
+            <span
+              className="font-brand text-[1.35rem] font-semibold tracking-[0.06em] bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(135deg, #d4a853 0%, #f5d89a 25%, #c9952e 50%, #f5d89a 75%, #d4a853 100%)",
+              }}
+            >
+              Ackiss
+            </span>
+            <span className="font-body text-[0.65rem] uppercase tracking-[0.3em] text-gold-400/65">
+              Homes
+            </span>
+          </div>
         </a>
 
         {/* Desktop nav */}
