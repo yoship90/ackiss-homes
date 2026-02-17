@@ -5,6 +5,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import MortgageRateChart from "./MortgageRateChart";
 
 const fullText = "Find Your Dream Home";
 
@@ -174,6 +175,15 @@ export default function Hero() {
         >
           Get Live MLS Data &rarr;
         </a>
+
+        {/* Mortgage rate chart — desktop only */}
+        <div
+          className={`hidden md:block mt-12 bg-dark-900/60 backdrop-blur-sm border border-dark-600/40 rounded-sm px-6 py-4 transition-opacity duration-1000 ${
+            done ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <MortgageRateChart />
+        </div>
       </div>
     </section>
   );
