@@ -335,15 +335,17 @@ export default function MortgageCalculator() {
       <div className="max-w-6xl mx-auto">
         {/* Heading — left-aligned asymmetric like About */}
         <div className="grid md:grid-cols-[2fr_3fr] gap-8 mb-16">
-          <ScrollReveal direction="left">
-            <div className="flex items-center gap-3 mb-4">
-              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Plan Your Purchase</p>
-              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
-            </div>
+          <div>
+            <ScrollReveal direction="left">
+              <div className="flex items-center gap-3 mb-4">
+                <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Plan Your Purchase</p>
+                <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+              </div>
+            </ScrollReveal>
             <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
               Mortgage Calculator
             </SplitHeading>
-          </ScrollReveal>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-[1fr_1fr] gap-8">

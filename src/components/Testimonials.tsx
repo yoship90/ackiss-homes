@@ -105,18 +105,18 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="py-28 px-6 bg-dark-800">
       <div className="max-w-4xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
+        <div className="text-center mb-16">
+          <ScrollReveal>
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
               <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Client Stories</p>
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
             </div>
-            <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
-              What Our Clients Say
-            </SplitHeading>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+          <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
+            What Our Clients Say
+          </SplitHeading>
+        </div>
 
         <ScrollReveal>
           <div

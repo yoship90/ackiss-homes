@@ -73,15 +73,17 @@ export default function About() {
       <div className="max-w-6xl mx-auto">
         {/* Heading — left-aligned instead of centered */}
         <div className="grid md:grid-cols-[1fr_2fr] gap-8 mb-20">
-          <ScrollReveal direction="left">
-            <div className="flex items-center gap-3 mb-4">
-              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Who We Are</p>
-              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
-            </div>
+          <div>
+            <ScrollReveal direction="left">
+              <div className="flex items-center gap-3 mb-4">
+                <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Who We Are</p>
+                <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+              </div>
+            </ScrollReveal>
             <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
               About Ackiss Homes
             </SplitHeading>
-          </ScrollReveal>
+          </div>
 
           <ScrollReveal direction="right">
             <div className="md:pt-8">

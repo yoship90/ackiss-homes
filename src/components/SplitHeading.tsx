@@ -20,6 +20,12 @@ export default function SplitHeading({ children, className = "" }: Props) {
       return;
     }
 
+    // If already in the viewport on mount, reveal immediately
+    if (el.getBoundingClientRect().top < window.innerHeight) {
+      setVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -33,7 +39,7 @@ export default function SplitHeading({ children, className = "" }: Props) {
     return () => observer.disconnect();
   }, []);
 
-  const words = children.split(" ");
+  const words = children.trim().split(/\s+/);
 
   return (
     <h2 ref={ref} className={className}>

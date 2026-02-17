@@ -27,15 +27,17 @@ export default function Contact() {
         {/* Heading — right-aligned to contrast with About's left-aligned heading */}
         <div className="grid md:grid-cols-[3fr_2fr] gap-8 mb-16">
           <div className="hidden md:block" />
-          <ScrollReveal direction="right">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
-              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Reach Out</p>
-            </div>
+          <div>
+            <ScrollReveal direction="right">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
+                <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Reach Out</p>
+              </div>
+            </ScrollReveal>
             <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
               Get in Touch
             </SplitHeading>
-          </ScrollReveal>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-[3fr_2fr] gap-12">

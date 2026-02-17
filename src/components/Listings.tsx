@@ -50,18 +50,18 @@ export default function Listings() {
   return (
     <section id="listings" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
+        <div className="text-center mb-16">
+          <ScrollReveal>
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
               <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">On the Market</p>
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
             </div>
-            <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
-              Featured Listings
-            </SplitHeading>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+          <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
+            Featured Listings
+          </SplitHeading>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           {listings.map((listing, i) => (

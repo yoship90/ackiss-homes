@@ -5,16 +5,18 @@ export default function MLSSearch() {
   return (
     <section id="mls-search" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-10">
+        <div className="text-center mb-10">
+          <ScrollReveal>
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
               <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Full MLS Access</p>
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
             </div>
-            <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
-              Search All Listings
-            </SplitHeading>
+          </ScrollReveal>
+          <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
+            Search All Listings
+          </SplitHeading>
+          <ScrollReveal delay={200}>
             <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
               Browse the full MLS database below. See something you like?{" "}
               <a href="#contact" className="text-gold-400 hover:text-gold-500 underline underline-offset-4">
@@ -22,8 +24,8 @@ export default function MLSSearch() {
               </a>{" "}
               to schedule a showing.
             </p>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
 
         <ScrollReveal>
           {/* TODO: Re-enable Triumph IDX iframe once we have broker approval */}

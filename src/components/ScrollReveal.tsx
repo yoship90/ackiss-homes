@@ -22,6 +22,12 @@ export default function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
+    // If already in the viewport on mount, reveal immediately
+    if (el.getBoundingClientRect().top < window.innerHeight) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

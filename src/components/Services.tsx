@@ -48,18 +48,18 @@ export default function Services() {
   return (
     <section id="services" className="py-24 px-6 bg-dark-800">
       <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
+        <div className="text-center mb-16">
+          <ScrollReveal>
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
               <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">What We Offer</p>
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
             </div>
-            <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
-              Our Services
-            </SplitHeading>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+          <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
+            Our Services
+          </SplitHeading>
+        </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, i) => (

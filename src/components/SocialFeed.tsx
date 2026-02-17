@@ -14,21 +14,23 @@ export default function SocialFeed() {
   return (
     <section id="social" className="py-28 px-6 bg-dark-800">
       <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
+        <div className="text-center mb-16">
+          <ScrollReveal>
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
               <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Follow Along</p>
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
             </div>
-            <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
-              @AckissHomes
-            </SplitHeading>
+          </ScrollReveal>
+          <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
+            @AckissHomes
+          </SplitHeading>
+          <ScrollReveal delay={200}>
             <p className="text-gray-400 mt-4 max-w-xl mx-auto">
               Check out our latest videos, listings, and behind-the-scenes content.
             </p>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
 
         {/*
           TODO: Replace placeholders with live Instagram feed.
