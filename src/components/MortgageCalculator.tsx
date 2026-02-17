@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import ScrollReveal from "./ScrollReveal";
 import SplitHeading from "./SplitHeading";
+import MortgageRateChart from "./MortgageRateChart";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -334,7 +335,7 @@ export default function MortgageCalculator() {
     <section id="calculator" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Heading — left-aligned asymmetric like About */}
-        <div className="grid md:grid-cols-[2fr_3fr] gap-8 mb-16">
+        <div className="grid md:grid-cols-[2fr_3fr] gap-8 mb-10">
           <div>
             <ScrollReveal direction="left">
               <div className="flex items-center gap-3 mb-4">
@@ -703,6 +704,11 @@ export default function MortgageCalculator() {
                   </div>
                 )}
               </div>
+
+              {/* Rate chart — balances column height, contextual to interest rate */}
+              <div className="mt-6 border-t border-dark-600/50 pt-6">
+                <MortgageRateChart />
+              </div>
             </div>
           </ScrollReveal>
 
@@ -904,6 +910,16 @@ export default function MortgageCalculator() {
                     </span>
                   </div>
                 </div>
+                <div className="mt-6 pt-5 border-t border-dark-600/50">
+                  <button
+                    type="button"
+                    onClick={() => setShowSchedule(!showSchedule)}
+                    className="flex items-center justify-center gap-3 w-full px-6 py-3 bg-dark-900 border border-dark-600 rounded-sm text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 hover:border-gold-500/50 transition-colors duration-300 cursor-pointer"
+                  >
+                    {showSchedule ? "Hide" : "View Full"} Amortization Schedule
+                    <Chevron open={showSchedule} />
+                  </button>
+                </div>
               </div>
             </div>
           </ScrollReveal>
@@ -913,15 +929,6 @@ export default function MortgageCalculator() {
         {/*  Amortization Schedule                                         */}
         {/* ============================================================= */}
         <ScrollReveal direction="up" className="mt-10">
-          <button
-            type="button"
-            onClick={() => setShowSchedule(!showSchedule)}
-            className="flex items-center gap-3 mx-auto px-6 py-3 border border-dark-600 rounded-sm text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 hover:border-gold-500/50 transition-colors duration-300"
-          >
-            {showSchedule ? "Hide" : "View Full"} Amortization Schedule
-            <Chevron open={showSchedule} />
-          </button>
-
           {showSchedule && (
             <div className="mt-6 animate-fade-in">
               {/* Monthly / Yearly toggle */}

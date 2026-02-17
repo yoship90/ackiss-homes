@@ -5,7 +5,6 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import MortgageRateChart from "./MortgageRateChart";
 
 const fullText = "Find Your Dream Home";
 
@@ -129,17 +128,6 @@ export default function Hero() {
         <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
         </svg>
-      </div>
-
-      {/* Mortgage rate chart — absolutely positioned on far left */}
-      <div
-        className={`hidden md:block absolute left-8 lg:left-14 xl:left-20 top-36 w-[360px] lg:w-[420px] transition-opacity duration-1000 ${
-          done ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <div className="bg-dark-900 border border-white/[0.09] rounded-sm px-4 py-4 shadow-2xl">
-          <MortgageRateChart />
-        </div>
       </div>
 
       {/* Text content — centered */}

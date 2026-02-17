@@ -73,16 +73,16 @@ export default function MortgageRateChart() {
       {/* Header row */}
       <div className="flex items-end justify-between mb-3">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.25em] text-gray-500 mb-0.5">
+          <p className="text-sm uppercase tracking-[0.25em] text-gray-400 font-semibold mb-0.5">
             30-Yr Fixed Mortgage Rate
           </p>
-          <p className="text-[10px] text-gray-600">2019 – Present</p>
+          <p className="text-[10px] text-gray-400 pl-3">2019 – Present</p>
         </div>
         <div className="flex items-baseline gap-1.5">
           <span className="text-gold-400 font-heading font-bold text-2xl leading-none">
             {current.toFixed(2)}%
           </span>
-          <span className="text-[10px] text-gray-500 uppercase tracking-wider">today</span>
+          <span className="text-[10px] text-gray-300 uppercase tracking-wider">today</span>
         </div>
       </div>
 
@@ -143,7 +143,7 @@ export default function MortgageRateChart() {
       </div>
 
       {/* Footer note */}
-      <p className="text-[9px] text-gray-600 text-right mt-1.5">
+      <p className="text-[9px] text-gray-400 text-right mt-1.5">
         Freddie Mac PMMS · 30-yr fixed · quarterly avg
       </p>
     </div>
