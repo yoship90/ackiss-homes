@@ -3,6 +3,18 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import ScrollReveal from "./ScrollReveal";
 
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return prefersReducedMotion;
+}
+
 const testimonials = [
   {
     name: "Sarah & James M.",
@@ -39,6 +51,8 @@ const testimonials = [
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const goTo = useCallback(
     (index: number) => {
@@ -78,11 +92,12 @@ export default function Testimonials() {
     }
   }, [next, prev]);
 
-  // Auto-rotate
+  // Auto-rotate — disabled when reduced motion preferred or paused on hover/focus
   useEffect(() => {
+    if (prefersReducedMotion || isPaused) return;
     const timer = setInterval(next, 6000);
     return () => clearInterval(timer);
-  }, [next]);
+  }, [next, prefersReducedMotion, isPaused]);
 
   const t = testimonials[current];
 
@@ -101,7 +116,13 @@ export default function Testimonials() {
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="relative">
+          <div
+            className="relative"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onFocus={() => setIsPaused(true)}
+            onBlur={() => setIsPaused(false)}
+          >
             {/* Card */}
             <div
               className="bg-dark-700 border border-dark-600/50 rounded-sm p-10 md:p-14 text-center min-h-[280px] flex flex-col justify-center touch-pan-y"
@@ -112,6 +133,7 @@ export default function Testimonials() {
               <div
                 key={current}
                 className="animate-fade-in"
+                aria-live="polite"
               >
                 <div className="text-gold-400 text-5xl font-heading mb-6">&ldquo;</div>
                 <p className="text-gray-300 leading-relaxed text-lg md:text-xl italic mb-8 max-w-2xl mx-auto">

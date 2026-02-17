@@ -354,13 +354,14 @@ export default function MortgageCalculator() {
               <div className="space-y-5">
                 {/* Purchase Price */}
                 <div>
-                  <label className={labelCls}>Purchase Price</label>
+                  <label htmlFor="purchase-price" className={labelCls}>Purchase Price</label>
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                       $
                     </span>
                     <input
                       type="text"
+                      id="purchase-price"
                       inputMode="decimal"
                       value={purchasePrice}
                       onChange={(e) => setPurchasePrice(e.target.value)}
@@ -372,7 +373,7 @@ export default function MortgageCalculator() {
 
                 {/* Down Payment */}
                 <div>
-                  <label className={labelCls}>Down Payment</label>
+                  <label htmlFor="down-payment" className={labelCls}>Down Payment</label>
                   <div className="flex gap-2">
                     <div className="relative flex-1">
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
@@ -380,6 +381,7 @@ export default function MortgageCalculator() {
                       </span>
                       <input
                         type="text"
+                        id="down-payment"
                         inputMode="decimal"
                         value={downPayment}
                         onChange={(e) => setDownPayment(e.target.value)}
@@ -438,10 +440,11 @@ export default function MortgageCalculator() {
 
                 {/* Interest Rate */}
                 <div>
-                  <label className={labelCls}>Interest Rate (%)</label>
+                  <label htmlFor="interest-rate" className={labelCls}>Interest Rate (%)</label>
                   <div className="relative">
                     <input
                       type="text"
+                      id="interest-rate"
                       inputMode="decimal"
                       value={interestRate}
                       onChange={(e) => setInterestRate(e.target.value)}
@@ -492,7 +495,7 @@ export default function MortgageCalculator() {
                 {showExtras && (
                   <div className="mt-5 space-y-5 animate-fade-in">
                     <div>
-                      <label className={labelCls}>
+                      <label htmlFor="extra-monthly" className={labelCls}>
                         Additional Monthly Payment
                       </label>
                       <div className="relative">
@@ -501,6 +504,7 @@ export default function MortgageCalculator() {
                         </span>
                         <input
                           type="text"
+                          id="extra-monthly"
                           inputMode="decimal"
                           value={extraMonthly}
                           onChange={(e) => setExtraMonthly(e.target.value)}
@@ -510,7 +514,7 @@ export default function MortgageCalculator() {
                       </div>
                     </div>
                     <div>
-                      <label className={labelCls}>
+                      <label htmlFor="extra-yearly" className={labelCls}>
                         Additional Yearly Payment
                       </label>
                       <div className="relative">
@@ -519,6 +523,7 @@ export default function MortgageCalculator() {
                         </span>
                         <input
                           type="text"
+                          id="extra-yearly"
                           inputMode="decimal"
                           value={extraYearly}
                           onChange={(e) => setExtraYearly(e.target.value)}
@@ -529,13 +534,14 @@ export default function MortgageCalculator() {
                     </div>
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div>
-                        <label className={labelCls}>One-Time Payment</label>
+                        <label htmlFor="extra-one-time" className={labelCls}>One-Time Payment</label>
                         <div className="relative">
                           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                             $
                           </span>
                           <input
                             type="text"
+                            id="extra-one-time"
                             inputMode="decimal"
                             value={extraOneTime}
                             onChange={(e) => setExtraOneTime(e.target.value)}
@@ -545,9 +551,10 @@ export default function MortgageCalculator() {
                         </div>
                       </div>
                       <div>
-                        <label className={labelCls}>In Month #</label>
+                        <label htmlFor="extra-one-time-month" className={labelCls}>In Month #</label>
                         <input
                           type="text"
+                          id="extra-one-time-month"
                           inputMode="numeric"
                           value={extraOneTimeMonth}
                           onChange={(e) =>
@@ -579,7 +586,7 @@ export default function MortgageCalculator() {
                   <div className="mt-5 space-y-5 animate-fade-in">
                     {/* Property Tax */}
                     <div>
-                      <label className={labelCls}>
+                      <label htmlFor="property-tax" className={labelCls}>
                         Property Tax (Annual)
                       </label>
                       <div className="flex gap-2">
@@ -589,6 +596,7 @@ export default function MortgageCalculator() {
                           </span>
                           <input
                             type="text"
+                            id="property-tax"
                             inputMode="decimal"
                             value={propertyTax}
                             onChange={(e) => setPropertyTax(e.target.value)}
@@ -626,7 +634,7 @@ export default function MortgageCalculator() {
 
                     {/* Insurance */}
                     <div>
-                      <label className={labelCls}>
+                      <label htmlFor="insurance" className={labelCls}>
                         Homeowner&apos;s Insurance (Annual)
                       </label>
                       <div className="relative">
@@ -635,6 +643,7 @@ export default function MortgageCalculator() {
                         </span>
                         <input
                           type="text"
+                          id="insurance"
                           inputMode="decimal"
                           value={insurance}
                           onChange={(e) => setInsurance(e.target.value)}
@@ -646,13 +655,14 @@ export default function MortgageCalculator() {
 
                     {/* PMI */}
                     <div>
-                      <label className={labelCls}>PMI (Monthly)</label>
+                      <label htmlFor="pmi" className={labelCls}>PMI (Monthly)</label>
                       <div className="relative">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                           $
                         </span>
                         <input
                           type="text"
+                          id="pmi"
                           inputMode="decimal"
                           value={pmi}
                           onChange={(e) => setPmi(e.target.value)}
@@ -670,13 +680,14 @@ export default function MortgageCalculator() {
 
                     {/* HOA */}
                     <div>
-                      <label className={labelCls}>HOA Fees (Monthly)</label>
+                      <label htmlFor="hoa" className={labelCls}>HOA Fees (Monthly)</label>
                       <div className="relative">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                           $
                         </span>
                         <input
                           type="text"
+                          id="hoa"
                           inputMode="decimal"
                           value={hoa}
                           onChange={(e) => setHoa(e.target.value)}
@@ -713,7 +724,7 @@ export default function MortgageCalculator() {
                     return (
                       <div className="flex flex-col items-center mb-6">
                         <div className="relative w-[200px] h-[200px]">
-                          <svg viewBox="0 0 200 200" className="w-full h-full -rotate-90">
+                          <svg viewBox="0 0 200 200" className="w-full h-full -rotate-90" role="img" aria-label="Pie chart showing total cost breakdown by category">
                             {pieSegments.map((seg) => {
                               const pct = seg.value / pieTotal;
                               const dashLength = pct * circumference;

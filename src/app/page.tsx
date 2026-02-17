@@ -15,9 +15,32 @@ import SectionDivider from "@/components/SectionDivider";
 import StickyCTA from "@/components/StickyCTA";
 import PageReveal from "@/components/PageReveal";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ackiss-homes.vercel.app";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  name: "Ackiss Homes",
+  url: siteUrl,
+  logo: `${siteUrl}/logo.png`,
+  image: `${siteUrl}/hero-bg.jpg`,
+  description:
+    "Ackiss Homes delivers exceptional real estate experiences — buying, selling, or investing.",
+  makesOffer: [
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Home Buying" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Home Selling" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Rentals" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Real Estate Consultations" } },
+  ],
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <PageReveal>
         <Header />
         <main>

@@ -41,7 +41,7 @@ export default function Contact() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-5" aria-label="Contact us">
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
                       <label htmlFor="name" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
@@ -52,6 +52,7 @@ export default function Contact() {
                         id="name"
                         name="name"
                         required
+                        autoComplete="name"
                         className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
                         placeholder="Your full name"
                       />
@@ -65,6 +66,7 @@ export default function Contact() {
                         id="email"
                         name="email"
                         required
+                        autoComplete="email"
                         className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
                         placeholder="you@example.com"
                       />
@@ -78,6 +80,7 @@ export default function Contact() {
                       type="tel"
                       id="phone"
                       name="phone"
+                      autoComplete="tel"
                       className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
                       placeholder="(555) 123-4567"
                     />
@@ -124,9 +127,15 @@ export default function Contact() {
                   Contact Info
                 </h3>
                 <p className="text-gray-400 leading-relaxed">
-                  Phone: (555) 123-4567
+                  Phone:{" "}
+                  <a href="tel:+15551234567" className="hover:text-gold-400 transition-colors">
+                    (555) 123-4567
+                  </a>
                   <br />
-                  Email: hello@ackisshomes.com
+                  Email:{" "}
+                  <a href="mailto:hello@ackisshomes.com" className="hover:text-gold-400 transition-colors">
+                    hello@ackisshomes.com
+                  </a>
                 </p>
               </div>
               <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-6 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/5 hover:border-gold-500/30 transition-all duration-300">

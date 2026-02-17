@@ -5,13 +5,31 @@ import { useEffect, useRef, useState } from "react";
 
 const fullText = "Find Your Dream Home";
 
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return prefersReducedMotion;
+}
+
 export default function Hero() {
+  const prefersReducedMotion = usePrefersReducedMotion();
   const [displayed, setDisplayed] = useState("");
   const [done, setDone] = useState(false);
   const logoRef = useRef<HTMLDivElement>(null);
 
-  // Typed headline
+  // Typed headline — skip animation if reduced motion preferred
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setDisplayed(fullText);
+      setDone(true);
+      return;
+    }
     let i = 0;
     const timer = setInterval(() => {
       i++;
@@ -22,10 +40,11 @@ export default function Hero() {
       }
     }, 60);
     return () => clearInterval(timer);
-  }, []);
+  }, [prefersReducedMotion]);
 
-  // Parallax on scroll
+  // Parallax on scroll — skip if reduced motion preferred
   useEffect(() => {
+    if (prefersReducedMotion) return;
     function handleScroll() {
       if (logoRef.current) {
         const y = window.scrollY;
@@ -34,7 +53,7 @@ export default function Hero() {
     }
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <section
@@ -48,6 +67,7 @@ export default function Hero() {
       <div
         ref={logoRef}
         className="absolute inset-0 flex items-center justify-center will-change-transform"
+        aria-hidden="true"
       >
         {/* Base gold logo at low opacity */}
         <Image
@@ -78,6 +98,7 @@ export default function Hero() {
             width={1200}
             height={1200}
             className="w-full h-full object-cover"
+            priority
           />
         </div>
       </div>
@@ -110,7 +131,7 @@ export default function Hero() {
 
       <div className="relative text-center max-w-5xl mx-auto">
         <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-6">
-          Premium Real Estate
+          Real Estate
         </p>
         <h1 className="text-5xl md:text-7xl font-heading font-bold leading-tight mb-6 min-h-[1.2em]">
           {displayed.length <= 10 ? (
