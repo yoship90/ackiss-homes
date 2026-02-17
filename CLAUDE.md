@@ -44,6 +44,10 @@ Three versions were built and reviewed. Currently live: **Option C**.
 - **Option B — Split-screen:** Solid dark-900 left panel with left-aligned text/CTA and subtle logo watermark, full-height hero-bg.jpg photo on the right half with a gradient fade bridging the two halves. No floating cards. Most premium/editorial feel. Mobile falls back to full-bleed photo with dark overlay.
 - **Option C — Full-bleed photo + floating cards (CURRENT):** hero-bg.jpg fills the entire hero with a layered dark gradient overlay, large parallax logo watermark, three tilted floating photo cards on left/right edges, centered headline/CTA, grain texture. Best balance of real estate imagery and creative personality.
 
+## SEO Opportunities
+- **Niche local queries worth targeting:** Create content/pages optimized for searches like "alternatives to Zillow Virginia Beach", "Virginia Beach MLS data", "is Zillow accurate Virginia Beach" — low competition, high buyer intent. Even a blog post or FAQ section could capture this traffic. The PropertyInquiry section (see below) is a start, but dedicated landing pages would go further.
+- Standard local SEO still needs work: structured data (JSON-LD), Open Graph tags, sitemap, robots.txt, Google Business Profile
+
 ## Future TODO
 - Wire up FUB API for featured listings
 - Connect Instagram feed (Behold widget)

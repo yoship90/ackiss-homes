@@ -158,7 +158,7 @@ export default function Hero() {
           you&apos;re buying, selling, or investing. Your next chapter starts here.
         </p>
         <a
-          href="#contact"
+          href="#property-inquiry"
           className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-10 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_35px_rgba(201,149,46,0.6)] hover:scale-[1.07] transition-all duration-700 ${
             done ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}

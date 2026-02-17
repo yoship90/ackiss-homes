@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Team from "@/components/Team";
+import PropertyInquiry from "@/components/PropertyInquiry";
 import Services from "@/components/Services";
 import Neighborhoods from "@/components/Neighborhoods";
 import MortgageCalculator from "@/components/MortgageCalculator";
@@ -47,6 +48,7 @@ export default function Home() {
           <Hero />
           <Team />
           <About />
+          <PropertyInquiry />
           <SectionDivider from="dark-900" to="dark-800" />
           <Services />
           <Neighborhoods />
