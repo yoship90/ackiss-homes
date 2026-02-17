@@ -8,7 +8,6 @@ const leftNav = [
   { label: "About", href: "#about" },
   { label: "Team", href: "#team" },
   { label: "Services", href: "#services" },
-  { label: "Neighborhoods", href: "#neighborhoods" },
 ];
 
 const rightNav = [

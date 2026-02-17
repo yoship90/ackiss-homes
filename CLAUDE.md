@@ -49,6 +49,7 @@ Three versions were built and reviewed. Currently live: **Option C**.
 - Standard local SEO still needs work: structured data (JSON-LD), Open Graph tags, sitemap, robots.txt, Google Business Profile
 
 ## Future TODO
+- Re-add Featured Neighborhoods section (component exists at src/components/Neighborhoods.tsx — just needs to be imported and added back to page.tsx with a SectionDivider)
 - Wire up FUB API for featured listings
 - Connect Instagram feed (Behold widget)
 - SEO: structured data (JSON-LD), Open Graph tags, sitemap, robots.txt
