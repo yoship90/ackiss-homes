@@ -90,7 +90,7 @@ export default function Hero() {
         </p>
         <a
           href="#contact"
-          className={`inline-block bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold px-8 py-4 rounded-sm text-sm uppercase tracking-widest transition-all duration-700 ${
+          className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-10 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_30px_rgba(201,149,46,0.5)] hover:scale-105 transition-all duration-700 ${
             done ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
