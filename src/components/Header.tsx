@@ -30,7 +30,7 @@ export default function Header() {
         <a href="#hero" className="flex items-center gap-3 shrink-0">
           <Image src="/logo.png" alt="Ackiss Homes" width={68} height={68} className="mix-blend-lighten drop-shadow-[0_0_8px_rgba(201,149,46,0.4)]" />
           <span
-            className="font-brand text-[2.1rem] font-semibold tracking-[0.08em] whitespace-nowrap bg-clip-text text-transparent"
+            className="font-brand text-[1.8rem] font-semibold tracking-[0.08em] whitespace-nowrap bg-clip-text text-transparent"
             style={{
               backgroundImage: "linear-gradient(135deg, #d4a853 0%, #f5d89a 25%, #c9952e 50%, #f5d89a 75%, #d4a853 100%)",
             }}
