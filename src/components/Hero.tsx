@@ -39,7 +39,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden"
+      className="relative h-[60rem] flex items-center justify-center px-6 pt-20 overflow-hidden"
     >
       {/* Animated gradient background */}
       <div className="absolute inset-0 animate-gradient-shift bg-[length:200%_200%] bg-gradient-to-br from-dark-900 via-dark-800 to-dark-700" />
@@ -54,7 +54,7 @@ export default function Hero() {
           alt=""
           width={1200}
           height={1200}
-          className="opacity-15 w-[70%] h-auto object-contain"
+          className="opacity-15 w-[65rem] h-auto object-contain"
           priority
         />
       </div>
@@ -62,7 +62,7 @@ export default function Hero() {
       {/* Dark overlay to keep text readable */}
       <div className="absolute inset-0 bg-dark-900/40" />
 
-      <div className="relative text-center max-w-3xl mx-auto">
+      <div className="relative text-center max-w-5xl mx-auto">
         <p className="text-gold-400 uppercase tracking-[0.3em] text-sm mb-6">
           Premium Real Estate
         </p>
