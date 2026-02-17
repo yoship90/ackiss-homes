@@ -62,7 +62,7 @@ function AnimatedCounter({
 
 const stats = [
   { target: 200, suffix: "+", label: "Homes Sold" },
-  { target: 15, suffix: "+", label: "Years Experience" },
+  { target: 10, suffix: "+", label: "Years Experience" },
   { target: 98, suffix: "%", label: "Client Satisfaction" },
   { target: 50, suffix: "+", label: "5-Star Reviews" },
 ];
