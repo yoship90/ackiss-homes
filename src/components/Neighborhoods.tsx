@@ -18,17 +18,17 @@ interface Neighborhood {
 
 const neighborhoods: Neighborhood[] = [
   {
-    name: "Burbage Grant",
-    city: "Suffolk, VA",
+    name: "Green Run",
+    city: "Virginia Beach, VA",
     description:
-      "A sought-after community in north Suffolk featuring spacious homes, excellent schools, and a welcoming neighborhood feel.",
+      "One of Virginia Beach\u2019s largest and most established neighborhoods, offering affordable homes, great amenities, and a true community atmosphere.",
     details:
-      "Nestled in north Suffolk, Burbage Grant offers a perfect blend of suburban comfort and convenience. The community features well-maintained homes on generous lots, mature tree-lined streets, and easy access to shopping, dining, and major commuter routes. Families love the proximity to top-rated Suffolk schools and the neighborhood\u2019s strong sense of community.",
+      "Green Run is a sprawling, well-established community in the heart of Virginia Beach. With over 8,000 homes, it\u2019s one of the largest planned neighborhoods in the city. Residents enjoy access to multiple community pools, tennis courts, playgrounds, and walking trails. The neighborhood is conveniently located near shopping centers, restaurants, and the Virginia Beach Town Center. Green Run is served by well-regarded schools and offers easy access to I-264, making commutes to Norfolk, Chesapeake, and the Oceanfront a breeze.",
     stats: [
-      { label: "Avg Home Price", value: "~$350K\u2013$450K" },
-      { label: "Home Styles", value: "Single-family, 3\u20135 bed" },
-      { label: "Built", value: "2000s\u20132010s" },
-      { label: "Lot Sizes", value: "0.25\u20130.5 acres" },
+      { label: "Avg Home Price", value: "~$250K\u2013$375K" },
+      { label: "Home Styles", value: "Single-family, townhomes" },
+      { label: "Built", value: "1970s\u20131990s" },
+      { label: "Community", value: "8,000+ homes" },
     ],
   },
 ];
