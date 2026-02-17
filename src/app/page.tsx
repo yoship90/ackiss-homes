@@ -45,8 +45,8 @@ export default function Home() {
         <Header />
         <main>
           <Hero />
-          <About />
           <Team />
+          <About />
           <SectionDivider from="dark-900" to="dark-800" />
           <Services />
           <Neighborhoods />

@@ -5,7 +5,7 @@ interface SectionDividerProps {
 
 const colorMap = {
   "dark-900": "#0a0a0a",
-  "dark-800": "#111111",
+  "dark-800": "#171717",
 };
 
 export default function SectionDivider({ from, to }: SectionDividerProps) {

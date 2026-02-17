@@ -13,8 +13,17 @@ const agents = [
 
 export default function Team() {
   return (
-    <section id="team" className="py-24 px-6 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+    <section id="team" className="py-24 px-6 overflow-hidden relative">
+      {/* Warm ambient glow behind the photo */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 20% 60%, rgba(201,149,46,0.055) 0%, transparent 55%)",
+        }}
+        aria-hidden="true"
+      />
+      <div className="max-w-6xl mx-auto relative">
         {agents.map((agent, i) => (
           <div key={agent.name} className="grid md:grid-cols-[2fr_3fr] gap-0 items-stretch">
             {/* Photo — bleeds to left edge on desktop */}
