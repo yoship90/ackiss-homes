@@ -226,6 +226,40 @@ export default function MortgageCalculator() {
     return { interestSaved, yearsSaved, remainingMonths };
   }, [schedule, scheduleNoExtras]);
 
+  /* ---- Pie chart: lifetime cost breakdown ---- */
+  const pieSegments = useMemo(() => {
+    if (schedule.length === 0) return [];
+
+    const totalPrincipal = schedule.reduce((s, r) => s + r.principal, 0);
+    const totalInterest = schedule.reduce((s, r) => s + r.interest, 0);
+    const totalExtra = schedule.reduce((s, r) => s + r.extra, 0);
+    const payoffMonths = schedule.length;
+    const totalTax = monthlyTax * payoffMonths;
+    const totalPmi = monthlyPmi * payoffMonths;
+    const totalInsuranceFees = (monthlyInsurance + monthlyHoa) * payoffMonths;
+
+    const segments: { label: string; value: number; color: string }[] = [];
+
+    if (totalPrincipal > 0)
+      segments.push({ label: "Principal", value: totalPrincipal, color: "#c9952e" });
+    if (totalInterest > 0)
+      segments.push({ label: "Interest", value: totalInterest, color: "#4a90d9" });
+    if (totalExtra > 0)
+      segments.push({ label: "Extra Payments", value: totalExtra, color: "#e67e22" });
+    if (totalTax > 0)
+      segments.push({ label: "Taxes", value: totalTax, color: "#d95a4a" });
+    if (totalPmi > 0)
+      segments.push({ label: "PMI", value: totalPmi, color: "#9b59b6" });
+    if (totalInsuranceFees > 0)
+      segments.push({ label: "Insurance & Fees", value: totalInsuranceFees, color: "#2ecc71" });
+    if (dp > 0)
+      segments.push({ label: "Down Payment", value: dp, color: "#5dade2" });
+
+    return segments;
+  }, [schedule, monthlyTax, monthlyInsurance, monthlyPmi, monthlyHoa, dp]);
+
+  const pieTotal = pieSegments.reduce((s, seg) => s + seg.value, 0);
+
   /* ---- Yearly summary ---- */
   const yearlySchedule = useMemo(() => {
     const years: {
@@ -356,22 +390,40 @@ export default function MortgageCalculator() {
                     <button
                       type="button"
                       onClick={() => {
-                        if (!downPaymentIsPercent && price > 0) {
-                          setDownPayment(
-                            ((parseNum(downPayment) / price) * 100).toFixed(1)
-                          );
-                        } else {
+                        if (downPaymentIsPercent && price > 0) {
                           setDownPayment(
                             Math.round(
                               (parseNum(downPayment) / 100) * price
                             ).toString()
                           );
+                          setDownPaymentIsPercent(false);
                         }
-                        setDownPaymentIsPercent(!downPaymentIsPercent);
                       }}
-                      className="px-4 py-3 border border-dark-600 rounded-sm text-sm text-gold-400 hover:border-gold-500/50 transition-colors uppercase tracking-wider whitespace-nowrap"
+                      className={`px-4 py-3 border rounded-sm text-sm transition-colors uppercase tracking-wider ${
+                        !downPaymentIsPercent
+                          ? "bg-gold-500 text-dark-900 border-gold-500 font-semibold"
+                          : "border-dark-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
+                      }`}
                     >
-                      {downPaymentIsPercent ? "%" : "$"}
+                      $
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (!downPaymentIsPercent && price > 0) {
+                          setDownPayment(
+                            ((parseNum(downPayment) / price) * 100).toFixed(1)
+                          );
+                          setDownPaymentIsPercent(true);
+                        }
+                      }}
+                      className={`px-4 py-3 border rounded-sm text-sm transition-colors uppercase tracking-wider ${
+                        downPaymentIsPercent
+                          ? "bg-gold-500 text-dark-900 border-gold-500 font-semibold"
+                          : "border-dark-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
+                      }`}
+                    >
+                      %
                     </button>
                   </div>
                 </div>
@@ -644,6 +696,79 @@ export default function MortgageCalculator() {
           {/* ============================================================= */}
           <ScrollReveal direction="right">
             <div className="space-y-6">
+              {/* Total Cost Breakdown with Donut Chart */}
+              {pieSegments.length > 0 && (
+                <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/5 hover:border-gold-500/30 transition-all duration-300">
+                  <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
+                    Total Cost Breakdown
+                  </h3>
+
+                  {/* Donut Chart */}
+                  {(() => {
+                    const radius = 80;
+                    const stroke = 32;
+                    const circumference = 2 * Math.PI * radius;
+                    let accumulated = 0;
+
+                    return (
+                      <div className="flex flex-col items-center mb-6">
+                        <div className="relative w-[200px] h-[200px]">
+                          <svg viewBox="0 0 200 200" className="w-full h-full -rotate-90">
+                            {pieSegments.map((seg) => {
+                              const pct = seg.value / pieTotal;
+                              const dashLength = pct * circumference;
+                              const dashOffset = -accumulated * circumference;
+                              accumulated += pct;
+                              return (
+                                <circle
+                                  key={seg.label}
+                                  cx="100"
+                                  cy="100"
+                                  r={radius}
+                                  fill="none"
+                                  stroke={seg.color}
+                                  strokeWidth={stroke}
+                                  strokeDasharray={`${dashLength} ${circumference - dashLength}`}
+                                  strokeDashoffset={dashOffset}
+                                  className="transition-all duration-500"
+                                />
+                              );
+                            })}
+                          </svg>
+                          <div className="absolute inset-0 flex flex-col items-center justify-center">
+                            <span className="text-xl font-bold text-white">${fmtInt(Math.round(pieTotal))}</span>
+                            <span className="text-xs text-gray-400 uppercase tracking-wider">Total Cost</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+
+                  {/* Legend with amounts */}
+                  <div className="space-y-2.5">
+                    {pieSegments.map((seg) => (
+                      <div key={seg.label} className="flex justify-between items-center text-sm">
+                        <div className="flex items-center gap-2">
+                          <span
+                            className="w-3 h-3 rounded-full shrink-0"
+                            style={{ backgroundColor: seg.color }}
+                          />
+                          <span className="text-gray-300">{seg.label}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className="text-gray-500 text-xs">
+                            {((seg.value / pieTotal) * 100).toFixed(1)}%
+                          </span>
+                          <span className="text-gray-300 font-mono text-xs w-24 text-right">
+                            ${fmtInt(Math.round(seg.value))}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Monthly Payment Summary */}
               <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/5 hover:border-gold-500/30 transition-all duration-300">
                 <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
