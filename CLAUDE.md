@@ -67,6 +67,8 @@ Three versions were built and reviewed. Currently live: **Option C**.
 
 ## Future TODO
 - **FUB:** Explore action plans, smart lists, and other FUB features not yet in use
+- **FUB:** Solve SMS logging problem — agents text from personal numbers, no way to auto-log to FUB. Research FUB Inbox Apps (Ylopo, Agent Legend, etc.) for a solution that auto-syncs texts to lead records without requiring agents to change their number. Goal: clients still see personal number, but texts are logged in FUB automatically.
+- **FUB:** Set up email drip campaigns for cold leads in database — big untapped opportunity
 - **FUB:** Wire up featured listings via FUB custom fields API
 - **FUB:** Consider custom fields for structured property inquiry data (price range, timeline, pre-approval)
 - **OG image:** Improve quality — current brand-lockup.png is a low-res screenshot (251×69px). Options: export high-res SVG/PNG of header lockup, or rebuild natively in ImageResponse
