@@ -55,5 +55,28 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Failed to submit lead" }, { status: 502 });
   }
 
+  // Tag the person via a follow-up PATCH — /v1/events ignores tags on the person object
+  const tags = formType === "inquiry"
+    ? ["website-lead", "website-property-inquiry"]
+    : ["website-lead", "website-contact"];
+
+  try {
+    const eventData = await fubRes.json();
+    const personId = eventData?.person?.id;
+    if (personId) {
+      await fetch(`https://api.followupboss.com/v1/people/${personId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Basic ${Buffer.from(`${apiKey}:`).toString("base64")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ tags }),
+      });
+    }
+  } catch (err) {
+    // Non-fatal — lead was created, tags just didn't apply
+    console.error("Failed to apply tags:", err);
+  }
+
   return NextResponse.json({ success: true });
 }
