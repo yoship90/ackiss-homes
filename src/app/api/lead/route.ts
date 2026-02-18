@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const eventData = await fubRes.json();
-    const personId = eventData?.person?.id;
+    const personId = eventData?.person?.id ?? eventData?.id;
     if (personId) {
       await fetch(`https://api.followupboss.com/v1/people/${personId}`, {
         method: "PUT",
