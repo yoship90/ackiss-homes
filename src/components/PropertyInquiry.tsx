@@ -14,18 +14,45 @@ const perks = [
 
 export default function PropertyInquiry() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [address, setAddress] = useState("");
   const [mlsId, setMlsId] = useState("");
   const [propertyError, setPropertyError] = useState(false);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!address.trim() && !mlsId.trim()) {
       setPropertyError(true);
       return;
     }
     setPropertyError(false);
-    setSubmitted(true);
+    setLoading(true);
+    setError("");
+
+    const data = new FormData(e.currentTarget);
+
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "inquiry",
+          name: data.get("name"),
+          email: data.get("email"),
+          phone: data.get("phone"),
+          address,
+          mlsId,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Submit failed");
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again or call us directly.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -176,11 +203,15 @@ export default function PropertyInquiry() {
                     />
                   </div>
 
+                  {error && (
+                    <p className="text-red-400/80 text-sm">{error}</p>
+                  )}
                   <button
                     type="submit"
-                    className="w-full bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold px-8 py-4 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.25)] hover:shadow-[0_0_30px_rgba(201,149,46,0.4)] transition-all duration-300 cursor-pointer"
+                    disabled={loading}
+                    className="w-full bg-gold-500 hover:bg-gold-600 disabled:opacity-60 disabled:cursor-not-allowed text-dark-900 font-semibold px-8 py-4 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.25)] hover:shadow-[0_0_30px_rgba(201,149,46,0.4)] transition-all duration-300 cursor-pointer"
                   >
-                    Get Live MLS Data &rarr;
+                    {loading ? "Submitting…" : "Get Live MLS Data →"}
                   </button>
                   <p className="text-xs text-gray-600 text-center">
                     No obligation.
