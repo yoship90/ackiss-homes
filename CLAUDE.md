@@ -63,4 +63,4 @@ Three versions were built and reviewed. Currently live: **Option C**.
 - Confirm Triumph iframe permission (then remove from live if denied)
 - Hide Listings nav link when no featured listings
 - Consider static export (output: 'export') if moving off Vercel
-- Custom domain (ackisshomes.com)
+- ~~Custom domain (ackisshomes.com)~~ — DONE, live at https://www.ackisshomes.com
