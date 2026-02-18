@@ -998,7 +998,7 @@ export default function MortgageCalculator() {
               </div>
 
               <div className="overflow-x-auto rounded-sm border border-dark-600/50">
-                <div className="max-h-[500px] overflow-y-auto">
+                <div className="max-h-[500px] overflow-y-auto amort-scroll">
                   <table className="w-full text-sm">
                     <thead className="sticky top-0 bg-dark-700 z-10">
                       <tr className="text-left text-gray-400 uppercase tracking-wider text-xs">
