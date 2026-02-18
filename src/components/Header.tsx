@@ -5,8 +5,7 @@ import Image from "next/image";
 
 const leftNav = [
   { label: "Home", href: "#hero" },
-  { label: "About", href: "#about" },
-  { label: "Team", href: "#team" },
+  { label: "About", href: "#team" },
   { label: "Services", href: "#services" },
 ];
 
