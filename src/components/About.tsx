@@ -127,9 +127,41 @@ export default function About() {
           ))}
         </div>
 
+        {/* Review links strip */}
+        <ScrollReveal>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-gray-600">Verified reviews on</span>
+            <div className="h-px w-4 bg-gold-500/30" />
+            <a
+              href="https://www.zillow.com/profile/amanda5867"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 transition-colors duration-300"
+            >
+              <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+              </svg>
+              Zillow — Amanda
+            </a>
+            <span className="text-gray-700">·</span>
+            <a
+              href="https://www.zillow.com/profile/jeremy2621"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 transition-colors duration-300"
+            >
+              <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+              </svg>
+              Zillow — Jeremy
+            </a>
+            {/* TODO: add Google Business Profile link once URL is available */}
+          </div>
+        </ScrollReveal>
+
         {/* Decorative line */}
         <ScrollReveal>
-          <div className="mt-16 flex items-center gap-4">
+          <div className="mt-8 flex items-center gap-4">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gold-500/20 to-transparent" />
           </div>
         </ScrollReveal>

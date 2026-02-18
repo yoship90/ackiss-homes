@@ -48,7 +48,14 @@ Three versions were built and reviewed. Currently live: **Option C**.
 - **Niche local queries worth targeting:** Create content/pages optimized for searches like "alternatives to Zillow Virginia Beach", "Virginia Beach MLS data", "is Zillow accurate Virginia Beach" — low competition, high buyer intent. Even a blog post or FAQ section could capture this traffic. The PropertyInquiry section (see below) is a start, but dedicated landing pages would go further.
 - Standard local SEO still needs work: structured data (JSON-LD), Open Graph tags, sitemap, robots.txt, Google Business Profile
 
+## Agent Zillow Profiles
+- Amanda: https://www.zillow.com/profile/amanda5867
+- Jeremy: https://www.zillow.com/profile/jeremy2621
+- Google Business Profile URL: TBD (needed for Google reviews link)
+
 ## Future TODO
+- Improve OG image quality — current brand-lockup.png is a low-res screenshot (251×69px). Options: export a high-res version of the header brand lockup directly (SVG or 2×/3× PNG), or rebuild the lockup natively in ImageResponse code to avoid image quality issues altogether.
+- Add Calendly / booking integration — "Schedule a Free Consultation" button. Options: second CTA in hero, Contact section sidebar, or StickyCTA. Free plan at calendly.com, just needs availability configured.
 - Re-add Featured Neighborhoods section (component exists at src/components/Neighborhoods.tsx — just needs to be imported and added back to page.tsx with a SectionDivider)
 - Wire up FUB API for featured listings
 - Connect Instagram feed (Behold widget)
