@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import ScrollReveal from "./ScrollReveal";
 import SplitHeading from "./SplitHeading";
 import MortgageRateChart from "./MortgageRateChart";
@@ -98,6 +98,7 @@ export default function MortgageCalculator() {
   const [scheduleView, setScheduleView] = useState<"monthly" | "yearly">(
     "monthly"
   );
+  const scheduleRef = useRef<HTMLDivElement>(null);
 
   /* ---- Derived values ---- */
   const price = parseNum(purchasePrice);
@@ -913,7 +914,15 @@ export default function MortgageCalculator() {
                 <div className="mt-6 pt-5 border-t border-dark-600/50">
                   <button
                     type="button"
-                    onClick={() => setShowSchedule(!showSchedule)}
+                    onClick={() => {
+                      const opening = !showSchedule;
+                      setShowSchedule(opening);
+                      if (opening) {
+                        setTimeout(() => {
+                          scheduleRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }, 50);
+                      }
+                    }}
                     className="flex items-center justify-center gap-3 w-full px-6 py-3 bg-dark-900 border border-dark-600 rounded-sm text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 hover:border-gold-500/50 transition-colors duration-300 cursor-pointer"
                   >
                     {showSchedule ? "Hide" : "View Full"} Amortization Schedule
@@ -921,16 +930,55 @@ export default function MortgageCalculator() {
                   </button>
                 </div>
               </div>
+
             </div>
           </ScrollReveal>
         </div>
+
+        {/* ============================================================= */}
+        {/*  Tips                                                          */}
+        {/* ============================================================= */}
+        <ScrollReveal direction="up" className="mt-10">
+          <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 md:p-10">
+            <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
+              Money-Saving Tips
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="flex gap-4">
+                <div className="text-gold-400 shrink-0 mt-0.5">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  <span className="text-gray-200 font-medium">Split your payment in half.</span>{" "}
+                  Instead of one monthly payment, make half-payments every two weeks. Because there are 52 weeks in a year, you&apos;ll make 26 half-payments — the equivalent of 13 full monthly payments instead of 12. That one extra payment each year can shave years off your mortgage and save thousands in interest.
+                </p>
+              </div>
+              <div className="flex gap-4">
+                <div className="text-gold-400 shrink-0 mt-0.5">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  <span className="text-gray-200 font-medium">Add a little extra each month.</span>{" "}
+                  Try entering just $50 or $100 as an extra monthly principal payment above and see how much interest you save over the life of your loan — the results might surprise you. Most mortgage companies let you set up automatic extra principal payments, making it effortless.
+                </p>
+              </div>
+            </div>
+            <p className="mt-6 text-xs text-gray-500 border-t border-dark-600/50 pt-4">
+              These are general tips for informational purposes only and should not be considered financial advice. Always check with your mortgage lender about your specific loan terms, prepayment policies, and any fees before making changes to your payment schedule.
+            </p>
+          </div>
+        </ScrollReveal>
 
         {/* ============================================================= */}
         {/*  Amortization Schedule                                         */}
         {/* ============================================================= */}
         <ScrollReveal direction="up" className="mt-10">
           {showSchedule && (
-            <div className="mt-6 animate-fade-in">
+            <div ref={scheduleRef} className="mt-6 animate-fade-in">
               {/* Monthly / Yearly toggle */}
               <div className="flex gap-2 mb-4">
                 {(["monthly", "yearly"] as const).map((view) => (
@@ -1037,43 +1085,6 @@ export default function MortgageCalculator() {
           )}
         </ScrollReveal>
 
-        {/* ============================================================= */}
-        {/*  Tips                                                          */}
-        {/* ============================================================= */}
-        <ScrollReveal direction="up" className="mt-10">
-          <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 md:p-10">
-            <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
-              Money-Saving Tips
-            </h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="flex gap-4">
-                <div className="text-gold-400 shrink-0 mt-0.5">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                  </svg>
-                </div>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  <span className="text-gray-200 font-medium">Split your payment in half.</span>{" "}
-                  Instead of one monthly payment, make half-payments every two weeks. Because there are 52 weeks in a year, you&apos;ll make 26 half-payments — the equivalent of 13 full monthly payments instead of 12. That one extra payment each year can shave years off your mortgage and save thousands in interest.
-                </p>
-              </div>
-              <div className="flex gap-4">
-                <div className="text-gold-400 shrink-0 mt-0.5">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  <span className="text-gray-200 font-medium">Add a little extra each month.</span>{" "}
-                  Try entering just $50 or $100 as an extra monthly principal payment above and see how much interest you save over the life of your loan — the results might surprise you. Most mortgage companies let you set up automatic extra principal payments, making it effortless.
-                </p>
-              </div>
-            </div>
-            <p className="mt-6 text-xs text-gray-500 border-t border-dark-600/50 pt-4">
-              These are general tips for informational purposes only and should not be considered financial advice. Always check with your mortgage lender about your specific loan terms, prepayment policies, and any fees before making changes to your payment schedule.
-            </p>
-          </div>
-        </ScrollReveal>
       </div>
     </section>
   );
