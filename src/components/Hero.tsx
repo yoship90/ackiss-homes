@@ -6,7 +6,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-const fullText = "Find Your Dream Home";
+const fullText = "Where Home Begins";
 
 function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -72,7 +72,7 @@ export default function Hero() {
       {/* Logo — anchored to right side, bright */}
       <div
         ref={logoRef}
-        className="absolute inset-y-0 right-[-8rem] flex items-center will-change-transform pointer-events-none"
+        className="absolute inset-y-0 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-[-8rem] flex items-center will-change-transform pointer-events-none"
         aria-hidden="true"
       >
         <Image
@@ -113,23 +113,23 @@ export default function Hero() {
 
         {/* Main headline */}
         <h1 className="text-6xl md:text-8xl font-heading font-bold leading-[1.05] mb-8 min-h-[1.1em] tracking-tight">
-          {displayed.length <= 10 ? (
+          {displayed.length <= 6 ? (
             <>
               {displayed}
               {!done && <span className="animate-pulse text-gold-400">|</span>}
             </>
           ) : (
             <>
-              {displayed.slice(0, 10)}
+              {displayed.slice(0, 6)}
               <br />
-              <span className="text-gold-400">{displayed.slice(10)}</span>
+              <span className="text-gold-400">{displayed.slice(6)}</span>
               {!done && <span className="animate-pulse text-gold-400">|</span>}
             </>
           )}
         </h1>
 
         <p
-          className={`text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-3 leading-relaxed transition-opacity duration-700 ${
+          className={`hidden md:block text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-3 leading-relaxed transition-opacity duration-700 ${
             done ? "opacity-100" : "opacity-0"
           }`}
         >
