@@ -26,7 +26,7 @@ export default function SocialFeed() {
   }, []);
 
   return (
-    <section id="social" className="py-28 px-6 bg-dark-800 section-texture">
+    <section id="social" className="py-20 px-6 bg-dark-800 section-texture">
       <Script
         src="https://www.instagram.com/embed.js"
         strategy="lazyOnload"
