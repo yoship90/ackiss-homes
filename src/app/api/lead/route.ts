@@ -63,19 +63,47 @@ export async function POST(req: NextRequest) {
   try {
     const eventData = await fubRes.json();
     const personId = eventData?.person?.id ?? eventData?.id;
+
     if (personId) {
+      const authHeader = `Basic ${Buffer.from(`${apiKey}:`).toString("base64")}`;
+
+      // Apply tags + custom fields
+      const personUpdate: Record<string, unknown> = { tags };
+      if (formType === "inquiry") {
+        if (address) personUpdate.customPropertyOfInterestAddress = address;
+        if (mlsId) personUpdate.customPropertyOfInterestMLSID = mlsId;
+      }
       await fetch(`https://api.followupboss.com/v1/people/${personId}`, {
         method: "PUT",
         headers: {
-          Authorization: `Basic ${Buffer.from(`${apiKey}:`).toString("base64")}`,
+          Authorization: authHeader,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ tags }),
+        body: JSON.stringify(personUpdate),
       });
+
+      // Directly enroll in action plan — fires every time regardless of tag history
+      const actionPlanId = formType === "inquiry"
+        ? process.env.FUB_ACTION_PLAN_INQUIRY_ID
+        : process.env.FUB_ACTION_PLAN_CONTACT_ID;
+
+      if (actionPlanId) {
+        await fetch("https://api.followupboss.com/v1/actionPlansPeople", {
+          method: "POST",
+          headers: {
+            Authorization: authHeader,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            actionPlanId: parseInt(actionPlanId),
+            personId,
+          }),
+        });
+      }
     }
   } catch (err) {
-    // Non-fatal — lead was created, tags just didn't apply
-    console.error("Failed to apply tags:", err);
+    // Non-fatal — lead was created, tags/action plan just didn't apply
+    console.error("Failed to apply tags or action plan:", err);
   }
 
   return NextResponse.json({ success: true });

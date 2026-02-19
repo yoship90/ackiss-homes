@@ -72,10 +72,10 @@ function Chevron({ open }: { open: boolean }) {
 
 export default function MortgageCalculator() {
   /* ---- Core fields ---- */
-  const [purchasePrice, setPurchasePrice] = useState("350000");
-  const [downPayment, setDownPayment] = useState("70000");
-  const [downPaymentIsPercent, setDownPaymentIsPercent] = useState(false);
-  const [interestRate, setInterestRate] = useState("6.5");
+  const [purchasePrice, setPurchasePrice] = useState("300000");
+  const [downPayment, setDownPayment] = useState("");
+  const [downPaymentIsPercent, setDownPaymentIsPercent] = useState(true);
+  const [interestRate, setInterestRate] = useState("");
   const [loanTerm, setLoanTerm] = useState(30);
 
   /* ---- Extra payments ---- */
@@ -381,19 +381,22 @@ export default function MortgageCalculator() {
                 <div>
                   <label htmlFor="down-payment" className={labelCls}>Down Payment</label>
                   <div className="flex gap-2">
-                    <div className="relative flex-1">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
-                        {downPaymentIsPercent ? "%" : "$"}
-                      </span>
+                    <div className={`relative ${downPaymentIsPercent ? "w-28" : "flex-1"}`}>
+                      {!downPaymentIsPercent && (
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                      )}
                       <input
                         type="text"
                         id="down-payment"
                         inputMode="decimal"
                         value={downPayment}
                         onChange={(e) => setDownPayment(e.target.value)}
-                        className={`${inputCls} pl-8`}
+                        className={`${inputCls} ${downPaymentIsPercent ? "pr-8" : "pl-8"}`}
                         placeholder={downPaymentIsPercent ? "20" : "70,000"}
                       />
+                      {downPaymentIsPercent && (
+                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">%</span>
+                      )}
                     </div>
                     <button
                       type="button"
@@ -718,6 +721,16 @@ export default function MortgageCalculator() {
           {/* ============================================================= */}
           <ScrollReveal direction="right">
             <div className="space-y-6">
+              {/* Empty state */}
+              {basePnI === 0 && (
+                <div className="flex flex-col items-center justify-center h-64 text-center text-gray-500 border border-dark-600/30 rounded-sm bg-dark-700/30">
+                  <svg className="w-10 h-10 mb-3 text-gold-500/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <p className="text-sm uppercase tracking-widest">Enter loan details to see your estimate</p>
+                </div>
+              )}
+
               {/* Total Cost Breakdown with Donut Chart */}
               {pieSegments.length > 0 && (
                 <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
@@ -793,7 +806,7 @@ export default function MortgageCalculator() {
               )}
 
               {/* Monthly Payment Summary */}
-              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
+              {basePnI > 0 && <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
                 <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
                   Monthly Payment
                 </h3>
@@ -860,10 +873,10 @@ export default function MortgageCalculator() {
                     </p>
                   </div>
                 )}
-              </div>
+              </div>}
 
               {/* Loan Summary */}
-              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
+              {basePnI > 0 && <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
                 <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
                   Loan Summary
                 </h3>
@@ -929,7 +942,7 @@ export default function MortgageCalculator() {
                     <Chevron open={showSchedule} />
                   </button>
                 </div>
-              </div>
+              </div>}
 
             </div>
           </ScrollReveal>

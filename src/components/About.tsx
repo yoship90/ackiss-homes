@@ -63,7 +63,6 @@ function AnimatedCounter({
 const stats = [
   { target: 200, suffix: "+", label: "Homes Sold" },
   { target: 10, suffix: "+", label: "Years Experience" },
-  { target: 98, suffix: "%", label: "Client Satisfaction" },
   { target: 50, suffix: "+", label: "5-Star Reviews" },
 ];
 
@@ -104,7 +103,7 @@ export default function About() {
         </div>
 
         {/* Stats — offset row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:pl-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 md:pl-12">
           {stats.map((stat, i) => (
             <ScrollReveal key={stat.label} delay={i * 100} direction="scale">
               <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 text-center hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
