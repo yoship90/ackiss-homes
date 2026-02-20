@@ -107,7 +107,7 @@ export default function Hero() {
         {/* Eyebrow */}
         <div className={`flex items-center justify-center gap-4 mb-8 transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
           <div className="h-px w-12 bg-gold-500/60" />
-          <p className="text-gold-400 uppercase tracking-[0.4em] text-xs">Virginia Beach &amp; Hampton Roads</p>
+          <p className="text-gold-400 uppercase tracking-[0.4em] text-xs">Virginia Beach &amp; All of Hampton Roads</p>
           <div className="h-px w-12 bg-gold-500/60" />
         </div>
 
