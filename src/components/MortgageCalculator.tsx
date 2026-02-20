@@ -328,7 +328,7 @@ export default function MortgageCalculator() {
 
   /* ---- Shared classes ---- */
   const inputCls =
-    "w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors";
+    "w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-1.5 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors";
   const labelCls =
     "block text-sm text-gray-400 mb-1.5 uppercase tracking-wider";
 
@@ -361,7 +361,7 @@ export default function MortgageCalculator() {
                 {/* Purchase Price */}
                 <div>
                   <label htmlFor="purchase-price" className={labelCls}>Purchase Price</label>
-                  <div className="relative">
+                  <div className="relative w-44">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                       $
                     </span>
@@ -381,7 +381,7 @@ export default function MortgageCalculator() {
                 <div>
                   <label htmlFor="down-payment" className={labelCls}>Down Payment</label>
                   <div className="flex gap-2">
-                    <div className={`relative ${downPaymentIsPercent ? "w-28" : "flex-1"}`}>
+                    <div className={`relative ${downPaymentIsPercent ? "w-28" : "w-44"}`}>
                       {!downPaymentIsPercent && (
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">$</span>
                       )}
@@ -410,7 +410,7 @@ export default function MortgageCalculator() {
                           setDownPaymentIsPercent(false);
                         }
                       }}
-                      className={`px-4 py-3 border rounded-sm text-sm transition-colors uppercase tracking-wider ${
+                      className={`px-4 py-1.5 border rounded-sm text-sm transition-colors uppercase tracking-wider ${
                         !downPaymentIsPercent
                           ? "bg-gold-500 text-dark-900 border-gold-500 font-semibold"
                           : "border-dark-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
@@ -428,7 +428,7 @@ export default function MortgageCalculator() {
                           setDownPaymentIsPercent(true);
                         }
                       }}
-                      className={`px-4 py-3 border rounded-sm text-sm transition-colors uppercase tracking-wider ${
+                      className={`px-4 py-1.5 border rounded-sm text-sm transition-colors uppercase tracking-wider ${
                         downPaymentIsPercent
                           ? "bg-gold-500 text-dark-900 border-gold-500 font-semibold"
                           : "border-dark-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
@@ -442,7 +442,7 @@ export default function MortgageCalculator() {
                 {/* Mortgage Amount — read-only */}
                 <div>
                   <label className={labelCls}>Mortgage Amount</label>
-                  <div className="w-full bg-dark-900 border border-dark-600 rounded-sm px-4 py-3 text-gold-400 cursor-default">
+                  <div className="w-full bg-dark-900 border border-dark-600 rounded-sm px-4 py-1.5 text-gold-400 cursor-default">
                     ${fmtInt(mortgageAmount)}
                   </div>
                 </div>
@@ -450,14 +450,14 @@ export default function MortgageCalculator() {
                 {/* Interest Rate */}
                 <div>
                   <label htmlFor="interest-rate" className={labelCls}>Interest Rate (%)</label>
-                  <div className="relative">
+                  <div className="relative w-28">
                     <input
                       type="text"
                       id="interest-rate"
                       inputMode="decimal"
                       value={interestRate}
                       onChange={(e) => setInterestRate(e.target.value)}
-                      className={inputCls}
+                      className={`${inputCls} pr-8`}
                       placeholder=""
                     />
                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
@@ -507,7 +507,7 @@ export default function MortgageCalculator() {
                       <label htmlFor="extra-monthly" className={labelCls}>
                         Additional Monthly Payment
                       </label>
-                      <div className="relative">
+                      <div className="relative w-44">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                           $
                         </span>
@@ -526,7 +526,7 @@ export default function MortgageCalculator() {
                       <label htmlFor="extra-yearly" className={labelCls}>
                         Additional Yearly Payment
                       </label>
-                      <div className="relative">
+                      <div className="relative w-44">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                           $
                         </span>
@@ -544,7 +544,7 @@ export default function MortgageCalculator() {
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="extra-one-time" className={labelCls}>One-Time Payment</label>
-                        <div className="relative">
+                        <div className="relative w-40">
                           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                             $
                           </span>
@@ -569,7 +569,7 @@ export default function MortgageCalculator() {
                           onChange={(e) =>
                             setExtraOneTimeMonth(e.target.value)
                           }
-                          className={inputCls}
+                          className={`${inputCls} w-28`}
                           placeholder="12"
                         />
                       </div>
@@ -599,7 +599,7 @@ export default function MortgageCalculator() {
                         Property Tax (Annual)
                       </label>
                       <div className="flex gap-2">
-                        <div className="relative flex-1">
+                        <div className="relative w-44">
                           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                             {propertyTaxIsPercent ? "%" : "$"}
                           </span>
@@ -634,7 +634,7 @@ export default function MortgageCalculator() {
                             }
                             setPropertyTaxIsPercent(!propertyTaxIsPercent);
                           }}
-                          className="px-4 py-3 border border-dark-600 rounded-sm text-sm text-gold-400 hover:border-gold-500/50 transition-colors uppercase tracking-wider"
+                          className="px-4 py-1.5 border border-dark-600 rounded-sm text-sm text-gold-400 hover:border-gold-500/50 transition-colors uppercase tracking-wider"
                         >
                           {propertyTaxIsPercent ? "%" : "$"}
                         </button>
@@ -646,7 +646,7 @@ export default function MortgageCalculator() {
                       <label htmlFor="insurance" className={labelCls}>
                         Homeowner&apos;s Insurance (Annual)
                       </label>
-                      <div className="relative">
+                      <div className="relative w-44">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                           $
                         </span>
@@ -665,7 +665,7 @@ export default function MortgageCalculator() {
                     {/* PMI */}
                     <div>
                       <label htmlFor="pmi" className={labelCls}>PMI (Monthly)</label>
-                      <div className="relative">
+                      <div className="relative w-28">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                           $
                         </span>
@@ -690,7 +690,7 @@ export default function MortgageCalculator() {
                     {/* HOA */}
                     <div>
                       <label htmlFor="hoa" className={labelCls}>HOA Fees (Monthly)</label>
-                      <div className="relative">
+                      <div className="relative w-28">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                           $
                         </span>
@@ -728,7 +728,7 @@ export default function MortgageCalculator() {
                   <svg className="w-10 h-10 mb-3 text-gold-500/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <p className="text-sm uppercase tracking-widest">Enter loan details to see your estimate</p>
+                  <p className="text-sm uppercase tracking-widest">Enter at least a purchase price, down payment, and interest rate to see your estimate</p>
                 </div>
               )}
 
