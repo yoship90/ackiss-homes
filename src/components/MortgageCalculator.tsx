@@ -392,7 +392,7 @@ export default function MortgageCalculator() {
                         value={downPayment}
                         onChange={(e) => setDownPayment(e.target.value)}
                         className={`${inputCls} ${downPaymentIsPercent ? "pr-8" : "pl-8"}`}
-                        placeholder={downPaymentIsPercent ? "20" : "70,000"}
+                        placeholder=""
                       />
                       {downPaymentIsPercent && (
                         <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">%</span>
@@ -458,7 +458,7 @@ export default function MortgageCalculator() {
                       value={interestRate}
                       onChange={(e) => setInterestRate(e.target.value)}
                       className={inputCls}
-                      placeholder="6.5"
+                      placeholder=""
                     />
                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
                       %
@@ -713,6 +713,7 @@ export default function MortgageCalculator() {
               <div className="mt-6 border-t border-dark-600/50 pt-6">
                 <MortgageRateChart />
               </div>
+
             </div>
           </ScrollReveal>
 
