@@ -59,7 +59,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative h-[48rem] flex items-center justify-center px-6 pt-20 overflow-hidden bg-black"
+      className="relative h-[44rem] md:h-[45rem] flex items-center justify-center px-6 pt-20 overflow-hidden bg-black"
     >
       {/* Faint radial glow behind text */}
       <div
@@ -72,7 +72,7 @@ export default function Hero() {
       {/* Logo — anchored to right side, bright */}
       <div
         ref={logoRef}
-        className="absolute inset-y-0 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-[-8rem] flex items-center will-change-transform pointer-events-none"
+        className="absolute inset-y-0 left-0 translate-x-0 md:left-auto md:right-[-8rem] flex items-center will-change-transform pointer-events-none"
         aria-hidden="true"
       >
         <Image
@@ -80,7 +80,7 @@ export default function Hero() {
           alt=""
           width={960}
           height={894}
-          className="opacity-[0.55] w-[52rem] h-auto object-contain mix-blend-lighten [mask-image:linear-gradient(to_right,transparent,black_4%)]"
+          className="opacity-[0.55] w-[150vw] md:w-[52rem] h-auto object-contain mix-blend-lighten [mask-image:linear-gradient(to_right,transparent,black_4%)]"
           priority
         />
       </div>
@@ -90,7 +90,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <div
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-gold-400/40 transition-opacity duration-1000 ${
+        className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1.5 text-gold-400/40 transition-opacity duration-1000 ${
           done ? "opacity-100" : "opacity-0"
         }`}
         aria-hidden="true"
@@ -102,7 +102,7 @@ export default function Hero() {
       </div>
 
       {/* Text content — centered */}
-      <div className="relative text-center max-w-5xl mx-auto ">
+      <div className="relative text-center max-w-5xl mx-auto pt-4">
 
         {/* Eyebrow */}
         <div className={`flex items-center justify-center gap-4 mb-8 transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
@@ -148,7 +148,7 @@ export default function Hero() {
 
         <a
           href="#property-inquiry"
-          className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-12 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_40px_rgba(201,149,46,0.6)] hover:scale-[1.07] transition-all duration-700 ${
+          className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-12 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_40px_rgba(201,149,46,0.6)] hover:scale-[1.07] transition-all duration-700 mb-16 md:mb-20 ${
             done ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
