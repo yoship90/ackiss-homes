@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { formType, name, email, phone, message, address, mlsId } = body;
+  const { formType, name, email, phone, message, address, mlsId, targetRate, loanType } = body;
 
   const apiKey = process.env.FUB_API_KEY;
   if (!apiKey) {
@@ -24,6 +24,11 @@ export async function POST(req: NextRequest) {
     if (address) lines.push(`Property Address: ${address}`);
     if (mlsId) lines.push(`MLS ID: ${mlsId}`);
     note = lines.join("\n");
+  } else if (formType === "rate-alert") {
+    const lines: string[] = ["Rate Alert Sign-Up"];
+    if (targetRate) lines.push(`Target Rate: ${targetRate}%`);
+    if (loanType) lines.push(`Loan Type: ${loanType}`);
+    note = lines.join("\n");
   }
 
   // Build person payload
@@ -33,7 +38,7 @@ export async function POST(req: NextRequest) {
 
   const payload: Record<string, unknown> = {
     source: "Ackiss Homes Website",
-    type: formType === "inquiry" ? "Property Inquiry" : "General Inquiry",
+    type: formType === "inquiry" ? "Property Inquiry" : formType === "rate-alert" ? "Rate Alert" : "General Inquiry",
     person,
   };
   if (note) payload.message = note;
@@ -58,6 +63,8 @@ export async function POST(req: NextRequest) {
   // Tag the person via a follow-up PATCH — /v1/events ignores tags on the person object
   const tags = formType === "inquiry"
     ? ["website-lead", "website-property-inquiry"]
+    : formType === "rate-alert"
+    ? ["website-lead", "rate-alert"]
     : ["website-lead", "website-contact"];
 
   try {
@@ -72,6 +79,9 @@ export async function POST(req: NextRequest) {
       if (formType === "inquiry") {
         if (address) personUpdate.customPropertyOfInterestAddress = address;
         if (mlsId) personUpdate.customPropertyOfInterestMLSID = mlsId;
+      } else if (formType === "rate-alert") {
+        if (targetRate) personUpdate.customTargetRate = `${targetRate}%`;
+        if (loanType) personUpdate.customLoanType = loanType;
       }
       await fetch(`https://api.followupboss.com/v1/people/${personId}`, {
         method: "PUT",
