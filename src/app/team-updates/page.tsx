@@ -102,9 +102,9 @@ const entries: Entry[] = [
   {
     id: "custom-domain",
     title: "Custom Domain (ackisshomes.com)",
-    description: "Connect the ackisshomes.com domain to the Vercel deployment. Currently live at ackiss-homes.vercel.app only.",
+    description: "ackisshomes.com is connected and live via Vercel.",
     date: "Feb 2026",
-    status: "todo",
+    status: "live",
   },
   {
     id: "calendly",
