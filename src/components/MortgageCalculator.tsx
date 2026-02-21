@@ -732,6 +732,76 @@ export default function MortgageCalculator() {
                 </div>
               )}
 
+              {/* Monthly Payment Summary */}
+              {basePnI > 0 && <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
+                <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
+                  Monthly Payment
+                </h3>
+
+                <div className="space-y-3">
+                  <div className="flex justify-between text-gray-300">
+                    <span>Principal &amp; Interest</span>
+                    <span>${fmt(basePnI)}</span>
+                  </div>
+
+                  {hasExpenses && (
+                    <>
+                      {monthlyTax > 0 && (
+                        <div className="flex justify-between text-gray-400 text-sm">
+                          <span>Property Tax</span>
+                          <span>${fmt(monthlyTax)}</span>
+                        </div>
+                      )}
+                      {monthlyInsurance > 0 && (
+                        <div className="flex justify-between text-gray-400 text-sm">
+                          <span>Insurance</span>
+                          <span>${fmt(monthlyInsurance)}</span>
+                        </div>
+                      )}
+                      {monthlyPmi > 0 && (
+                        <div className="flex justify-between text-gray-400 text-sm">
+                          <span>PMI</span>
+                          <span>${fmt(monthlyPmi)}</span>
+                        </div>
+                      )}
+                      {monthlyHoa > 0 && (
+                        <div className="flex justify-between text-gray-400 text-sm">
+                          <span>HOA</span>
+                          <span>${fmt(monthlyHoa)}</span>
+                        </div>
+                      )}
+                      <div className="border-t border-dark-600/50 pt-3 mt-3" />
+                    </>
+                  )}
+
+                  <div className="flex justify-between text-lg font-semibold text-gold-400">
+                    <span>Total Monthly</span>
+                    <span>${fmt(hasExpenses ? totalMonthlyPayment : basePnI)}</span>
+                  </div>
+                </div>
+
+                {extraSavings && extraSavings.interestSaved > 0 && (
+                  <div className="mt-6 bg-dark-800 border border-gold-500/20 rounded-sm p-4">
+                    <p className="text-gold-400 text-sm font-semibold">
+                      You save ${fmtInt(Math.round(extraSavings.interestSaved))}{" "}
+                      in interest and pay off{" "}
+                      {extraSavings.yearsSaved > 0 &&
+                        `${extraSavings.yearsSaved} year${
+                          extraSavings.yearsSaved !== 1 ? "s" : ""
+                        }`}
+                      {extraSavings.yearsSaved > 0 &&
+                        extraSavings.remainingMonths > 0 &&
+                        ", "}
+                      {extraSavings.remainingMonths > 0 &&
+                        `${extraSavings.remainingMonths} month${
+                          extraSavings.remainingMonths !== 1 ? "s" : ""
+                        }`}{" "}
+                      early
+                    </p>
+                  </div>
+                )}
+              </div>}
+
               {/* Total Cost Breakdown with Donut Chart */}
               {pieSegments.length > 0 && (
                 <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
@@ -805,76 +875,6 @@ export default function MortgageCalculator() {
                   </div>
                 </div>
               )}
-
-              {/* Monthly Payment Summary */}
-              {basePnI > 0 && <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
-                <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
-                  Monthly Payment
-                </h3>
-
-                <div className="space-y-3">
-                  <div className="flex justify-between text-gray-300">
-                    <span>Principal &amp; Interest</span>
-                    <span>${fmt(basePnI)}</span>
-                  </div>
-
-                  {hasExpenses && (
-                    <>
-                      {monthlyTax > 0 && (
-                        <div className="flex justify-between text-gray-400 text-sm">
-                          <span>Property Tax</span>
-                          <span>${fmt(monthlyTax)}</span>
-                        </div>
-                      )}
-                      {monthlyInsurance > 0 && (
-                        <div className="flex justify-between text-gray-400 text-sm">
-                          <span>Insurance</span>
-                          <span>${fmt(monthlyInsurance)}</span>
-                        </div>
-                      )}
-                      {monthlyPmi > 0 && (
-                        <div className="flex justify-between text-gray-400 text-sm">
-                          <span>PMI</span>
-                          <span>${fmt(monthlyPmi)}</span>
-                        </div>
-                      )}
-                      {monthlyHoa > 0 && (
-                        <div className="flex justify-between text-gray-400 text-sm">
-                          <span>HOA</span>
-                          <span>${fmt(monthlyHoa)}</span>
-                        </div>
-                      )}
-                      <div className="border-t border-dark-600/50 pt-3 mt-3" />
-                    </>
-                  )}
-
-                  <div className="flex justify-between text-lg font-semibold text-gold-400">
-                    <span>Total Monthly</span>
-                    <span>${fmt(hasExpenses ? totalMonthlyPayment : basePnI)}</span>
-                  </div>
-                </div>
-
-                {extraSavings && extraSavings.interestSaved > 0 && (
-                  <div className="mt-6 bg-dark-800 border border-gold-500/20 rounded-sm p-4">
-                    <p className="text-gold-400 text-sm font-semibold">
-                      You save ${fmtInt(Math.round(extraSavings.interestSaved))}{" "}
-                      in interest and pay off{" "}
-                      {extraSavings.yearsSaved > 0 &&
-                        `${extraSavings.yearsSaved} year${
-                          extraSavings.yearsSaved !== 1 ? "s" : ""
-                        }`}
-                      {extraSavings.yearsSaved > 0 &&
-                        extraSavings.remainingMonths > 0 &&
-                        ", "}
-                      {extraSavings.remainingMonths > 0 &&
-                        `${extraSavings.remainingMonths} month${
-                          extraSavings.remainingMonths !== 1 ? "s" : ""
-                        }`}{" "}
-                      early
-                    </p>
-                  </div>
-                )}
-              </div>}
 
               {/* Loan Summary */}
               {basePnI > 0 && <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
