@@ -143,7 +143,7 @@ export default function Testimonials() {
 
               <div
                 key={current}
-                className="animate-fade-in relative z-10 pt-16 md:pt-0"
+                className="animate-fade-in relative z-10 pt-8 md:pt-0"
                 aria-live="polite"
               >
                 <p className="text-gray-300 leading-relaxed text-lg md:text-xl italic mb-8 max-w-2xl mx-auto">
