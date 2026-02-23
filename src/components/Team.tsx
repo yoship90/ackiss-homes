@@ -6,7 +6,6 @@ const agents = [
     name: "Jeremy & Amanda Ackiss",
     title: "The Family Behind Ackiss Homes",
     bio: "What started with Amanda's passion for helping families find their perfect home has grown into a true family affair. A few years later, Jeremy jumped on board — because why should she have all the fun? Together, they bring heart, hustle, and a shared obsession with getting every detail right. Their littlest team member, Liam, hasn't closed a deal yet — but he's already nailing the open-house snack table.",
-    email: "ackisshomes@gmail.com",
   },
 ];
 
@@ -56,17 +55,6 @@ export default function Team() {
                 <p className="text-gray-400 leading-relaxed text-lg mb-8 max-w-xl">
                   {agent.bio}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-5">
-                  <a
-                    href={`mailto:${agent.email}`}
-                    className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-gold-400 transition-colors"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    {agent.email}
-                  </a>
-                </div>
               </div>
             </ScrollReveal>
           </div>
