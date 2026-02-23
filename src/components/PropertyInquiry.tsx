@@ -174,32 +174,32 @@ export default function PropertyInquiry() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="inquiry-phone" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
-                        Phone
+                      <label htmlFor="inquiry-email" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
+                        Email
                       </label>
                       <input
-                        type="tel"
-                        id="inquiry-phone"
-                        name="phone"
+                        type="email"
+                        id="inquiry-email"
+                        name="email"
                         required
-                        autoComplete="tel"
+                        autoComplete="email"
                         className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
-                        placeholder="(555) 123-4567"
+                        placeholder="you@example.com"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="inquiry-email" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
-                      Email <span className="text-gray-600 normal-case tracking-normal">(optional)</span>
+                    <label htmlFor="inquiry-phone" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
+                      Phone <span className="normal-case tracking-normal text-gray-600 text-xs">(Optional)</span>
                     </label>
                     <input
-                      type="email"
-                      id="inquiry-email"
-                      name="email"
-                      autoComplete="email"
+                      type="tel"
+                      id="inquiry-phone"
+                      name="phone"
+                      autoComplete="tel"
                       className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
-                      placeholder="you@example.com"
+                      placeholder="(555) 123-4567"
                     />
                   </div>
 

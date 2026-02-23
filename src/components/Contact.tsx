@@ -115,7 +115,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <label htmlFor="phone" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
-                    Phone
+                    Phone <span className="normal-case tracking-normal text-gray-600 text-xs">(Optional)</span>
                   </label>
                   <input
                     type="tel"
