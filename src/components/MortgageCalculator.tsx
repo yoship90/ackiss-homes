@@ -410,7 +410,7 @@ export default function MortgageCalculator() {
                           setDownPaymentIsPercent(false);
                         }
                       }}
-                      className={`px-4 py-1.5 border rounded-sm text-sm transition-colors uppercase tracking-wider ${
+                      className={`px-4 py-1.5 border rounded-sm text-sm transition-colors uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
                         !downPaymentIsPercent
                           ? "bg-gold-500 text-dark-900 border-gold-500 font-semibold"
                           : "border-dark-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
@@ -475,7 +475,7 @@ export default function MortgageCalculator() {
                         key={yr}
                         type="button"
                         onClick={() => setLoanTerm(yr)}
-                        className={`flex-1 py-3 rounded-sm text-sm uppercase tracking-wider transition-colors duration-300 border ${
+                        className={`flex-1 py-3 rounded-sm text-sm uppercase tracking-wider transition-colors duration-300 border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
                           loanTerm === yr
                             ? "bg-gold-500 text-dark-900 border-gold-500 font-semibold"
                             : "border-dark-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
@@ -493,7 +493,7 @@ export default function MortgageCalculator() {
                 <button
                   type="button"
                   onClick={() => setShowExtras(!showExtras)}
-                  className="flex items-center justify-between w-full group"
+                  className="flex items-center justify-between w-full group focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70"
                 >
                   <span className="text-sm uppercase tracking-wider text-gray-300 group-hover:text-gold-400 transition-colors">
                     Extra Payments
@@ -583,7 +583,7 @@ export default function MortgageCalculator() {
                 <button
                   type="button"
                   onClick={() => setShowExpenses(!showExpenses)}
-                  className="flex items-center justify-between w-full group"
+                  className="flex items-center justify-between w-full group focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70"
                 >
                   <span className="text-sm uppercase tracking-wider text-gray-300 group-hover:text-gold-400 transition-colors">
                     Homeowner Expenses
@@ -634,7 +634,7 @@ export default function MortgageCalculator() {
                             }
                             setPropertyTaxIsPercent(!propertyTaxIsPercent);
                           }}
-                          className="px-4 py-1.5 border border-dark-600 rounded-sm text-sm text-gold-400 hover:border-gold-500/50 transition-colors uppercase tracking-wider"
+                          className="px-4 py-1.5 border border-dark-600 rounded-sm text-sm text-gold-400 hover:border-gold-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-colors uppercase tracking-wider"
                         >
                           {propertyTaxIsPercent ? "%" : "$"}
                         </button>
@@ -733,7 +733,7 @@ export default function MortgageCalculator() {
               )}
 
               {/* Monthly Payment Summary */}
-              {basePnI > 0 && <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
+              {basePnI > 0 && <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-[transform,box-shadow,border-color] duration-300 group">
                 <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
                   Monthly Payment
                 </h3>
@@ -804,8 +804,8 @@ export default function MortgageCalculator() {
 
               {/* Total Cost Breakdown with Donut Chart */}
               {pieSegments.length > 0 && (
-                <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
-                  <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
+                <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-[transform,box-shadow,border-color] duration-300 group">
+                  <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-[width] duration-500 ease-out" aria-hidden="true" />
                   <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
                     Total Cost Breakdown
                   </h3>
@@ -837,7 +837,7 @@ export default function MortgageCalculator() {
                                   strokeWidth={stroke}
                                   strokeDasharray={`${dashLength} ${circumference - dashLength}`}
                                   strokeDashoffset={dashOffset}
-                                  className="transition-all duration-500"
+                                  className="transition-[stroke-dasharray,stroke-dashoffset] duration-500"
                                 />
                               );
                             })}
@@ -877,7 +877,7 @@ export default function MortgageCalculator() {
               )}
 
               {/* Loan Summary */}
-              {basePnI > 0 && <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
+              {basePnI > 0 && <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-[transform,box-shadow,border-color] duration-300 group">
                 <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
                   Loan Summary
                 </h3>
@@ -937,7 +937,7 @@ export default function MortgageCalculator() {
                         }, 50);
                       }
                     }}
-                    className="flex items-center justify-center gap-3 w-full px-6 py-3 bg-dark-900 border border-dark-600 rounded-sm text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 hover:border-gold-500/50 transition-colors duration-300 cursor-pointer"
+                    className="flex items-center justify-center gap-3 w-full px-6 py-3 bg-dark-900 border border-dark-600 rounded-sm text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 hover:border-gold-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-[0.98] transition-colors duration-300 cursor-pointer"
                   >
                     {showSchedule ? "Hide" : "View Full"} Amortization Schedule
                     <Chevron open={showSchedule} />
@@ -1000,7 +1000,7 @@ export default function MortgageCalculator() {
                     key={view}
                     type="button"
                     onClick={() => setScheduleView(view)}
-                    className={`px-4 py-2 rounded-sm text-sm uppercase tracking-wider transition-colors border ${
+                    className={`px-4 py-2 rounded-sm text-sm uppercase tracking-wider transition-colors border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
                       scheduleView === view
                         ? "bg-gold-500 text-dark-900 border-gold-500 font-semibold"
                         : "border-dark-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"

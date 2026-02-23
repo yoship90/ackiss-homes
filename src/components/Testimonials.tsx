@@ -159,7 +159,7 @@ export default function Testimonials() {
             {/* Navigation arrows */}
             <button
               onClick={prev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 w-10 h-10 bg-dark-800 border border-dark-600/50 rounded-full flex items-center justify-center text-gray-400 hover:text-gold-400 hover:border-gold-500/30 transition-all duration-300"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 w-10 h-10 bg-dark-800 border border-dark-600/50 rounded-full flex items-center justify-center text-gray-400 hover:text-gold-400 hover:border-gold-500/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-90 transition-[color,border-color,transform] duration-300"
               aria-label="Previous testimonial"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,7 +168,7 @@ export default function Testimonials() {
             </button>
             <button
               onClick={next}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 w-10 h-10 bg-dark-800 border border-dark-600/50 rounded-full flex items-center justify-center text-gray-400 hover:text-gold-400 hover:border-gold-500/30 transition-all duration-300"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 w-10 h-10 bg-dark-800 border border-dark-600/50 rounded-full flex items-center justify-center text-gray-400 hover:text-gold-400 hover:border-gold-500/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-90 transition-[color,border-color,transform] duration-300"
               aria-label="Next testimonial"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -183,7 +183,7 @@ export default function Testimonials() {
               <button
                 key={i}
                 onClick={() => goTo(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                className={`w-2.5 h-2.5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-90 transition-[width,background-color,transform] duration-300 ${
                   i === current
                     ? "bg-gold-400 w-8"
                     : "bg-dark-600 hover:bg-dark-500"

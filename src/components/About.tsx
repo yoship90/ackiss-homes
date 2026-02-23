@@ -106,8 +106,8 @@ export default function About() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5 md:pl-12">
           {stats.map((stat, i) => (
             <ScrollReveal key={stat.label} delay={i * 100} direction="scale">
-              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 text-center hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-all duration-300 group">
-                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
+              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 text-center hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-[transform,box-shadow,border-color] duration-300 group">
+                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-[width] duration-500 ease-out" aria-hidden="true" />
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden="true">
                   <span className="text-[6rem] font-heading font-bold text-gold-400/[0.06] leading-none">{stat.target}{stat.suffix}</span>
                 </div>
@@ -135,7 +135,7 @@ export default function About() {
               href="https://www.zillow.com/profile/amanda5867"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 transition-colors duration-300"
+              className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
             >
               <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
@@ -147,7 +147,7 @@ export default function About() {
               href="https://www.zillow.com/profile/jeremy2621"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 transition-colors duration-300"
+              className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
             >
               <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />

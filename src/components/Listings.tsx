@@ -1,48 +1,16 @@
 import ScrollReveal from "./ScrollReveal";
 import SplitHeading from "./SplitHeading";
 
-const listings = [
-  {
-    address: "142 Oakwood Drive",
-    city: "Maplewood, NJ",
-    price: "$625,000",
-    beds: 4,
-    baths: 3,
-    sqft: "2,400",
-    status: "For Sale",
-    link: "#",
-  },
-  {
-    address: "38 Riverside Terrace",
-    city: "Summit, NJ",
-    price: "$489,000",
-    beds: 3,
-    baths: 2,
-    sqft: "1,850",
-    status: "For Sale",
-    link: "#",
-  },
-  {
-    address: "510 Elm Street, Unit 4B",
-    city: "Montclair, NJ",
-    price: "$375,000",
-    beds: 2,
-    baths: 2,
-    sqft: "1,200",
-    status: "Pending",
-    link: "#",
-  },
-  {
-    address: "27 Cedar Lane",
-    city: "Short Hills, NJ",
-    price: "$1,150,000",
-    beds: 5,
-    baths: 4,
-    sqft: "3,800",
-    status: "For Sale",
-    link: "#",
-  },
-];
+const listings: {
+  address: string;
+  city: string;
+  price: string;
+  beds: number;
+  baths: number;
+  sqft: string;
+  status: string;
+  link: string;
+}[] = [];
 
 export default function Listings() {
   if (listings.length === 0) return null;
@@ -70,9 +38,9 @@ export default function Listings() {
                 href={listing.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative block bg-dark-700 border border-dark-600/50 rounded-sm overflow-hidden group hover:border-gold-500/50 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 transition-all duration-300"
+                className="relative block bg-dark-700 border border-dark-600/50 rounded-sm overflow-hidden group hover:border-gold-500/50 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-[0.98] transition-[transform,box-shadow,border-color] duration-300"
               >
-                <div className="absolute top-0 left-0 z-10 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
+                <div className="absolute top-0 left-0 z-10 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-[width] duration-500 ease-out" aria-hidden="true" />
                 {/* Placeholder image area */}
                 <div className="h-48 bg-dark-600 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-dark-500/50 to-dark-700/50 flex items-center justify-center">
@@ -144,7 +112,7 @@ export default function Listings() {
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block border border-gold-500/50 hover:bg-gold-500 hover:text-dark-900 text-gold-400 font-semibold px-8 py-4 rounded-sm text-sm uppercase tracking-widest transition-colors duration-300"
+              className="inline-block border border-gold-500/50 hover:bg-gold-500 hover:text-dark-900 text-gold-400 font-semibold px-8 py-4 rounded-sm text-sm uppercase tracking-widest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-[0.97] transition-[background-color,color,transform] duration-300"
             >
               View All Listings on Zillow
             </a>

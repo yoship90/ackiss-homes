@@ -64,7 +64,7 @@ export default function RateAlertPage() {
           </Link>
           <Link
             href="/"
-            className="text-xs text-gray-400 uppercase tracking-widest hover:text-gold-400 transition-colors"
+            className="text-xs text-gray-400 uppercase tracking-widest hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors"
           >
             ← Back to site
           </Link>
@@ -259,7 +259,7 @@ export default function RateAlertPage() {
                   <button
                     type="submit"
                     disabled={status === "submitting"}
-                    className="w-full bg-gold-500 hover:bg-gold-400 disabled:opacity-50 text-dark-900 font-bold py-4 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.2)] hover:shadow-[0_0_30px_rgba(201,149,46,0.5)] transition-all duration-300 mt-2"
+                    className="w-full bg-gold-500 hover:bg-gold-400 disabled:opacity-50 text-dark-900 font-bold py-4 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.2)] hover:shadow-[0_0_30px_rgba(201,149,46,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dark-700 active:scale-[0.97] transition-[background-color,box-shadow,transform] duration-300 mt-2"
                   >
                     {status === "submitting" ? "Submitting..." : "Set My Rate Alert →"}
                   </button>

@@ -82,10 +82,10 @@ export default function Neighborhoods() {
             {neighborhoods.map((n, i) => (
               <ScrollReveal key={n.name} delay={i * 100} direction="scale">
                 <div
-                  className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:border-gold-500/50 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 transition-all duration-300 group h-full flex flex-col cursor-pointer"
+                  className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:border-gold-500/50 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 active:scale-[0.98] transition-[transform,box-shadow,border-color] duration-300 group h-full flex flex-col cursor-pointer"
                   onClick={() => setSelected(n)}
                 >
-                  <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
+                  <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-[width] duration-500 ease-out" aria-hidden="true" />
                   {/* Gradient placeholder for future image */}
                   <div className="w-full h-40 rounded-sm mb-6 bg-gradient-to-br from-dark-600 to-dark-800 flex items-center justify-center">
                     <svg

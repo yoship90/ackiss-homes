@@ -44,7 +44,7 @@ export default function Footer() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-gray-400 hover:text-gold-400 transition-colors duration-300 uppercase tracking-wider"
+                className="text-sm text-gray-400 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300 uppercase tracking-wider"
               >
                 {link.label}
               </a>

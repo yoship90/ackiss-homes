@@ -2,6 +2,9 @@ import ScrollReveal from "./ScrollReveal";
 import SplitHeading from "./SplitHeading";
 
 export default function MLSSearch() {
+  // Hidden until Triumph Realty iframe permission is confirmed
+  return null;
+
   return (
     <section id="mls-search" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">

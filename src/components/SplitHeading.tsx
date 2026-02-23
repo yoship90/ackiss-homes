@@ -46,7 +46,7 @@ export default function SplitHeading({ children, className = "" }: Props) {
       {words.map((word, i) => (
         <span key={i} className="inline-block overflow-hidden leading-[inherit]">
           <span
-            className={`inline-block transition-all duration-500 ease-out ${
+            className={`inline-block transition-[transform,opacity] duration-500 ease-out ${
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[0.4em]"
             }`}
             style={{ transitionDelay: `${i * 80}ms` }}

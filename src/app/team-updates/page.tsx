@@ -172,7 +172,7 @@ const entries: Entry[] = [
 
 const STATUS_CONFIG: Record<Status, { label: string; color: string; dot: string }> = {
   "live":             { label: "Live",            color: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20", dot: "bg-emerald-400" },
-  "in-progress":      { label: "In Progress",     color: "bg-blue-500/10 text-blue-400 border-blue-500/20",         dot: "bg-blue-400" },
+  "in-progress":      { label: "In Progress",     color: "bg-amber-500/10 text-amber-400 border-amber-500/20",       dot: "bg-amber-400" },
   "needs-approval":   { label: "Needs Approval",  color: "bg-gold-500/10 text-gold-400 border-gold-500/20",         dot: "bg-gold-400" },
   "todo":             { label: "To Do",            color: "bg-gray-500/10 text-gray-400 border-gray-500/20",         dot: "bg-gray-400" },
   "idea":             { label: "Idea",             color: "bg-purple-500/10 text-purple-400 border-purple-500/20",   dot: "bg-purple-400" },
@@ -238,7 +238,7 @@ function EntryCard({ entry }: { entry: Entry }) {
   }
 
   return (
-    <div className={`relative bg-dark-700 border rounded-sm p-6 transition-all duration-300 ${
+    <div className={`relative bg-dark-700 border rounded-sm p-6 transition-[border-color] duration-300 ${
       state.stage === "done"
         ? "border-emerald-500/40"
         : entry.status === "needs-approval"
@@ -285,7 +285,7 @@ function EntryCard({ entry }: { entry: Entry }) {
           {state.stage === "idle" && (
             <button
               onClick={() => setState((s) => ({ ...s, stage: "who" }))}
-              className="text-xs uppercase tracking-widest text-gold-400 hover:text-gold-300 transition-colors border border-gold-500/30 hover:border-gold-500/60 px-4 py-2 rounded-sm"
+              className="text-xs uppercase tracking-widest text-gold-400 hover:text-gold-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-colors border border-gold-500/30 hover:border-gold-500/60 px-4 py-2 rounded-sm"
             >
               Respond to this item →
             </button>
@@ -300,14 +300,14 @@ function EntryCard({ entry }: { entry: Entry }) {
                   <button
                     key={name}
                     onClick={() => setState((s) => ({ ...s, stage: "decision", approver: name }))}
-                    className="px-5 py-2 border border-dark-600 rounded-sm text-sm text-gray-300 hover:border-gold-500/50 hover:text-gold-400 transition-colors"
+                    className="px-5 py-2 border border-dark-600 rounded-sm text-sm text-gray-300 hover:border-gold-500/50 hover:text-gold-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-colors"
                   >
                     {name}
                   </button>
                 ))}
                 <button
                   onClick={() => setState(defaultApproval())}
-                  className="px-3 py-2 text-xs text-gray-600 hover:text-gray-400 transition-colors"
+                  className="px-3 py-2 text-xs text-gray-600 hover:text-gray-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-60 transition-colors"
                 >
                   Cancel
                 </button>
@@ -322,25 +322,25 @@ function EntryCard({ entry }: { entry: Entry }) {
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => { setState((s) => ({ ...s, decision: "approved", notes: "", stage: "submitting" })); submitApproval(); }}
-                  className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-sm text-sm hover:bg-emerald-500/20 transition-colors uppercase tracking-wider"
+                  className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-sm text-sm hover:bg-emerald-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 active:scale-95 transition-colors uppercase tracking-wider"
                 >
                   ✅ Approve
                 </button>
                 <button
                   onClick={() => setState((s) => ({ ...s, decision: "approved-with-notes", stage: "notes" }))}
-                  className="px-4 py-2 bg-gold-500/10 border border-gold-500/30 text-gold-400 rounded-sm text-sm hover:bg-gold-500/20 transition-colors uppercase tracking-wider"
+                  className="px-4 py-2 bg-gold-500/10 border border-gold-500/30 text-gold-400 rounded-sm text-sm hover:bg-gold-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-colors uppercase tracking-wider"
                 >
                   📝 Approve with Notes
                 </button>
                 <button
                   onClick={() => setState((s) => ({ ...s, decision: "changes-requested", stage: "notes" }))}
-                  className="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 rounded-sm text-sm hover:bg-red-500/20 transition-colors uppercase tracking-wider"
+                  className="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 rounded-sm text-sm hover:bg-red-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 active:scale-95 transition-colors uppercase tracking-wider"
                 >
                   🔄 Request Changes
                 </button>
                 <button
                   onClick={() => setState(defaultApproval())}
-                  className="px-3 py-2 text-xs text-gray-600 hover:text-gray-400 transition-colors"
+                  className="px-3 py-2 text-xs text-gray-600 hover:text-gray-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-60 transition-colors"
                 >
                   Cancel
                 </button>
@@ -368,13 +368,13 @@ function EntryCard({ entry }: { entry: Entry }) {
                 <button
                   onClick={submitApproval}
                   disabled={!state.notes.trim()}
-                  className="px-5 py-2 bg-gold-500 hover:bg-gold-400 disabled:opacity-40 text-dark-900 font-bold rounded-sm text-xs uppercase tracking-widest transition-colors"
+                  className="px-5 py-2 bg-gold-500 hover:bg-gold-400 disabled:opacity-40 text-dark-900 font-bold rounded-sm text-xs uppercase tracking-widest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-1 focus-visible:ring-offset-dark-800 active:scale-95 transition-colors"
                 >
                   Submit
                 </button>
                 <button
                   onClick={() => setState(defaultApproval())}
-                  className="px-3 py-2 text-xs text-gray-600 hover:text-gray-400 transition-colors"
+                  className="px-3 py-2 text-xs text-gray-600 hover:text-gray-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-60 transition-colors"
                 >
                   Cancel
                 </button>
@@ -444,7 +444,7 @@ export default function TeamUpdatesPage() {
           <div className="flex flex-wrap gap-2 mb-10">
             <button
               onClick={() => setFilter("all")}
-              className={`px-4 py-1.5 rounded-full text-xs uppercase tracking-wider border transition-colors ${
+              className={`px-4 py-1.5 rounded-full text-xs uppercase tracking-wider border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
                 filter === "all"
                   ? "bg-white/10 text-white border-white/20"
                   : "text-gray-500 border-dark-600 hover:border-gray-500 hover:text-gray-300"
@@ -459,7 +459,7 @@ export default function TeamUpdatesPage() {
                 <button
                   key={status}
                   onClick={() => setFilter(status as Status)}
-                  className={`px-4 py-1.5 rounded-full text-xs uppercase tracking-wider border transition-colors ${
+                  className={`px-4 py-1.5 rounded-full text-xs uppercase tracking-wider border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
                     filter === status
                       ? `${cfg.color}`
                       : "text-gray-500 border-dark-600 hover:border-gray-500 hover:text-gray-300"

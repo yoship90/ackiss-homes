@@ -80,7 +80,7 @@ export default function Hero() {
   }, [prefersReducedMotion]);
 
   // Shared class for mobile fade+slide-up reveal
-  const mobileBase = "transition-all duration-700 ease-out";
+  const mobileBase = "transition-[transform,opacity] duration-700 ease-out";
   const mobileVisible = "opacity-100 translate-y-0";
   const mobileHidden = "opacity-0 translate-y-8";
 
@@ -172,7 +172,7 @@ export default function Hero() {
 
             <a
               href="#property-inquiry"
-              className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-12 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_40px_rgba(201,149,46,0.6)] hover:scale-[1.07] transition-all duration-700 mb-16 md:mb-20 ${
+              className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-12 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_40px_rgba(201,149,46,0.6)] hover:scale-[1.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black active:scale-[0.97] transition-[transform,opacity,box-shadow] duration-700 mb-16 md:mb-20 ${
                 done ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
@@ -217,7 +217,7 @@ export default function Hero() {
             {/* CTA */}
             <a
               href="#property-inquiry"
-              className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-12 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_40px_rgba(201,149,46,0.6)] hover:scale-[1.07] mb-16 ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
+              className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-12 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_40px_rgba(201,149,46,0.6)] hover:scale-[1.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black active:scale-[0.97] mb-16 ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
               style={{ transitionDelay: "450ms" }}
             >
               Get Live MLS Data &rarr;

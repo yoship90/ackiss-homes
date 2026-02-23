@@ -11,7 +11,6 @@ const leftNav = [
 
 const rightNav = [
   { label: "Mortgage\nCalculator", href: "#calculator" },
-  { label: "Listings", href: "#listings" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Social", href: "#social" },
   { label: "Contact", href: "#contact" },
@@ -56,7 +55,7 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 transition-colors duration-300 text-center leading-tight"
+              className="text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300 text-center leading-tight"
             >
               {link.label.includes("\n") ? (
                 <>
@@ -72,7 +71,7 @@ export default function Header() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden text-gray-300 hover:text-gold-400"
+          className="md:hidden text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-1 focus-visible:ring-offset-dark-900 active:scale-90 transition-[transform,color] duration-150 rounded-sm"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle navigation"
           aria-expanded={mobileOpen}
@@ -95,7 +94,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className="block py-3 text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 transition-colors"
+              className="block py-3 text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors"
             >
               {link.label}
             </a>

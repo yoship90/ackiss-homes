@@ -54,8 +54,8 @@ export default function Services() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, i) => (
             <ScrollReveal key={service.title} delay={i * 100} direction="scale">
-              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:border-gold-500/50 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 transition-all duration-300 group h-full">
-                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true" />
+              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:border-gold-500/50 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 transition-[transform,box-shadow,border-color] duration-300 group h-full">
+                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-[width] duration-500 ease-out" aria-hidden="true" />
                 <div className="text-gold-400 mb-5 group-hover:text-gold-500 transition-colors">
                   {service.icon}
                 </div>
