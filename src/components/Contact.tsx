@@ -172,11 +172,6 @@ export default function Contact() {
                   Contact Info
                 </h3>
                 <p className="text-gray-400 leading-relaxed">
-                  Phone:{" "}
-                  <a href="tel:+17578068979" className="hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors">
-                    (757) 806-8979
-                  </a>
-                  <br />
                   Email:{" "}
                   <a href="mailto:ackisshomes@gmail.com" className="hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors">
                     ackisshomes@gmail.com
