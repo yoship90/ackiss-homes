@@ -1,10 +1,9 @@
 import Image from "next/image";
 
 const socialLinks = [
-  { label: "Facebook", href: "#" },
-  { label: "Instagram", href: "#" },
-  { label: "LinkedIn", href: "#" },
-  { label: "Zillow", href: "#" },
+  { label: "Facebook", href: "https://www.facebook.com/profile.php?id=100090275910543" },
+  { label: "Instagram", href: "https://www.instagram.com/ackisshomes/" },
+  { label: "Zillow", href: "https://www.zillow.com" },
 ];
 
 export default function Footer() {

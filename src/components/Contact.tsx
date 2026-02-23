@@ -161,9 +161,9 @@ export default function Contact() {
                   Office
                 </h3>
                 <p className="text-gray-400 leading-relaxed">
-                  123 Main Street, Suite 200
+                  2135 General Booth Blvd, Suite 146
                   <br />
-                  Your City, State 12345
+                  Virginia Beach, VA 23454
                 </p>
               </div>
               <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-6 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-[transform,box-shadow,border-color] duration-300 group">
@@ -173,27 +173,14 @@ export default function Contact() {
                 </h3>
                 <p className="text-gray-400 leading-relaxed">
                   Phone:{" "}
-                  <a href="tel:+15551234567" className="hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors">
-                    (555) 123-4567
+                  <a href="tel:+17578068979" className="hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors">
+                    (757) 806-8979
                   </a>
                   <br />
                   Email:{" "}
-                  <a href="mailto:hello@ackisshomes.com" className="hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors">
-                    hello@ackisshomes.com
+                  <a href="mailto:ackisshomes@gmail.com" className="hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors">
+                    ackisshomes@gmail.com
                   </a>
-                </p>
-              </div>
-              <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-6 hover:-translate-y-2 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-[transform,box-shadow,border-color] duration-300 group">
-                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-[width] duration-500 ease-out" aria-hidden="true" />
-                <h3 className="text-lg font-heading font-semibold mb-3 text-gold-400">
-                  Hours
-                </h3>
-                <p className="text-gray-400 leading-relaxed">
-                  Monday &ndash; Friday: 9:00 AM &ndash; 6:00 PM
-                  <br />
-                  Saturday: 10:00 AM &ndash; 4:00 PM
-                  <br />
-                  Sunday: By Appointment
                 </p>
               </div>
             </div>

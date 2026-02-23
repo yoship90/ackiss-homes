@@ -18,34 +18,34 @@ function usePrefersReducedMotion() {
 
 const testimonials = [
   {
-    name: "Sarah & James M.",
-    role: "First-Time Buyers",
+    name: "Kathy B.",
+    role: "Buyer · Virginia Beach, VA",
     quote:
-      "Ackiss Homes made our first home purchase feel effortless. They were patient, knowledgeable, and truly had our best interests at heart.",
+      "Amanda was the perfect realtor for us. She was patient and worked with us for over four months, negotiating the best deal for our dream home. If you need a personal recommendation, please reach out. I'd be happy to tell you more about how Amanda rocked our deal!",
   },
   {
-    name: "David R.",
-    role: "Home Seller",
+    name: "TheAndrewJones",
+    role: "Buyer & Seller · Norfolk, VA",
     quote:
-      "They sold our home in under two weeks and above asking price. The marketing strategy was incredible — we couldn't be happier.",
+      "Amazing Overall! We worked with Amanda 2 years ago to purchase our first property and used her to sell recently. Extremely friendly and open with each step in the process. Provides plenty of updates as they come. Stress free experience each time. She's quick to respond to questions and has great knowledge with real estate. Would highly recommend her to anyone looking to buy or sell!",
   },
   {
-    name: "Michelle T.",
-    role: "Real Estate Investor",
+    name: "jholli1985",
+    role: "Buyer · Norfolk, VA",
     quote:
-      "I've worked with many agents, but the Ackiss team stands out. Professional, responsive, and always delivering results.",
+      "Amanda was absolutely amazing. She was knowledgeable and helpful in every way of my home buying experience. She made everything easy. She was always available and responded instantly to all communication. I would 100% recommend her and will be using her in the future as well.",
   },
   {
-    name: "Carlos & Elena P.",
-    role: "Relocated from Out of State",
+    name: "JacksonHinkle88",
+    role: "First-Time Buyer · Chesapeake, VA",
     quote:
-      "Moving across the country was stressful, but Ackiss Homes made the house-hunting process seamless. They found us the perfect home before we even arrived.",
+      "First time buying and he had every answer to my questions. Made the whole process stress less and easy. Would always let me know what the next step was and what to be prepared for. Could not of asked for a better realtor.",
   },
   {
-    name: "Jennifer W.",
-    role: "Repeat Client",
+    name: "tralston511",
+    role: "Buyer & Seller · Portsmouth, VA",
     quote:
-      "This was my third transaction with Ackiss Homes, and they never disappoint. Consistent, professional, and always fighting for the best deal.",
+      "Jeremy actively looked for houses when buying a house so much that more to look than I could handle. When selling he had the house on the market with people viewing and making offers within 24 hours.",
   },
 ];
 
@@ -143,7 +143,7 @@ export default function Testimonials() {
 
               <div
                 key={current}
-                className="animate-fade-in relative z-10"
+                className="animate-fade-in relative z-10 pt-16 md:pt-0"
                 aria-live="polite"
               >
                 <p className="text-gray-300 leading-relaxed text-lg md:text-xl italic mb-8 max-w-2xl mx-auto">

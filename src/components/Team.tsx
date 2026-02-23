@@ -6,8 +6,8 @@ const agents = [
     name: "Jeremy & Amanda Ackiss",
     title: "The Family Behind Ackiss Homes",
     bio: "What started with Amanda's passion for helping families find their perfect home has grown into a true family affair. A few years later, Jeremy jumped on board — because why should she have all the fun? Together, they bring heart, hustle, and a shared obsession with getting every detail right. Their littlest team member, Liam, hasn't closed a deal yet — but he's already nailing the open-house snack table.",
-    phone: "(555) 123-4567",
-    email: "hello@ackisshomes.com",
+    phone: "(757) 806-8979",
+    email: "ackisshomes@gmail.com",
   },
 ];
 
@@ -59,7 +59,7 @@ export default function Team() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-5">
                   <a
-                    href={`tel:${agent.phone}`}
+                    href="tel:+17578068979"
                     className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-gold-400 transition-colors"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
