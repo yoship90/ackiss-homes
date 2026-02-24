@@ -50,6 +50,7 @@ export async function POST(req: NextRequest) {
   const person: Record<string, unknown> = { firstName, lastName };
   if (email) person.emails = [{ value: email }];
   if (phone) person.phones = [{ value: phone }];
+  person.customWebsiteInquiryType = formType === "inquiry" ? "Find Your Perfect Home" : "General Inquiry";
 
   const payload: Record<string, unknown> = {
     source: formType === "inquiry" ? "Ackiss Homes Website - Property Inquiry" : "Ackiss Homes Website - General Contact",
