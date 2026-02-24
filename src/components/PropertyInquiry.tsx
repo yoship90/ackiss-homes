@@ -86,7 +86,7 @@ export default function PropertyInquiry() {
   const [baths, setBaths] = useState("Any");
   const [propertyType, setPropertyType] = useState<string[]>(["Any"]);
   const [timeline, setTimeline] = useState("ASAP");
-  const [preApproval, setPreApproval] = useState("");
+  const [preApproval, setPreApproval] = useState("Not Yet");
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
 
@@ -95,11 +95,6 @@ export default function PropertyInquiry() {
     setLoading(true);
     setError("");
 
-    if (!preApproval) {
-      setError("Please let us know your pre-approval status.");
-      setLoading(false);
-      return;
-    }
 
     const data = new FormData(e.currentTarget);
 
@@ -224,7 +219,7 @@ export default function PropertyInquiry() {
 
                   <ButtonGroup label="Property Type(s)" options={propertyTypes} value={propertyType} onChange={(v) => setPropertyType(v as string[])} multi />
 
-                  <ButtonGroup label="Pre-Approved? *" options={preApprovalOptions} value={preApproval} onChange={(v) => setPreApproval(v as string)} />
+                  <ButtonGroup label="Pre-Approved?" options={preApprovalOptions} value={preApproval} onChange={(v) => setPreApproval(v as string)} />
 
                   {/* Timeline */}
                   <div>
