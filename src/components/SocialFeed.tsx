@@ -5,7 +5,7 @@ import SplitHeading from "./SplitHeading";
 // To add a thumbnail: screenshot the reel, drop the image in /public/reels/,
 // then set thumbnail to e.g. "/reels/reel-1.jpg"
 const reels: { url: string; thumbnail: string | null }[] = [
-  { url: "https://www.instagram.com/p/DU8NPEQDUTA/", thumbnail: "/reels-1.png" },
+  { url: "https://www.instagram.com/p/DU8NPEQDUTA/", thumbnail: "/reels/reels-1.png" },
   { url: "https://www.instagram.com/p/C-7ndFNO9wj/",  thumbnail: null },
   { url: "https://www.instagram.com/p/DIT3kupu6Cp/",  thumbnail: null },
   { url: "https://www.instagram.com/p/DSH0N-SDvrP/",  thumbnail: null },
