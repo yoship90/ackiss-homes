@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 export const alt = "Ackiss Homes — Virginia Beach Real Estate";
 export const size = { width: 1200, height: 630 };
@@ -20,6 +22,10 @@ async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuff
 }
 
 export default async function Image() {
+  // Load logo from filesystem — pure black bg matches page bg seamlessly
+  const logoBuffer = readFileSync(join(process.cwd(), "public", "logo.png"));
+  const logoSrc = `data:image/png;base64,${logoBuffer.toString("base64")}`;
+
   const [playfairBold, playfairRegular] = await Promise.all([
     loadGoogleFont("Playfair Display", 700),
     loadGoogleFont("Playfair Display", 400),
@@ -31,7 +37,7 @@ export default async function Image() {
         style={{
           width: 1200,
           height: 630,
-          background: "#0a0a0a",
+          background: "#000000",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -40,13 +46,13 @@ export default async function Image() {
           overflow: "hidden",
         }}
       >
-        {/* Radial gold glow */}
+        {/* Radial gold glow — centered behind logo */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(201,149,46,0.09) 0%, transparent 70%)",
+              "radial-gradient(ellipse 55% 65% at 50% 42%, rgba(201,149,46,0.13) 0%, transparent 65%)",
             display: "flex",
           }}
         />
@@ -83,7 +89,6 @@ export default async function Image() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 0,
           }}
         >
           {/* Eyebrow */}
@@ -92,21 +97,21 @@ export default async function Image() {
               display: "flex",
               alignItems: "center",
               gap: 16,
-              marginBottom: 40,
+              marginBottom: 20,
             }}
           >
             <div
               style={{
                 height: 1,
-                width: 48,
-                background: "rgba(201,149,46,0.5)",
+                width: 40,
+                background: "rgba(201,149,46,0.45)",
                 display: "flex",
               }}
             />
             <span
               style={{
-                color: "#c9952e",
-                fontSize: 14,
+                color: "rgba(201,149,46,0.7)",
+                fontSize: 12,
                 letterSpacing: "0.35em",
                 textTransform: "uppercase",
                 fontFamily: "sans-serif",
@@ -117,86 +122,82 @@ export default async function Image() {
             <div
               style={{
                 height: 1,
-                width: 48,
-                background: "rgba(201,149,46,0.5)",
+                width: 40,
+                background: "rgba(201,149,46,0.45)",
                 display: "flex",
               }}
             />
           </div>
 
+          {/* Logo — large and centered */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={logoSrc}
+            width={220}
+            height={220}
+            alt=""
+            style={{ display: "flex" }}
+          />
+
           {/* Brand name */}
           <div
             style={{
               display: "flex",
-              alignItems: "center",
-              gap: 28,
-              marginBottom: 28,
+              alignItems: "baseline",
+              gap: 14,
+              marginTop: 12,
+              marginBottom: 6,
             }}
           >
-            {/* Stacked brand name */}
-            <div
+            <span
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 6,
-                alignItems: "center",
+                fontFamily: "Playfair",
+                fontWeight: 700,
+                fontSize: 80,
+                color: "#d4a853",
+                lineHeight: 1,
+                letterSpacing: "-0.01em",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "baseline",
-                  gap: 16,
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "Playfair",
-                    fontWeight: 700,
-                    fontSize: 96,
-                    color: "#d4a853",
-                    lineHeight: 1,
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  Ackiss
-                </span>
-                <span
-                  style={{
-                    fontFamily: "sans-serif",
-                    fontSize: 22,
-                    fontWeight: 400,
-                    color: "rgba(201,149,46,0.65)",
-                    letterSpacing: "0.4em",
-                    textTransform: "uppercase",
-                    paddingBottom: 8,
-                  }}
-                >
-                  Homes
-                </span>
-              </div>
-              <span
-                style={{
-                  fontFamily: "sans-serif",
-                  fontSize: 11,
-                  color: "#4a4a4a",
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Real Estate Services &nbsp;·&nbsp; Brokered by Triumph Realty
-              </span>
-            </div>
+              Ackiss
+            </span>
+            <span
+              style={{
+                fontFamily: "sans-serif",
+                fontSize: 20,
+                fontWeight: 400,
+                color: "rgba(201,149,46,0.6)",
+                letterSpacing: "0.45em",
+                textTransform: "uppercase",
+                paddingBottom: 6,
+              }}
+            >
+              Homes
+            </span>
           </div>
+
+          {/* Subtitle */}
+          <span
+            style={{
+              fontFamily: "sans-serif",
+              fontSize: 10,
+              color: "#3a3a3a",
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              marginBottom: 22,
+            }}
+          >
+            Real Estate Services &nbsp;·&nbsp; Brokered by Triumph Realty
+          </span>
 
           {/* Divider */}
           <div
             style={{
               height: 1,
-              width: 160,
-              background: "rgba(201,149,46,0.25)",
+              width: 140,
+              background: "rgba(201,149,46,0.2)",
               display: "flex",
-              marginBottom: 28,
+              marginBottom: 20,
             }}
           />
 
@@ -205,9 +206,9 @@ export default async function Image() {
             style={{
               fontFamily: "Playfair",
               fontWeight: 400,
-              fontSize: 36,
-              color: "rgba(255,255,255,0.75)",
-              letterSpacing: "0.04em",
+              fontSize: 32,
+              color: "rgba(255,255,255,0.65)",
+              letterSpacing: "0.05em",
             }}
           >
             Where Home Begins
