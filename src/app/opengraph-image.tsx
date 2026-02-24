@@ -88,44 +88,6 @@ export default async function Image() {
             alignItems: "center",
           }}
         >
-          {/* Eyebrow */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 16,
-              marginBottom: 20,
-            }}
-          >
-            <div
-              style={{
-                height: 1,
-                width: 40,
-                background: "rgba(201,149,46,0.45)",
-                display: "flex",
-              }}
-            />
-            <span
-              style={{
-                color: "rgba(201,149,46,0.7)",
-                fontSize: 12,
-                letterSpacing: "0.35em",
-                textTransform: "uppercase",
-                fontFamily: "sans-serif",
-              }}
-            >
-              Virginia Beach &amp; Hampton Roads
-            </span>
-            <div
-              style={{
-                height: 1,
-                width: 40,
-                background: "rgba(201,149,46,0.45)",
-                display: "flex",
-              }}
-            />
-          </div>
-
           {/* Logo — large and centered */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -143,7 +105,7 @@ export default async function Image() {
               alignItems: "baseline",
               gap: 18,
               marginTop: 8,
-              marginBottom: 22,
+              marginBottom: 14,
             }}
           >
             <span
@@ -172,6 +134,20 @@ export default async function Image() {
               Homes
             </span>
           </div>
+
+          {/* Geography */}
+          <span
+            style={{
+              fontFamily: "sans-serif",
+              fontSize: 16,
+              color: "rgba(201,149,46,0.55)",
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              marginBottom: 20,
+            }}
+          >
+            Virginia Beach &amp; All of Hampton Roads
+          </span>
 
           {/* Divider */}
           <div
