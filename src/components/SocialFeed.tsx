@@ -14,7 +14,7 @@ declare global {
 // Add Instagram reel URLs here as they come in
 const reels = [
   "https://www.instagram.com/reel/DU8NPEQDUTA/",
-  "https://www.instagram.com/reel/DPmfalsjxQ1/",
+  "https://www.instagram.com/reel/C-7ndFNO9wj/",
 ];
 
 export default function SocialFeed() {
