@@ -16,7 +16,7 @@ const reels = [
   "https://www.instagram.com/reel/DU8NPEQDUTA/",
   "https://www.instagram.com/reel/C-7ndFNO9wj/",
   "https://www.instagram.com/reel/DIT3kupu6Cp/",
-  "https://www.instagram.com/reel/DSH0N-SDvrP/",
+  "https://www.instagram.com/p/DSH0N-SDvrP/",
 ];
 
 export default function SocialFeed() {
@@ -127,10 +127,10 @@ export default function SocialFeed() {
           </ScrollReveal>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-[716px] mx-auto">
           {reels.map((url, i) => (
             <ScrollReveal key={url} delay={i * 75}>
-              <div className="overflow-hidden rounded-sm border border-dark-600/50 hover:border-gold-500/50 transition-colors duration-300 bg-white w-[340px]">
+              <div className="overflow-hidden rounded-sm border border-dark-600/50 hover:border-gold-500/50 transition-colors duration-300 bg-white w-[340px] mx-auto">
                 <blockquote
                   className="instagram-media"
                   data-instgrm-permalink={`${url}?utm_source=ig_embed&utm_campaign=loading`}
