@@ -38,7 +38,7 @@ export default function SocialFeed() {
           <ScrollReveal>
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
-              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">See It In Action</p>
+              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">See Us In Action</p>
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
             </div>
           </ScrollReveal>

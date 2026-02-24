@@ -42,10 +42,10 @@ const testimonials = [
       "First time buying and he had every answer to my questions. Made the whole process stress less and easy. Would always let me know what the next step was and what to be prepared for. Could not of asked for a better realtor.",
   },
   {
-    name: "tralston511",
-    role: "Buyer & Seller · Portsmouth, VA",
+    name: "justin doering757",
+    role: "Buyer & Seller · Suffolk, VA",
     quote:
-      "Jeremy actively looked for houses when buying a house so much that more to look than I could handle. When selling he had the house on the market with people viewing and making offers within 24 hours.",
+      "Very knowledgeable about the area and surroundings. Positive experience all around. Would recommend. Good contact and communication as well. We bought and sold our house with him. Seamless timing.",
   },
 ];
 
@@ -109,7 +109,7 @@ export default function Testimonials() {
           <ScrollReveal>
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
-              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Client Stories</p>
+              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Testimonials</p>
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
             </div>
           </ScrollReveal>
@@ -133,12 +133,18 @@ export default function Testimonials() {
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
             >
-              {/* Large decorative background quote mark */}
+              {/* Large decorative background quote marks */}
               <div
                 className="absolute -top-8 left-4 text-[200px] leading-none font-heading text-gold-400 select-none pointer-events-none"
                 aria-hidden="true"
               >
                 &ldquo;
+              </div>
+              <div
+                className="absolute -bottom-8 right-0 text-[200px] leading-none font-heading text-gold-400 select-none pointer-events-none"
+                aria-hidden="true"
+              >
+                &rdquo;
               </div>
 
               <div
@@ -186,7 +192,7 @@ export default function Testimonials() {
                 className={`w-2.5 h-2.5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-90 transition-[width,background-color,transform] duration-300 ${
                   i === current
                     ? "bg-gold-400 w-8"
-                    : "bg-dark-600 hover:bg-dark-500"
+                    : "bg-dark-500 hover:bg-warm-400/40"
                 }`}
                 aria-label={`Go to testimonial ${i + 1}`}
               />

@@ -10,7 +10,7 @@ const leftNav = [
 ];
 
 const rightNav = [
-  { label: "Mortgage\nCalculator", href: "#calculator" },
+  { label: "Payment\nCalculator", href: "#calculator" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Social", href: "#social" },
   { label: "Contact", href: "#contact" },

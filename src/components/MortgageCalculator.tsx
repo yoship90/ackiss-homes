@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import ScrollReveal from "./ScrollReveal";
 import SplitHeading from "./SplitHeading";
 import MortgageRateChart from "./MortgageRateChart";
@@ -72,7 +72,7 @@ function Chevron({ open }: { open: boolean }) {
 
 export default function MortgageCalculator() {
   /* ---- Core fields ---- */
-  const [purchasePrice, setPurchasePrice] = useState("300000");
+  const [purchasePrice, setPurchasePrice] = useState("350000");
   const [downPayment, setDownPayment] = useState("");
   const [downPaymentIsPercent, setDownPaymentIsPercent] = useState(true);
   const [interestRate, setInterestRate] = useState("");
@@ -88,7 +88,7 @@ export default function MortgageCalculator() {
   const [propertyTax, setPropertyTax] = useState("");
   const [propertyTaxIsPercent, setPropertyTaxIsPercent] = useState(false);
   const [insurance, setInsurance] = useState("");
-  const [pmi, setPmi] = useState("");
+  const [pmi, setPmi] = useState("1");
   const [hoa, setHoa] = useState("");
 
   /* ---- UI toggles ---- */
@@ -123,7 +123,7 @@ export default function MortgageCalculator() {
     ? (parseNum(propertyTax) / 100) * price / 12
     : parseNum(propertyTax) / 12;
   const monthlyInsurance = parseNum(insurance) / 12;
-  const monthlyPmi = parseNum(pmi);
+  const monthlyPmi = (parseNum(pmi) / 100) * mortgageAmount / 12;
   const monthlyHoa = parseNum(hoa);
   const hasExpenses =
     monthlyTax > 0 ||
@@ -326,6 +326,17 @@ export default function MortgageCalculator() {
   /* ---- LTV note for PMI ---- */
   const ltv = price > 0 ? (mortgageAmount / price) * 100 : 0;
 
+  /* ---- Auto-zero PMI when down payment >= 20% ---- */
+  useEffect(() => {
+    if (price > 0) {
+      if (ltv <= 80) {
+        setPmi("0");
+      } else if (pmi === "0") {
+        setPmi("1");
+      }
+    }
+  }, [ltv, price]);
+
   /* ---- Shared classes ---- */
   const inputCls =
     "w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-1.5 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors";
@@ -345,7 +356,7 @@ export default function MortgageCalculator() {
               </div>
             </ScrollReveal>
             <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
-              Mortgage Calculator
+              Payment Calculator
             </SplitHeading>
           </div>
         </div>
@@ -664,25 +675,25 @@ export default function MortgageCalculator() {
 
                     {/* PMI */}
                     <div>
-                      <label htmlFor="pmi" className={labelCls}>PMI (Monthly)</label>
+                      <label htmlFor="pmi" className={labelCls}>PMI (Annual %)</label>
                       <div className="relative w-28">
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
-                          $
-                        </span>
                         <input
                           type="text"
                           id="pmi"
                           inputMode="decimal"
                           value={pmi}
                           onChange={(e) => setPmi(e.target.value)}
-                          className={`${inputCls} pl-8`}
-                          placeholder="0"
+                          className={`${inputCls} pr-8`}
+                          placeholder="1"
                         />
+                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
+                          %
+                        </span>
                       </div>
                       {ltv > 80 && (
                         <p className="text-xs text-gray-500 mt-1.5">
                           LTV is {ltv.toFixed(1)}% — PMI is typically required
-                          above 80% LTV and removed once you reach 80%.
+                          above 80% LTV and removed once you reach 80%. Note: PMI does not apply to VA loans.
                         </p>
                       )}
                     </div>
@@ -802,82 +813,9 @@ export default function MortgageCalculator() {
                 )}
               </div>}
 
-              {/* Total Cost Breakdown with Donut Chart */}
-              {pieSegments.length > 0 && (
-                <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-[transform,box-shadow,border-color] duration-300 group">
-                  <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 group-hover:w-full transition-[width] duration-500 ease-out" aria-hidden="true" />
-                  <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
-                    Total Cost Breakdown
-                  </h3>
 
-                  {/* Donut Chart */}
-                  {(() => {
-                    const radius = 80;
-                    const stroke = 32;
-                    const circumference = 2 * Math.PI * radius;
-                    let accumulated = 0;
-
-                    return (
-                      <div className="flex flex-col items-center mb-6">
-                        <div className="relative w-[200px] h-[200px]">
-                          <svg viewBox="0 0 200 200" className="w-full h-full -rotate-90" role="img" aria-label="Pie chart showing total cost breakdown by category">
-                            {pieSegments.map((seg) => {
-                              const pct = seg.value / pieTotal;
-                              const dashLength = pct * circumference;
-                              const dashOffset = -accumulated * circumference;
-                              accumulated += pct;
-                              return (
-                                <circle
-                                  key={seg.label}
-                                  cx="100"
-                                  cy="100"
-                                  r={radius}
-                                  fill="none"
-                                  stroke={seg.color}
-                                  strokeWidth={stroke}
-                                  strokeDasharray={`${dashLength} ${circumference - dashLength}`}
-                                  strokeDashoffset={dashOffset}
-                                  className="transition-[stroke-dasharray,stroke-dashoffset] duration-500"
-                                />
-                              );
-                            })}
-                          </svg>
-                          <div className="absolute inset-0 flex flex-col items-center justify-center">
-                            <span className="text-xl font-bold text-white">${fmtInt(Math.round(pieTotal))}</span>
-                            <span className="text-xs text-gray-400 uppercase tracking-wider">Total Cost</span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })()}
-
-                  {/* Legend with amounts */}
-                  <div className="space-y-2.5">
-                    {pieSegments.map((seg) => (
-                      <div key={seg.label} className="flex justify-between items-center text-sm">
-                        <div className="flex items-center gap-2">
-                          <span
-                            className="w-3 h-3 rounded-full shrink-0"
-                            style={{ backgroundColor: seg.color }}
-                          />
-                          <span className="text-gray-300">{seg.label}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-gray-500 text-xs">
-                            {((seg.value / pieTotal) * 100).toFixed(1)}%
-                          </span>
-                          <span className="text-gray-300 font-mono text-xs w-24 text-right">
-                            ${fmtInt(Math.round(seg.value))}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Loan Summary */}
-              {basePnI > 0 && <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-[transform,box-shadow,border-color] duration-300 group">
+              {/* Loan Summary — hidden for now (full mortgage calculator page planned) */}
+              {false && basePnI > 0 && <div className="relative overflow-hidden bg-dark-700 border border-dark-600/50 rounded-sm p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/15 hover:border-gold-500/50 transition-[transform,box-shadow,border-color] duration-300 group">
                 <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
                   Loan Summary
                 </h3>
@@ -925,24 +863,6 @@ export default function MortgageCalculator() {
                     </span>
                   </div>
                 </div>
-                <div className="mt-6 pt-5 border-t border-dark-600/50">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const opening = !showSchedule;
-                      setShowSchedule(opening);
-                      if (opening) {
-                        setTimeout(() => {
-                          scheduleRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-                        }, 50);
-                      }
-                    }}
-                    className="flex items-center justify-center gap-3 w-full px-6 py-3 bg-dark-900 border border-dark-600 rounded-sm text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 hover:border-gold-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-[0.98] transition-colors duration-300 cursor-pointer"
-                  >
-                    {showSchedule ? "Hide" : "View Full"} Amortization Schedule
-                    <Chevron open={showSchedule} />
-                  </button>
-                </div>
               </div>}
 
             </div>
@@ -950,9 +870,9 @@ export default function MortgageCalculator() {
         </div>
 
         {/* ============================================================= */}
-        {/*  Tips                                                          */}
+        {/*  Tips — hidden for now                                         */}
         {/* ============================================================= */}
-        <ScrollReveal direction="up" className="mt-10">
+        {false && <ScrollReveal direction="up" className="mt-10">
           <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 md:p-10">
             <h3 className="text-lg font-heading font-semibold mb-6 text-gold-400">
               Money-Saving Tips
@@ -985,12 +905,12 @@ export default function MortgageCalculator() {
               These are general tips for informational purposes only and should not be considered financial advice. Always check with your mortgage lender about your specific loan terms, prepayment policies, and any fees before making changes to your payment schedule.
             </p>
           </div>
-        </ScrollReveal>
+        </ScrollReveal>}
 
         {/* ============================================================= */}
-        {/*  Amortization Schedule                                         */}
+        {/*  Amortization Schedule — hidden for now                        */}
         {/* ============================================================= */}
-        <ScrollReveal direction="up" className="mt-10">
+        {false && <ScrollReveal direction="up" className="mt-10">
           {showSchedule && (
             <div ref={scheduleRef} className="mt-6 animate-fade-in">
               {/* Monthly / Yearly toggle */}
@@ -1097,7 +1017,7 @@ export default function MortgageCalculator() {
               </div>
             </div>
           )}
-        </ScrollReveal>
+        </ScrollReveal>}
 
       </div>
     </section>

@@ -165,9 +165,8 @@ export default function Hero() {
               you&apos;re buying, selling, or investing.
             </p>
             <p className={`text-base md:text-lg text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
-              Already browsing homes online? Let us know the address and get live,
-              fresh MLS data — availability, price history, days on market, and
-              everything the listing sites aren&apos;t showing you. Free, no obligation.
+              Tell us what you&apos;re looking for — beds, baths, price range, and more —
+              and we&apos;ll search the full MLS to find homes that match. Free, no obligation.
             </p>
 
             <a
@@ -176,7 +175,7 @@ export default function Hero() {
                 done ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
-              Get Live MLS Data &rarr;
+              Find My Home &rarr;
             </a>
           </>
         )}
@@ -209,9 +208,8 @@ export default function Hero() {
               className={`text-base text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
               style={{ transitionDelay: "300ms" }}
             >
-              Already browsing homes online? Let us know the address and get live,
-              fresh MLS data — availability, price history, days on market, and
-              everything the listing sites aren&apos;t showing you. Free, no obligation.
+              Tell us what you&apos;re looking for — beds, baths, price range, and more —
+              and we&apos;ll search the full MLS to find homes that match. Free, no obligation.
             </p>
 
             {/* CTA */}
@@ -220,7 +218,7 @@ export default function Hero() {
               className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-12 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_40px_rgba(201,149,46,0.6)] hover:scale-[1.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black active:scale-[0.97] mb-16 ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
               style={{ transitionDelay: "450ms" }}
             >
-              Get Live MLS Data &rarr;
+              Find My Home &rarr;
             </a>
           </>
         )}
