@@ -19,7 +19,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ackiss-homes.vercel
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Ackiss Homes — Virginia Beach & Hampton Roads Real Estate",
+  title: "Ackiss Homes — Virginia Beach & All of Hampton Roads Real Estate",
   description:
     "Ackiss Homes delivers exceptional real estate experiences in Virginia Beach and Hampton Roads. Whether you're buying, selling, or investing — your next chapter starts here.",
   keywords: [
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Ackiss Homes — Virginia Beach & Hampton Roads Real Estate",
+    title: "Ackiss Homes — Virginia Beach & All of Hampton Roads Real Estate",
     description:
       "Buying, selling, or investing in Virginia Beach? Ackiss Homes delivers exceptional real estate experiences with local expertise and a client-first approach.",
     url: siteUrl,
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ackiss Homes — Virginia Beach & Hampton Roads Real Estate",
+    title: "Ackiss Homes — Virginia Beach & All of Hampton Roads Real Estate",
     description:
       "Buying, selling, or investing in Virginia Beach? Ackiss Homes delivers exceptional real estate experiences with local expertise and a client-first approach.",
     images: ["/hero-bg.jpg"],
