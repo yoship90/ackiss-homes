@@ -50,10 +50,9 @@ export async function POST(req: NextRequest) {
   const person: Record<string, unknown> = { firstName, lastName };
   if (email) person.emails = [{ value: email }];
   if (phone) person.phones = [{ value: phone }];
-  person.customWebsiteInquiryType = formType === "inquiry" ? "Find Your Perfect Home" : "General Inquiry";
 
   const payload: Record<string, unknown> = {
-    source: formType === "inquiry" ? "Ackiss Homes Website - Property Inquiry" : "Ackiss Homes Website - General Contact",
+    source: formType === "inquiry" ? "Ackiss Homes Website - Find Your Perfect Home Inquiry" : "Ackiss Homes Website - General Contact",
     type: formType === "inquiry" ? "Property Inquiry" : "General Inquiry",
     person,
   };
@@ -110,7 +109,10 @@ export async function POST(req: NextRequest) {
           Authorization: authHeader,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ tags }),
+        body: JSON.stringify({
+          tags,
+          customWebsiteInquiryType: formType === "inquiry" ? "Find Your Perfect Home" : "General Inquiry",
+        }),
       });
 
       // Directly enroll in action plan
