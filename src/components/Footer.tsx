@@ -3,7 +3,6 @@ import Image from "next/image";
 const socialLinks = [
   { label: "Facebook", href: "https://www.facebook.com/profile.php?id=100090275910543" },
   { label: "Instagram", href: "https://www.instagram.com/ackisshomes/" },
-  { label: "Zillow", href: "https://www.zillow.com" },
 ];
 
 export default function Footer() {
@@ -30,8 +29,10 @@ export default function Footer() {
                   Homes
                 </span>
               </a>
-              <p className="text-xs text-gray-500 mt-1 uppercase tracking-[0.2em]">
+              <p className="text-xs text-gray-500 mt-1 uppercase tracking-[0.2em] flex items-center gap-1.5">
                 Real Estate Services
+                <span className="inline-block w-px h-3 bg-gold-500/50" aria-hidden="true" />
+                Brokered by Triumph Realty
               </p>
             </div>
           </div>
@@ -51,7 +52,26 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-dark-600/50 mt-8 pt-8 text-center">
+        {/* Communities */}
+        <div className="border-t border-dark-600/50 mt-8 pt-8">
+          <p className="text-xs text-gray-500 uppercase tracking-[0.2em] mb-4">Communities</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-2">
+            {["Virginia Beach","Chesapeake","Suffolk","Portsmouth","Newport News","Hampton","Yorktown","Williamsburg"].map((city) => (
+              <span key={city} className="text-xs text-gray-600 uppercase tracking-wider">
+                {city}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="border-t border-dark-600/50 mt-8 pt-8">
+          <p className="text-xs text-gray-600 uppercase tracking-wider mb-1">Triumph Realty</p>
+          <p className="text-xs text-gray-600">2135 General Booth Blvd, Suite 146 &middot; Virginia Beach, VA 23454</p>
+        </div>
+
+        <div className="border-t border-dark-600/50 mt-6 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          {/* Equal Housing Opportunity logo */}
+          <Image src="/equal-housing.png" alt="Equal Housing Opportunity" width={40} height={40} className="opacity-50" />
           <p className="text-sm text-gray-500">
             &copy; {new Date().getFullYear()} Ackiss Homes. All rights reserved.
           </p>

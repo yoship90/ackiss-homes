@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 
 const leftNav = [
-  { label: "Home", href: "#hero" },
   { label: "About", href: "#team" },
   { label: "Services", href: "#services" },
 ];
@@ -16,10 +15,32 @@ const rightNav = [
   { label: "Contact", href: "#contact" },
 ];
 
+const communities = [
+  "Virginia Beach",
+  "Chesapeake",
+  "Suffolk",
+  "Portsmouth",
+  "Newport News",
+  "Hampton",
+  "Yorktown",
+  "Williamsburg",
+];
+
 const allLinks = [...leftNav, ...rightNav];
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [communitiesOpen, setCommunitiesOpen] = useState(false);
+  const [mobileCommunitiesOpen, setMobileCommunitiesOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function openCommunities() {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setCommunitiesOpen(true);
+  }
+  function closeCommunities() {
+    closeTimer.current = setTimeout(() => setCommunitiesOpen(false), 150);
+  }
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-dark-900/90 backdrop-blur-md border-b border-dark-600/50">
@@ -43,15 +64,53 @@ export default function Header() {
                 Homes
               </span>
             </div>
-            <p className="text-[0.55rem] text-gray-500 uppercase tracking-[0.2em]">
+            <p className="text-[0.55rem] text-gray-500 uppercase tracking-[0.2em] flex items-center gap-1.5">
               Real Estate Services
+              <span className="inline-block w-px h-2.5 bg-gold-500/50" aria-hidden="true" />
+              Brokered by Triumph Realty
             </p>
           </div>
         </a>
 
         {/* Desktop nav */}
         <nav aria-label="Main navigation" className="hidden md:flex items-center gap-5 ml-8">
-          {allLinks.map((link) => (
+          {leftNav.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
+            >
+              {link.label}
+            </a>
+          ))}
+
+          {/* Communities dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={openCommunities}
+            onMouseLeave={closeCommunities}
+          >
+            <button className="text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300 flex items-center gap-1 cursor-pointer">
+              Communities
+              <svg className="w-3 h-3 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {communitiesOpen && (
+              <div className="absolute top-full left-0 mt-2 bg-dark-800 border border-dark-600/50 rounded-sm py-2 min-w-[180px] z-50 shadow-[0_8px_24px_rgba(0,0,0,0.4)]">
+                {communities.map((city) => (
+                  <span
+                    key={city}
+                    className="block px-4 py-2 text-sm text-gray-400 hover:text-gold-400 hover:bg-dark-700 uppercase tracking-wider transition-colors duration-150 cursor-pointer"
+                  >
+                    {city}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {rightNav.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -89,7 +148,41 @@ export default function Header() {
       {/* Mobile menu */}
       {mobileOpen && (
         <nav aria-label="Mobile navigation" className="md:hidden bg-dark-800 border-t border-dark-600/50 px-6 pb-4">
-          {allLinks.map((link) => (
+          {leftNav.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileOpen(false)}
+              className="block py-3 text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+
+          {/* Communities accordion */}
+          <button
+            onClick={() => setMobileCommunitiesOpen(!mobileCommunitiesOpen)}
+            className="flex items-center justify-between w-full py-3 text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors"
+          >
+            Communities
+            <svg className={`w-3 h-3 opacity-60 transition-transform duration-200 ${mobileCommunitiesOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          {mobileCommunitiesOpen && (
+            <div className="pl-4 pb-2 border-l border-dark-600/50 ml-1">
+              {communities.map((city) => (
+                <span
+                  key={city}
+                  className="block py-2 text-sm uppercase tracking-widest text-gray-500"
+                >
+                  {city}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {rightNav.map((link) => (
             <a
               key={link.href}
               href={link.href}

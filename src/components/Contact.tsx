@@ -55,18 +55,13 @@ export default function Contact() {
           <ScrollReveal>
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
-              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Reach Out</p>
+              <p className="text-gold-400 uppercase tracking-[0.3em] text-sm">Contact Us</p>
               <div className="h-px w-8 bg-gold-500/40 flex-shrink-0" />
             </div>
           </ScrollReveal>
           <SplitHeading className="text-4xl md:text-5xl font-heading font-bold">
-            Get in Touch
+            Let's Connect!
           </SplitHeading>
-          <ScrollReveal>
-            <p className="text-gray-500 mt-4 text-sm uppercase tracking-wider">
-              2135 General Booth Blvd, Suite 146 &nbsp;&middot;&nbsp; Virginia Beach, VA 23454
-            </p>
-          </ScrollReveal>
         </div>
 
         {/* Contact form — full width, centered */}
@@ -115,12 +110,13 @@ export default function Contact() {
                 </div>
                 <div>
                   <label htmlFor="phone" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
-                    Phone <span className="normal-case tracking-normal text-gray-600 text-xs">(Optional)</span>
+                    Phone
                   </label>
                   <input
                     type="tel"
                     id="phone"
                     name="phone"
+                    required
                     autoComplete="tel"
                     className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
                     placeholder="(555) 123-4567"
