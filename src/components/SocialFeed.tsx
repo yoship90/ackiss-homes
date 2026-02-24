@@ -13,9 +13,9 @@ declare global {
 
 // Add Instagram reel URLs here as they come in
 const reels = [
-  "https://www.instagram.com/reel/DU8NPEQDUTA/",
-  "https://www.instagram.com/reel/C-7ndFNO9wj/",
-  "https://www.instagram.com/reel/DIT3kupu6Cp/",
+  "https://www.instagram.com/p/DU8NPEQDUTA/",
+  "https://www.instagram.com/p/C-7ndFNO9wj/",
+  "https://www.instagram.com/p/DIT3kupu6Cp/",
   "https://www.instagram.com/p/DSH0N-SDvrP/",
 ];
 
