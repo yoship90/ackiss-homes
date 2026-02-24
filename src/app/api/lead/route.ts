@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { formType, name, email, phone, message, targetRate, loanType,
+  const { formType, name, firstName: firstNameField, lastName: lastNameField,
+          email, phone, message, targetRate, loanType,
           beds, baths, priceMin, priceMax, propertyTypes, timeline, preApproval, notes: searchNotes } = body;
 
   const apiKey = process.env.FUB_API_KEY;
@@ -11,10 +12,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
   }
 
-  // Split full name into first / last
-  const parts = (name || "").trim().split(/\s+/);
-  const firstName = parts[0] || "";
-  const lastName = parts.slice(1).join(" ") || "";
+  // Prefer separate first/last fields; fall back to splitting combined name (contact form)
+  let firstName: string;
+  let lastName: string;
+  if (firstNameField || lastNameField) {
+    firstName = (firstNameField || "").trim();
+    lastName = (lastNameField || "").trim();
+  } else {
+    const parts = (name || "").trim().split(/\s+/);
+    firstName = parts[0] || "";
+    lastName = parts.slice(1).join(" ") || "";
+  }
 
   // Build note text
   let note = "";

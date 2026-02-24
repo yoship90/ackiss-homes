@@ -104,7 +104,8 @@ export default function PropertyInquiry() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           formType: "inquiry",
-          name: data.get("name"),
+          firstName: data.get("firstName"),
+          lastName: data.get("lastName"),
           email: data.get("email"),
           phone: data.get("phone"),
           beds,
@@ -261,19 +262,35 @@ export default function PropertyInquiry() {
                     <p className="text-xs text-gray-600 text-center">Don&apos;t worry, we don&apos;t sell your info — we sell homes</p>
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="inquiry-name" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
-                          Your Name
+                        <label htmlFor="inquiry-first-name" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
+                          First Name
                         </label>
                         <input
                           type="text"
-                          id="inquiry-name"
-                          name="name"
+                          id="inquiry-first-name"
+                          name="firstName"
                           required
-                          autoComplete="name"
+                          autoComplete="given-name"
                           className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
-                          placeholder="Jane Smith"
+                          placeholder="Jane"
                         />
                       </div>
+                      <div>
+                        <label htmlFor="inquiry-last-name" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
+                          Last Name
+                        </label>
+                        <input
+                          type="text"
+                          id="inquiry-last-name"
+                          name="lastName"
+                          required
+                          autoComplete="family-name"
+                          className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
+                          placeholder="Smith"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="inquiry-email" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
                           Email
@@ -288,20 +305,20 @@ export default function PropertyInquiry() {
                           placeholder="you@example.com"
                         />
                       </div>
-                    </div>
-                    <div>
-                      <label htmlFor="inquiry-phone" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
-                        Phone
-                      </label>
-                      <input
-                        type="tel"
-                        id="inquiry-phone"
-                        name="phone"
-                        required
-                        autoComplete="tel"
-                        className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
-                        placeholder="(555) 123-4567"
-                      />
+                      <div>
+                        <label htmlFor="inquiry-phone" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
+                          Phone
+                        </label>
+                        <input
+                          type="tel"
+                          id="inquiry-phone"
+                          name="phone"
+                          required
+                          autoComplete="tel"
+                          className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
+                          placeholder="(555) 123-4567"
+                        />
+                      </div>
                     </div>
                   </div>
 
