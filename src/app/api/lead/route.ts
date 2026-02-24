@@ -115,24 +115,6 @@ export async function POST(req: NextRequest) {
         }),
       });
 
-      // Directly enroll in action plan
-      const actionPlanId = formType === "inquiry"
-        ? process.env.FUB_ACTION_PLAN_INQUIRY_ID
-        : process.env.FUB_ACTION_PLAN_CONTACT_ID;
-
-      if (actionPlanId) {
-        await fetch("https://api.followupboss.com/v1/actionPlansPeople", {
-          method: "POST",
-          headers: {
-            Authorization: authHeader,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            actionPlanId: parseInt(actionPlanId),
-            personId,
-          }),
-        });
-      }
     }
   } catch (err) {
     // Non-fatal — lead was created, tags/action plan just didn't apply
