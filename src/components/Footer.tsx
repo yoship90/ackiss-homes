@@ -72,7 +72,23 @@ export default function Footer() {
 
         <div className="border-t border-dark-600/50 mt-6 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           {/* Equal Housing Opportunity logo */}
-          <Image src="/equal-housing.png" alt="Equal Housing Opportunity" width={40} height={40} className="invert opacity-60" />
+          {/* Equal Housing Opportunity — inline SVG for perfect sharpness at any size */}
+          <svg
+            viewBox="0 0 80 96"
+            width="40"
+            height="48"
+            fill="none"
+            aria-label="Equal Housing Opportunity"
+            className="opacity-60 shrink-0"
+            style={{ color: "#9ca3af" }}
+          >
+            <path d="M 40 3 L 77 35 L 3 35 Z" stroke="currentColor" strokeWidth="3.5" strokeLinejoin="miter" />
+            <rect x="11" y="35" width="58" height="44" stroke="currentColor" strokeWidth="3.5" />
+            <line x1="23" y1="50" x2="57" y2="50" stroke="currentColor" strokeWidth="5" strokeLinecap="square" />
+            <line x1="23" y1="63" x2="57" y2="63" stroke="currentColor" strokeWidth="5" strokeLinecap="square" />
+            <text x="40" y="87" textAnchor="middle" fontSize="7.5" fill="currentColor" letterSpacing="0.6" fontFamily="Arial, sans-serif" fontWeight="bold">EQUAL HOUSING</text>
+            <text x="40" y="96" textAnchor="middle" fontSize="7.5" fill="currentColor" letterSpacing="0.6" fontFamily="Arial, sans-serif" fontWeight="bold">OPPORTUNITY</text>
+          </svg>
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Link
               href="/privacy"
