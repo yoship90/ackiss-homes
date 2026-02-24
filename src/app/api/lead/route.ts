@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { formType, name, email, phone, message, address, mlsId, targetRate, loanType } = body;
+  const { formType, name, email, phone, message, targetRate, loanType,
+          beds, baths, priceMin, priceMax, propertyTypes, timeline, notes: searchNotes } = body;
 
   const apiKey = process.env.FUB_API_KEY;
   if (!apiKey) {
@@ -20,9 +21,22 @@ export async function POST(req: NextRequest) {
   if (formType === "contact") {
     note = message || "";
   } else if (formType === "inquiry") {
-    const lines: string[] = [];
-    if (address) lines.push(`Property Address: ${address}`);
-    if (mlsId) lines.push(`MLS ID: ${mlsId}`);
+    const lines: string[] = ["🏠 Home Search Inquiry", ""];
+
+    const details: string[] = [];
+    if (beds && beds !== "Any") details.push(`Beds: ${beds}`);
+    if (baths && baths !== "Any") details.push(`Baths: ${baths}`);
+    if (details.length) lines.push(details.join("  |  "));
+
+    const priceStr = [priceMin, priceMax].filter(Boolean).join(" – ");
+    if (priceStr) lines.push(`Price: ${priceStr}`);
+
+    const types = Array.isArray(propertyTypes) ? propertyTypes : [propertyTypes];
+    if (types.length && !types.includes("Any")) lines.push(`Type: ${types.join(", ")}`);
+
+    if (timeline) lines.push(`Timeline: ${timeline}`);
+    if (searchNotes) { lines.push(""); lines.push(`Notes: ${searchNotes}`); }
+
     note = lines.join("\n");
   } else if (formType === "rate-alert") {
     const lines: string[] = ["Rate Alert Sign-Up"];
@@ -61,8 +75,14 @@ export async function POST(req: NextRequest) {
   }
 
   // Tag the person via a follow-up PATCH — /v1/events ignores tags on the person object
+  const timelineTagMap: Record<string, string> = {
+    "ASAP":           "timeline-asap",
+    "1–3 Months":     "timeline-1-3mo",
+    "3–6 Months":     "timeline-3-6mo",
+    "Just Exploring": "timeline-exploring",
+  };
   const tags = formType === "inquiry"
-    ? ["website-lead", "website-property-inquiry"]
+    ? ["website-lead", "website-property-inquiry", ...(timelineTagMap[timeline] ? [timelineTagMap[timeline]] : [])]
     : formType === "rate-alert"
     ? ["website-lead", "rate-alert"]
     : ["website-lead", "website-contact"];
@@ -76,10 +96,7 @@ export async function POST(req: NextRequest) {
 
       // Apply tags + custom fields
       const personUpdate: Record<string, unknown> = { tags };
-      if (formType === "inquiry") {
-        if (address) personUpdate.customPropertyOfInterestAddress = address;
-        if (mlsId) personUpdate.customPropertyOfInterestMLSID = mlsId;
-      } else if (formType === "rate-alert") {
+      if (formType === "rate-alert") {
         if (targetRate) personUpdate.customTargetRate = `${targetRate}%`;
         if (loanType) personUpdate.customLoanType = loanType;
       }

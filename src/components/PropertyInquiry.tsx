@@ -104,14 +104,13 @@ export default function PropertyInquiry() {
           name: data.get("name"),
           email: data.get("email"),
           phone: data.get("phone"),
-          address: [
-            `Beds: ${beds}`,
-            `Baths: ${baths}`,
-            `Type: ${propertyType.join(", ")}`,
-            `Price: ${priceMin || "No min"} – ${priceMax || "No max"}`,
-            `Timeline: ${timeline || "Not specified"}`,
-          ].join(" | "),
-          mlsId: data.get("notes") as string || "",
+          beds,
+          baths,
+          priceMin,
+          priceMax,
+          propertyTypes: propertyType,
+          timeline,
+          notes: data.get("notes") as string || "",
         }),
       });
 
