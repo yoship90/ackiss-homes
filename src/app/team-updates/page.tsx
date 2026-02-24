@@ -37,14 +37,6 @@ const entries: Entry[] = [
     status: "live",
   },
   {
-    id: "rate-alert-page",
-    title: "Rate Alert Landing Page",
-    description: "Dedicated page at /rate-alert where leads enter their contact info and target mortgage rate. Feeds directly into FUB with a 'rate-alert' tag and populates the Target Rate and Loan Type custom fields.",
-    date: "Feb 2026",
-    status: "live",
-    link: "/rate-alert",
-  },
-  {
     id: "social-feed",
     title: "Instagram Social Feed",
     description: "Social feed section with two embedded Instagram reels. Add new reel URLs directly in the code as content is posted.",
@@ -58,19 +50,12 @@ const entries: Entry[] = [
     date: "Feb 2026",
     status: "live",
   },
-  {
-    id: "fub-target-rate",
-    title: "FUB Target Rate & Loan Type Custom Fields",
-    description: "Created 'Target Rate' (text) and 'Loan Type' (dropdown) custom fields in FUB. Automatically populated when a lead submits the rate alert form.",
-    date: "Feb 2026",
-    status: "live",
-  },
 
   // ---- NEEDS APPROVAL ----
   {
     id: "email-campaign-1",
-    title: "Email Campaign #1 — Market Shift & Rate Alert",
-    description: "First reactivation email to ~900 cold leads in FUB. Neutral market update framing that works for both buyers and sellers. Includes a rate alert CTA linking to the new /rate-alert page. Draft ready — needs your approval before sending via FUB bulk email.",
+    title: "Email Campaign #1 — Market Shift",
+    description: "First reactivation email to ~900 cold leads in FUB. Neutral market update framing that works for both buyers and sellers. Draft ready — needs your approval before sending via FUB bulk email.",
     date: "Feb 2026",
     status: "needs-approval",
   },

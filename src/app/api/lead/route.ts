@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { formType, name, firstName: firstNameField, lastName: lastNameField,
-          email, phone, message, targetRate, loanType,
+          email, phone, message,
           beds, baths, priceMin, priceMax, propertyTypes, timeline, preApproval, notes: searchNotes } = body;
 
   const apiKey = process.env.FUB_API_KEY;
@@ -44,11 +44,6 @@ export async function POST(req: NextRequest) {
     if (searchNotes) { lines.push(""); lines.push(`Notes: ${searchNotes}`); }
 
     note = lines.join("\n");
-  } else if (formType === "rate-alert") {
-    const lines: string[] = ["Rate Alert Sign-Up"];
-    if (targetRate) lines.push(`Target Rate: ${targetRate}%`);
-    if (loanType) lines.push(`Loan Type: ${loanType}`);
-    note = lines.join("\n");
   }
 
   // Build person payload
@@ -57,8 +52,8 @@ export async function POST(req: NextRequest) {
   if (phone) person.phones = [{ value: phone }];
 
   const payload: Record<string, unknown> = {
-    source: formType === "inquiry" ? "Ackiss Homes Website - Property Inquiry" : formType === "rate-alert" ? "Ackiss Homes Website - Rate Alert" : "Ackiss Homes Website - General Contact",
-    type: formType === "inquiry" ? "Property Inquiry" : formType === "rate-alert" ? "Rate Alert" : "General Inquiry",
+    source: formType === "inquiry" ? "Ackiss Homes Website - Property Inquiry" : "Ackiss Homes Website - General Contact",
+    type: formType === "inquiry" ? "Property Inquiry" : "General Inquiry",
     person,
   };
   if (note) payload.message = note;
@@ -80,7 +75,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Failed to submit lead" }, { status: 502 });
   }
 
-  // Tag the person via a follow-up PATCH — /v1/events ignores tags on the person object
+  // Tag the person via a follow-up PUT to /v1/people/{id}
   const timelineTagMap: Record<string, string> = {
     "ASAP":           "timeline-asap",
     "1–3 Months":     "timeline-1-3mo",
@@ -96,11 +91,9 @@ export async function POST(req: NextRequest) {
     ? [
         "website-lead",
         "website-property-inquiry",
-        ...(timelineTagMap[timeline]    ? [timelineTagMap[timeline]]    : []),
+        ...(timelineTagMap[timeline]       ? [timelineTagMap[timeline]]       : []),
         ...(preApprovalTagMap[preApproval] ? [preApprovalTagMap[preApproval]] : []),
       ]
-    : formType === "rate-alert"
-    ? ["website-lead", "rate-alert"]
     : ["website-lead", "website-contact"];
 
   try {
@@ -110,22 +103,16 @@ export async function POST(req: NextRequest) {
     if (personId) {
       const authHeader = `Basic ${Buffer.from(`${apiKey}:`).toString("base64")}`;
 
-      // Apply tags + custom fields
-      const personUpdate: Record<string, unknown> = { tags };
-      if (formType === "rate-alert") {
-        if (targetRate) personUpdate.customTargetRate = `${targetRate}%`;
-        if (loanType) personUpdate.customLoanType = loanType;
-      }
       await fetch(`https://api.followupboss.com/v1/people/${personId}`, {
         method: "PUT",
         headers: {
           Authorization: authHeader,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(personUpdate),
+        body: JSON.stringify({ tags }),
       });
 
-      // Directly enroll in action plan — fires every time regardless of tag history
+      // Directly enroll in action plan
       const actionPlanId = formType === "inquiry"
         ? process.env.FUB_ACTION_PLAN_INQUIRY_ID
         : process.env.FUB_ACTION_PLAN_CONTACT_ID;
