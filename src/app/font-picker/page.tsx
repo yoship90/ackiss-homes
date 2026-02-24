@@ -31,7 +31,7 @@ const options = [
     font: cormorant,
     name: "Cormorant Garamond",
     desc: "Ultra-refined, luxury fashion — think Vogue or high-end jewellery",
-    badge: "Currently Live" as const,
+    badge: null,
   },
   {
     font: cinzel,
@@ -60,8 +60,8 @@ const options = [
   {
     font: lora,
     name: "Lora",
-    desc: "Warm editorial — the original before this comparison",
-    badge: "Original" as const,
+    desc: "Warm editorial serif — classic and readable",
+    badge: "Currently Live" as const,
   },
 ];
 
