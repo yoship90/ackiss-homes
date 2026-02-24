@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { formType, name, email, phone, message, targetRate, loanType,
-          beds, baths, priceMin, priceMax, propertyTypes, timeline, notes: searchNotes } = body;
+          beds, baths, priceMin, priceMax, propertyTypes, timeline, preApproval, notes: searchNotes } = body;
 
   const apiKey = process.env.FUB_API_KEY;
   if (!apiKey) {
@@ -35,6 +35,7 @@ export async function POST(req: NextRequest) {
     if (types.length && !types.includes("Any")) lines.push(`Type: ${types.join(", ")}`);
 
     if (timeline) lines.push(`Timeline: ${timeline}`);
+    if (preApproval) lines.push(`Pre-Approved: ${preApproval}`);
     if (searchNotes) { lines.push(""); lines.push(`Notes: ${searchNotes}`); }
 
     note = lines.join("\n");
@@ -81,8 +82,18 @@ export async function POST(req: NextRequest) {
     "3–6 Months":     "timeline-3-6mo",
     "Just Exploring": "timeline-exploring",
   };
+  const preApprovalTagMap: Record<string, string> = {
+    "Yes":           "pre-approved",
+    "Working On It": "pre-approval-in-progress",
+    "Not Yet":       "not-pre-approved",
+  };
   const tags = formType === "inquiry"
-    ? ["website-lead", "website-property-inquiry", ...(timelineTagMap[timeline] ? [timelineTagMap[timeline]] : [])]
+    ? [
+        "website-lead",
+        "website-property-inquiry",
+        ...(timelineTagMap[timeline]    ? [timelineTagMap[timeline]]    : []),
+        ...(preApprovalTagMap[preApproval] ? [preApprovalTagMap[preApproval]] : []),
+      ]
     : formType === "rate-alert"
     ? ["website-lead", "rate-alert"]
     : ["website-lead", "website-contact"];

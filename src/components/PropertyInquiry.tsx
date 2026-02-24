@@ -15,6 +15,7 @@ const bedOptions = ["Any", "1+", "2+", "3+", "4+", "5+"];
 const bathOptions = ["Any", "1+", "2+", "3+", "4+"];
 const propertyTypes = ["Any", "Single Family", "Townhouse", "Condo", "Multi-Family"];
 const timelines = ["ASAP", "1–3 Months", "3–6 Months", "Just Exploring"];
+const preApprovalOptions = ["Yes", "Working On It", "Not Yet"];
 
 function ButtonGroup({
   label,
@@ -85,6 +86,7 @@ export default function PropertyInquiry() {
   const [baths, setBaths] = useState("Any");
   const [propertyType, setPropertyType] = useState<string[]>(["Any"]);
   const [timeline, setTimeline] = useState("ASAP");
+  const [preApproval, setPreApproval] = useState("Not Yet");
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
 
@@ -110,6 +112,7 @@ export default function PropertyInquiry() {
           priceMax,
           propertyTypes: propertyType,
           timeline,
+          preApproval,
           notes: data.get("notes") as string || "",
         }),
       });
@@ -214,6 +217,8 @@ export default function PropertyInquiry() {
                   </div>
 
                   <ButtonGroup label="Property Type(s)" options={propertyTypes} value={propertyType} onChange={(v) => setPropertyType(v as string[])} multi />
+
+                  <ButtonGroup label="Pre-Approved?" options={preApprovalOptions} value={preApproval} onChange={(v) => setPreApproval(v as string)} />
 
                   {/* Timeline */}
                   <div>
