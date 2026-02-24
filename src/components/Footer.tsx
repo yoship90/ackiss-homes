@@ -72,7 +72,7 @@ export default function Footer() {
 
         <div className="border-t border-dark-600/50 mt-6 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           {/* Equal Housing Opportunity logo */}
-          <Image src="/equal-housing.png" alt="Equal Housing Opportunity" width={40} height={40} className="opacity-50" />
+          <Image src="/equal-housing.png" alt="Equal Housing Opportunity" width={40} height={40} className="invert opacity-60" />
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Link
               href="/privacy"
