@@ -130,8 +130,8 @@ export default async function Image() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={LOGO_URL}
-            width={220}
-            height={220}
+            width={300}
+            height={300}
             alt=""
             style={{ display: "flex" }}
           />
@@ -141,16 +141,16 @@ export default async function Image() {
             style={{
               display: "flex",
               alignItems: "baseline",
-              gap: 14,
-              marginTop: 12,
-              marginBottom: 6,
+              gap: 18,
+              marginTop: 8,
+              marginBottom: 22,
             }}
           >
             <span
               style={{
                 fontFamily: "Playfair",
                 fontWeight: 700,
-                fontSize: 80,
+                fontSize: 108,
                 color: "#d4a853",
                 lineHeight: 1,
                 letterSpacing: "-0.01em",
@@ -161,40 +161,26 @@ export default async function Image() {
             <span
               style={{
                 fontFamily: "sans-serif",
-                fontSize: 20,
+                fontSize: 26,
                 fontWeight: 400,
                 color: "rgba(201,149,46,0.6)",
                 letterSpacing: "0.45em",
                 textTransform: "uppercase",
-                paddingBottom: 6,
+                paddingBottom: 8,
               }}
             >
               Homes
             </span>
           </div>
 
-          {/* Subtitle */}
-          <span
-            style={{
-              fontFamily: "sans-serif",
-              fontSize: 10,
-              color: "#3a3a3a",
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              marginBottom: 22,
-            }}
-          >
-            Real Estate Services &nbsp;·&nbsp; Brokered by Triumph Realty
-          </span>
-
           {/* Divider */}
           <div
             style={{
               height: 1,
-              width: 140,
+              width: 160,
               background: "rgba(201,149,46,0.2)",
               display: "flex",
-              marginBottom: 20,
+              marginBottom: 22,
             }}
           />
 
@@ -203,7 +189,7 @@ export default async function Image() {
             style={{
               fontFamily: "Playfair",
               fontWeight: 400,
-              fontSize: 32,
+              fontSize: 44,
               color: "rgba(255,255,255,0.65)",
               letterSpacing: "0.05em",
             }}
