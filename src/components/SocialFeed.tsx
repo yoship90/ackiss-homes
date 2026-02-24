@@ -47,39 +47,37 @@ export default function SocialFeed() {
           </SplitHeading>
           <ScrollReveal delay={200}>
             <p className="text-gray-400 mt-4 max-w-xl mx-auto">
-              {"Most agents put up a sign. We put your home on a stage."}<br /><br /><span className="text-gold-400">{"We go the extra mile to get your home the extra views."}</span>
+              {"Most agents put up a sign; Ackiss Homes puts your home on a stage."}<br /><br /><span className="text-gold-400">{"We go the extra mile to get your home the extra views."}</span>
             </p>
-            <div className="flex items-center justify-center gap-8 mt-10 flex-wrap">
+            <div className="grid grid-cols-2 place-items-center gap-x-10 gap-y-6 mt-10 w-fit mx-auto md:flex md:items-center md:justify-center md:gap-8 md:w-auto">
 
               {/* LIGHTS */}
               <div className="flex flex-col items-center gap-3">
                 <svg width="32" height="32" viewBox="0 0 40 40" fill="none" aria-hidden="true">
                   {/* Glow */}
                   <circle cx="20" cy="13" r="12" fill="rgba(255,255,255,0.05)"/>
-                  {/* Bulb globe fill */}
-                  <path d="M 11 21 A 12 12 0 1 0 29 21 L 27 27 L 13 27 Z" fill="rgba(255,255,255,0.18)"/>
-                  {/* Upper semicircle only — targets exactly where rays emerge from the dome */}
-                  <path d="M 8 13 A 12 12 0 0 1 32 13" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+                  {/* Bulb globe — boosted fill + full outline */}
+                  <path d="M 11 21 A 12 12 0 1 1 29 21 L 27 27 L 13 27 Z" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5" fill="rgba(255,255,255,0.35)" strokeLinejoin="round"/>
                   {/* Filament — W shape */}
                   <path d="M 14 19 Q 16 13 18 17 Q 20 21 22 17 Q 24 13 26 19" stroke="#f9fafb" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                  {/* Base collar + 3 ridges */}
+                  {/* Base collar + ridges */}
                   <line x1="13" y1="27" x2="27" y2="27" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round"/>
                   <line x1="14" y1="30" x2="26" y2="30" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round"/>
                   <line x1="15" y1="33" x2="25" y2="33" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round"/>
                   <line x1="16" y1="36" x2="24" y2="36" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round"/>
-                  {/* 7 rays — start points shifted 1.5 units outward to create gap from dome */}
-                  {/* −90° left  */}<line x1="6.5" y1="13" x2="3.5" y2="13" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
-                  {/* −60°       */}<line x1="8.7" y1="6.2" x2="6.7" y2="3.7" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
-                  {/* −30°       */}<line x1="13.2" y1="1.7" x2="12.2" y2="-0.8" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
-                  {/* 0° top     */}<line x1="20" y1="1" x2="20" y2="-1.5" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
-                  {/* +30°       */}<line x1="26.8" y1="1.7" x2="27.8" y2="-0.8" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
-                  {/* +60°       */}<line x1="31.3" y1="6.2" x2="33.3" y2="3.7" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
-                  {/* +90° right */}<line x1="33.5" y1="13" x2="36.5" y2="13" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
+                  {/* 7 rays — shifted outward */}
+                  <line x1="6.5" y1="13" x2="3.5" y2="13" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
+                  <line x1="8.7" y1="6.2" x2="6.7" y2="3.7" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
+                  <line x1="13.2" y1="1.7" x2="12.2" y2="-0.8" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
+                  <line x1="20" y1="1" x2="20" y2="-1.5" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
+                  <line x1="26.8" y1="1.7" x2="27.8" y2="-0.8" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
+                  <line x1="31.3" y1="6.2" x2="33.3" y2="3.7" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
+                  <line x1="33.5" y1="13" x2="36.5" y2="13" stroke="#e5e7eb" strokeWidth="1.5" strokeLinecap="round" opacity="0.65"/>
                 </svg>
                 <span className="text-gray-400 text-xs uppercase tracking-[0.35em] font-semibold">Lights</span>
               </div>
 
-              <div className="h-px w-6 bg-gray-600/50 self-center flex-shrink-0" />
+              <div className="hidden md:block h-px w-6 bg-gray-600/50 self-center flex-shrink-0" />
 
               {/* CAMERA */}
               <div className="flex flex-col items-center gap-3">
@@ -108,10 +106,10 @@ export default function SocialFeed() {
                 <span className="text-gray-400 text-xs uppercase tracking-[0.35em] font-semibold">Camera</span>
               </div>
 
-              <div className="h-px w-6 bg-gray-600/50 self-center flex-shrink-0" />
+              <div className="hidden md:block h-px w-6 bg-gray-600/50 self-center flex-shrink-0" />
 
               {/* SOLD */}
-              <div className="flex flex-col items-center gap-3">
+              <div className="col-span-2 md:col-auto flex flex-col items-center gap-3">
                 <svg width="32" height="32" viewBox="0 0 40 40" fill="none" aria-hidden="true">
                   {/* House roof */}
                   <path d="M 4 20 L 20 5 L 36 20" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
