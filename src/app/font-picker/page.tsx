@@ -55,13 +55,13 @@ const options = [
     font: playfair,
     name: "Playfair Display",
     desc: "Matches the site's section headings — cohesive and refined",
-    badge: null,
+    badge: "Currently Live" as const,
   },
   {
     font: lora,
     name: "Lora",
     desc: "Warm editorial serif — classic and readable",
-    badge: "Currently Live" as const,
+    badge: null,
   },
 ];
 
