@@ -34,10 +34,10 @@ export async function POST(req: NextRequest) {
     lines.push(`Beds: ${beds || "Any"}  |  Baths: ${baths || "Any"}`);
 
     const priceStr = [priceMin, priceMax].filter(Boolean).join(" – ");
-    if (priceStr) lines.push(`Price: ${priceStr}`);
+    lines.push(`Price: ${priceStr || "No preference"}`);
 
     const types = Array.isArray(propertyTypes) ? propertyTypes : [propertyTypes];
-    if (types.length && !types.includes("Any")) lines.push(`Type: ${types.join(", ")}`);
+    lines.push(`Type: ${types.length ? types.join(", ") : "Any"}`);
 
     if (timeline) lines.push(`Timeline: ${timeline}`);
     if (preApproval) lines.push(`Pre-Approved: ${preApproval}`);
