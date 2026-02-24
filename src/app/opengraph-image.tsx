@@ -25,10 +25,6 @@ export default async function Image() {
     loadGoogleFont("Playfair Display", 400),
   ]);
 
-const fonts: Array<{ name: string; data: ArrayBuffer; weight: number; style: "normal" | "italic" }> = [];
-  if (playfairBold)   fonts.push({ name: "Playfair", data: playfairBold,   weight: 700, style: "normal" });
-  if (playfairRegular) fonts.push({ name: "Playfair", data: playfairRegular, weight: 400, style: "normal" });
-
   return new ImageResponse(
     (
       <div
@@ -221,7 +217,10 @@ const fonts: Array<{ name: string; data: ArrayBuffer; weight: number; style: "no
     ),
     {
       ...size,
-      fonts,
+      fonts: [
+        ...(playfairBold    ? [{ name: "Playfair", data: playfairBold,    weight: 700 as const, style: "normal" as const }] : []),
+        ...(playfairRegular ? [{ name: "Playfair", data: playfairRegular, weight: 400 as const, style: "normal" as const }] : []),
+      ],
     }
   );
 }
