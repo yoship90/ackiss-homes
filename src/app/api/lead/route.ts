@@ -31,10 +31,7 @@ export async function POST(req: NextRequest) {
   } else if (formType === "inquiry") {
     const lines: string[] = ["🏠 Home Search Inquiry", ""];
 
-    const details: string[] = [];
-    if (beds && beds !== "Any") details.push(`Beds: ${beds}`);
-    if (baths && baths !== "Any") details.push(`Baths: ${baths}`);
-    if (details.length) lines.push(details.join("  |  "));
+    lines.push(`Beds: ${beds || "Any"}  |  Baths: ${baths || "Any"}`);
 
     const priceStr = [priceMin, priceMax].filter(Boolean).join(" – ");
     if (priceStr) lines.push(`Price: ${priceStr}`);
