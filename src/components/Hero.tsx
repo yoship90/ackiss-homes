@@ -8,6 +8,68 @@ import { useEffect, useRef, useState } from "react";
 
 const fullText = "Where Home Begins";
 
+const stats = [
+  { target: 200, suffix: "+", label: "Homes Sold" },
+  { target: 10,  suffix: "+", label: "Years Experience" },
+  { target: 50,  suffix: "+", label: "5-Star Reviews" },
+];
+
+function AnimatedCounter({
+  target,
+  suffix,
+}: {
+  target: number;
+  suffix: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started) {
+          setStarted(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [started]);
+
+  useEffect(() => {
+    if (!started) return;
+
+    const duration = 1500;
+    const steps = 40;
+    const increment = target / steps;
+    let current = 0;
+    let step = 0;
+
+    const timer = setInterval(() => {
+      step++;
+      current = Math.min(Math.round(increment * step), target);
+      setCount(current);
+      if (step >= steps) clearInterval(timer);
+    }, duration / steps);
+
+    return () => clearInterval(timer);
+  }, [started, target]);
+
+  return (
+    <span ref={ref}>
+      {count}
+      {suffix}
+    </span>
+  );
+}
+
 function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   useEffect(() => {
@@ -87,7 +149,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative h-[44rem] md:h-[45rem] flex items-center justify-center px-6 pt-20 overflow-hidden bg-black"
+      className="relative min-h-screen md:min-h-0 flex items-start justify-center px-6 pt-24 pb-24 md:pb-6 overflow-hidden bg-black"
     >
       {/* Faint radial glow behind text */}
       <div
@@ -119,8 +181,8 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <div
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1.5 text-gold-400/40 transition-opacity duration-1000 ${
-          (isMobile ? logoPhase : done) ? "opacity-100" : "opacity-0"
+        className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex md:hidden flex-col items-center gap-1.5 text-gold-400/40 transition-opacity duration-1000 ${
+          logoPhase ? "opacity-100" : "opacity-0"
         }`}
         aria-hidden="true"
       >
@@ -131,7 +193,7 @@ export default function Hero() {
       </div>
 
       {/* Text content — centered */}
-      <div className="relative text-center max-w-5xl mx-auto pt-4">
+      <div className="relative text-center max-w-5xl mx-auto">
 
         {/* ---- DESKTOP: typewriter animation ---- */}
         {!isMobile && (
@@ -160,23 +222,64 @@ export default function Hero() {
               )}
             </h1>
 
-            <p className={`hidden md:block text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-3 leading-relaxed transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
-              Ackiss Homes delivers exceptional real estate experiences — whether
-              you&apos;re buying, selling, or investing.
+            {/* Brand copy */}
+            <p className={`text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-5 leading-relaxed transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
+              At Ackiss Homes, we believe that finding the right property is about more than square footage and price — it&apos;s about finding a place where life happens. We bring a personalized, client-first approach to every transaction.
             </p>
-            <p className={`text-base md:text-lg text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
-              Tell us what you&apos;re looking for — beds, baths, price range, and more —
-              and we&apos;ll search the full MLS to find homes that match. Free, no obligation.
+            <p className={`text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-6 leading-relaxed transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
+              With deep local market knowledge and a commitment to integrity, we guide buyers, sellers, and investors through every step of the real estate journey. Our reputation is built on results, relationships, and trust.
             </p>
 
-            <a
-              href="#property-inquiry"
-              className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-12 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_40px_rgba(201,149,46,0.6)] hover:scale-[1.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black active:scale-[0.97] transition-[transform,opacity,box-shadow] duration-700 mb-16 md:mb-20 ${
-                done ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-            >
-              Find My Home &rarr;
-            </a>
+            {/* Stats */}
+            <div className={`flex justify-center gap-12 md:gap-16 mb-5 transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <p className="text-3xl md:text-4xl font-heading font-bold text-gold-400">
+                    <AnimatedCounter target={stat.target} suffix={stat.suffix} />
+                  </p>
+                  <p className="text-[10px] text-gray-500 uppercase tracking-[0.2em] mt-1.5">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Zillow review links */}
+            <div className={`flex flex-wrap items-center justify-center gap-3 transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
+              <span className="text-[11px] uppercase tracking-[0.25em] text-gray-600">Verified reviews on</span>
+              <div className="h-px w-4 bg-gold-500/30" />
+              <a
+                href="https://www.zillow.com/profile/amanda5867"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
+              >
+                <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+                </svg>
+                Zillow — Amanda
+              </a>
+              <span className="text-gray-700">·</span>
+              <a
+                href="https://www.zillow.com/profile/jeremy2621"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
+              >
+                <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+                </svg>
+                Zillow — Jeremy
+              </a>
+            </div>
+
+            {/* Desktop scroll indicator — inline so section sizes to content */}
+            <div className={`flex justify-center mt-8 transition-opacity duration-1000 ${done ? "opacity-100" : "opacity-0"}`} aria-hidden="true">
+              <div className="flex flex-col items-center gap-1.5 text-gold-400/40">
+                <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+                <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
           </>
         )}
 
@@ -203,23 +306,66 @@ export default function Hero() {
               <span className="text-gold-400">Home Begins</span>
             </h1>
 
-            {/* Body */}
+            {/* Brand copy */}
             <p
-              className={`text-base text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
+              className={`text-base text-gray-400 max-w-2xl mx-auto mb-5 leading-relaxed ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
               style={{ transitionDelay: "300ms" }}
             >
-              Tell us what you&apos;re looking for — beds, baths, price range, and more —
-              and we&apos;ll search the full MLS to find homes that match. Free, no obligation.
+              At Ackiss Homes, we believe that finding the right property is about more than square footage and price — it&apos;s about finding a place where life happens. We bring a personalized, client-first approach to every transaction.
+            </p>
+            <p
+              className={`text-base text-gray-400 max-w-2xl mx-auto mb-6 leading-relaxed ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
+              style={{ transitionDelay: "400ms" }}
+            >
+              With deep local market knowledge and a commitment to integrity, we guide buyers, sellers, and investors through every step of the real estate journey. Our reputation is built on results, relationships, and trust.
             </p>
 
-            {/* CTA */}
-            <a
-              href="#property-inquiry"
-              className={`inline-block bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-12 py-5 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.3)] hover:shadow-[0_0_40px_rgba(201,149,46,0.6)] hover:scale-[1.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black active:scale-[0.97] mb-16 ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
-              style={{ transitionDelay: "450ms" }}
+            {/* Stats */}
+            <div
+              className={`flex justify-center gap-10 mb-5 ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
+              style={{ transitionDelay: "500ms" }}
             >
-              Find My Home &rarr;
-            </a>
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <p className="text-3xl font-heading font-bold text-gold-400">
+                    <AnimatedCounter target={stat.target} suffix={stat.suffix} />
+                  </p>
+                  <p className="text-[10px] text-gray-500 uppercase tracking-[0.2em] mt-1.5">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Zillow review links */}
+            <div
+              className={`flex flex-wrap items-center justify-center gap-3 ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
+              style={{ transitionDelay: "650ms" }}
+            >
+              <span className="text-[11px] uppercase tracking-[0.25em] text-gray-600">Verified reviews on</span>
+              <div className="h-px w-4 bg-gold-500/30" />
+              <a
+                href="https://www.zillow.com/profile/amanda5867"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
+              >
+                <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+                </svg>
+                Zillow — Amanda
+              </a>
+              <span className="text-gray-700">·</span>
+              <a
+                href="https://www.zillow.com/profile/jeremy2621"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
+              >
+                <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+                </svg>
+                Zillow — Jeremy
+              </a>
+            </div>
           </>
         )}
       </div>

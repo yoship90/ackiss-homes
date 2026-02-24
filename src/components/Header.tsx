@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 
 const leftNav = [
-  { label: "About", href: "#team" },
   { label: "Services", href: "#services" },
 ];
 
@@ -64,10 +63,10 @@ export default function Header() {
                 Homes
               </span>
             </div>
-            <p className="text-[0.55rem] text-gray-500 uppercase tracking-[0.2em] flex items-center gap-1.5">
-              Real Estate Services
-              <span className="inline-block w-px h-2.5 bg-gold-500/50" aria-hidden="true" />
-              Brokered by Triumph Realty
+            <p className="text-[0.55rem] text-gray-500 uppercase tracking-[0.2em] flex flex-col md:flex-row md:items-center gap-y-0.5 md:gap-x-1.5">
+              <span>Real Estate Services</span>
+              <span className="hidden md:inline-block w-px h-2.5 bg-gold-500/50" aria-hidden="true" />
+              <span>Brokered by Triumph Realty</span>
             </p>
           </div>
         </a>
@@ -126,6 +125,14 @@ export default function Header() {
               )}
             </a>
           ))}
+
+          {/* Find My Home CTA */}
+          <a
+            href="#property-inquiry"
+            className="ml-2 px-4 py-1.5 text-[0.75rem] uppercase tracking-widest whitespace-nowrap text-gold-400 border border-gold-500/60 hover:bg-gold-500 hover:text-dark-900 hover:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-1 focus-visible:ring-offset-dark-900 active:scale-95 transition-[background-color,color,border-color,transform] duration-200"
+          >
+            Find My Home
+          </a>
         </nav>
 
         {/* Mobile toggle */}

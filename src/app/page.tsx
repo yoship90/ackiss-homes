@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
 import Team from "@/components/Team";
 import PropertyInquiry from "@/components/PropertyInquiry";
 import Services from "@/components/Services";
@@ -46,7 +45,6 @@ export default function Home() {
         <main>
           <Hero />
           <Team />
-          <About />
           <SectionDivider from="dark-900" to="dark-800" />
           <Services />
           <SectionDivider from="dark-800" to="dark-900" />

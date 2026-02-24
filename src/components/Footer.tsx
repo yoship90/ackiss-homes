@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const socialLinks = [
   { label: "Facebook", href: "https://www.facebook.com/profile.php?id=100090275910543" },
@@ -72,9 +73,17 @@ export default function Footer() {
         <div className="border-t border-dark-600/50 mt-6 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           {/* Equal Housing Opportunity logo */}
           <Image src="/equal-housing.png" alt="Equal Housing Opportunity" width={40} height={40} className="opacity-50" />
-          <p className="text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} Ackiss Homes. All rights reserved.
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <Link
+              href="/privacy"
+              className="text-xs text-gray-600 uppercase tracking-wider hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 transition-colors duration-300"
+            >
+              Privacy Policy
+            </Link>
+            <p className="text-sm text-gray-500">
+              &copy; {new Date().getFullYear()} Ackiss Homes. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
