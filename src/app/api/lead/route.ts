@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
 
   const payload: Record<string, unknown> = {
     source: "Ackiss Homes Website",
+    type: formType === "inquiry" ? "Find Your Perfect Home Inquiry" : "General Contact Inquiry",
     person,
   };
   if (note) payload.message = note;
