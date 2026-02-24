@@ -6,9 +6,9 @@ import SplitHeading from "./SplitHeading";
 // then set thumbnail to e.g. "/reels/reel-1.jpg"
 const reels: { url: string; thumbnail: string | null }[] = [
   { url: "https://www.instagram.com/p/DU8NPEQDUTA/", thumbnail: "/reels/reels-1.png" },
-  { url: "https://www.instagram.com/p/C-7ndFNO9wj/",  thumbnail: null },
-  { url: "https://www.instagram.com/p/DIT3kupu6Cp/",  thumbnail: null },
-  { url: "https://www.instagram.com/p/DSH0N-SDvrP/",  thumbnail: null },
+  { url: "https://www.instagram.com/p/C-7ndFNO9wj/",  thumbnail: "/reels/reels-2.png" },
+  { url: "https://www.instagram.com/p/DIT3kupu6Cp/",  thumbnail: "/reels/reels-3.png" },
+  { url: "https://www.instagram.com/p/DSH0N-SDvrP/",  thumbnail: "/reels/reels-4.png" },
 ];
 
 // Instagram logo SVG
