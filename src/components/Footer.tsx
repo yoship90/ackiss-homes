@@ -72,27 +72,9 @@ export default function Footer() {
 
         <div className="border-t border-dark-600/50 mt-6 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           {/* Equal Housing Opportunity logo */}
-          {/* Equal Housing Opportunity — inline SVG for perfect sharpness at any size */}
-          <svg
-            viewBox="0 0 100 130"
-            width="40"
-            height="52"
-            fill="none"
-            aria-label="Equal Housing Opportunity"
-            className="opacity-60 shrink-0"
-            style={{ color: "#9ca3af" }}
-          >
-            {/* Roof */}
-            <path d="M 50 4 L 96 42 L 4 42 Z" stroke="currentColor" strokeWidth="4" strokeLinejoin="miter" />
-            {/* House body */}
-            <rect x="14" y="42" width="72" height="56" stroke="currentColor" strokeWidth="4" />
-            {/* Equal sign — two thick horizontal bars centered in body */}
-            <rect x="27" y="57" width="46" height="8" fill="currentColor" />
-            <rect x="27" y="73" width="46" height="8" fill="currentColor" />
-            {/* Text — with clear gap below house */}
-            <text x="50" y="112" textAnchor="middle" fontSize="8.5" fill="currentColor" letterSpacing="0.5" fontFamily="Arial, sans-serif" fontWeight="bold">EQUAL HOUSING</text>
-            <text x="50" y="123" textAnchor="middle" fontSize="8.5" fill="currentColor" letterSpacing="0.5" fontFamily="Arial, sans-serif" fontWeight="bold">OPPORTUNITY</text>
-          </svg>
+          {/* Equal Housing Opportunity — official vector logo */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/equal-housing.svg" alt="Equal Housing Opportunity" width={52} height={52} className="invert opacity-60" />
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Link
               href="/privacy"
