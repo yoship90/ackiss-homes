@@ -1,10 +1,11 @@
 import { ImageResponse } from "next/og";
-import { readFileSync } from "fs";
-import { join } from "path";
 
 export const alt = "Ackiss Homes — Virginia Beach Real Estate";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+// Satori (next/og renderer) fetches images from URLs — data URLs from readFileSync don't render
+const LOGO_URL = "https://www.ackisshomes.com/logo.png";
 
 async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuffer | null> {
   try {
@@ -22,10 +23,6 @@ async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuff
 }
 
 export default async function Image() {
-  // Load logo from filesystem — pure black bg matches page bg seamlessly
-  const logoBuffer = readFileSync(join(process.cwd(), "public", "logo.png"));
-  const logoSrc = `data:image/png;base64,${logoBuffer.toString("base64")}`;
-
   const [playfairBold, playfairRegular] = await Promise.all([
     loadGoogleFont("Playfair Display", 700),
     loadGoogleFont("Playfair Display", 400),
@@ -132,7 +129,7 @@ export default async function Image() {
           {/* Logo — large and centered */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={logoSrc}
+            src={LOGO_URL}
             width={220}
             height={220}
             alt=""
