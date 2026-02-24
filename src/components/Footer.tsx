@@ -74,20 +74,24 @@ export default function Footer() {
           {/* Equal Housing Opportunity logo */}
           {/* Equal Housing Opportunity — inline SVG for perfect sharpness at any size */}
           <svg
-            viewBox="0 0 80 96"
+            viewBox="0 0 100 130"
             width="40"
-            height="48"
+            height="52"
             fill="none"
             aria-label="Equal Housing Opportunity"
             className="opacity-60 shrink-0"
             style={{ color: "#9ca3af" }}
           >
-            <path d="M 40 3 L 77 35 L 3 35 Z" stroke="currentColor" strokeWidth="3.5" strokeLinejoin="miter" />
-            <rect x="11" y="35" width="58" height="44" stroke="currentColor" strokeWidth="3.5" />
-            <line x1="23" y1="50" x2="57" y2="50" stroke="currentColor" strokeWidth="5" strokeLinecap="square" />
-            <line x1="23" y1="63" x2="57" y2="63" stroke="currentColor" strokeWidth="5" strokeLinecap="square" />
-            <text x="40" y="87" textAnchor="middle" fontSize="7.5" fill="currentColor" letterSpacing="0.6" fontFamily="Arial, sans-serif" fontWeight="bold">EQUAL HOUSING</text>
-            <text x="40" y="96" textAnchor="middle" fontSize="7.5" fill="currentColor" letterSpacing="0.6" fontFamily="Arial, sans-serif" fontWeight="bold">OPPORTUNITY</text>
+            {/* Roof */}
+            <path d="M 50 4 L 96 42 L 4 42 Z" stroke="currentColor" strokeWidth="4" strokeLinejoin="miter" />
+            {/* House body */}
+            <rect x="14" y="42" width="72" height="56" stroke="currentColor" strokeWidth="4" />
+            {/* Equal sign — two thick horizontal bars centered in body */}
+            <rect x="27" y="57" width="46" height="8" fill="currentColor" />
+            <rect x="27" y="73" width="46" height="8" fill="currentColor" />
+            {/* Text — with clear gap below house */}
+            <text x="50" y="112" textAnchor="middle" fontSize="8.5" fill="currentColor" letterSpacing="0.5" fontFamily="Arial, sans-serif" fontWeight="bold">EQUAL HOUSING</text>
+            <text x="50" y="123" textAnchor="middle" fontSize="8.5" fill="currentColor" letterSpacing="0.5" fontFamily="Arial, sans-serif" fontWeight="bold">OPPORTUNITY</text>
           </svg>
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Link
