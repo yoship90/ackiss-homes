@@ -130,12 +130,20 @@ export default function SocialFeed() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-[716px] mx-auto">
           {reels.map((url, i) => (
             <ScrollReveal key={url} delay={i * 75}>
-              <div className="overflow-hidden rounded-sm border border-dark-600/50 hover:border-gold-500/50 transition-colors duration-300 bg-white w-[340px] mx-auto">
+              <div className="relative overflow-hidden rounded-sm border border-dark-600/50 hover:border-gold-500/50 transition-colors duration-300 bg-white w-[340px] mx-auto">
                 <blockquote
                   className="instagram-media"
                   data-instgrm-permalink={`${url}?utm_source=ig_embed&utm_campaign=loading`}
                   data-instgrm-version="14"
                   style={{ margin: 0, minWidth: "100%", width: "calc(100% - 2px)" }}
+                />
+                {/* Transparent overlay — intercepts clicks to open the correct URL */}
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 z-10"
+                  aria-label="Watch on Instagram"
                 />
               </div>
             </ScrollReveal>
