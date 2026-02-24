@@ -199,6 +199,17 @@ export default function Header() {
               {link.label}
             </a>
           ))}
+
+          {/* Find My Home CTA */}
+          <div className="pt-3 pb-1">
+            <a
+              href="#property-inquiry"
+              onClick={() => setMobileOpen(false)}
+              className="inline-block px-5 py-2.5 text-sm uppercase tracking-widest text-gold-400 border border-gold-500/60 hover:bg-gold-500 hover:text-dark-900 hover:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-[background-color,color,border-color,transform] duration-200"
+            >
+              Find My Home
+            </a>
+          </div>
         </nav>
       )}
     </header>
