@@ -25,7 +25,7 @@ export default async function Image() {
     loadGoogleFont("Playfair Display", 400),
   ]);
 
-const fonts: ConstructorParameters<typeof ImageResponse>[1]["fonts"] = [];
+const fonts: Array<{ name: string; data: ArrayBuffer; weight: number; style: "normal" | "italic" }> = [];
   if (playfairBold)   fonts.push({ name: "Playfair", data: playfairBold,   weight: 700, style: "normal" });
   if (playfairRegular) fonts.push({ name: "Playfair", data: playfairRegular, weight: 400, style: "normal" });
 
