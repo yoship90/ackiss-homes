@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import ScrollReveal from "./ScrollReveal";
 import SplitHeading from "./SplitHeading";
 
@@ -79,6 +79,13 @@ export default function PropertyInquiry() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const confirmRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (submitted && confirmRef.current) {
+      confirmRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [submitted]);
 
   const [beds, setBeds] = useState("Any");
   const [baths, setBaths] = useState("Any");
@@ -178,7 +185,7 @@ export default function PropertyInquiry() {
           <ScrollReveal direction="right">
             <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8">
               {submitted ? (
-                <div className="text-center py-8">
+                <div ref={confirmRef} className="text-center py-8">
                   <p className="text-gold-400 text-lg font-heading font-semibold mb-2">
                     We&apos;re on it!
                   </p>
