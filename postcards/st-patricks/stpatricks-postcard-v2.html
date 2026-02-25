@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ackiss Homes - St. Patrick's Day Postcard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Satisfy&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c9952e;
+            --gold-light: #d4a853;
+            --gold-bright: #f5d89a;
+            --dark: #0a0a0a;
+            --dark-700: #1a1a1a;
+            --green: #1e5f3d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: #e8e4de;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .postcard-container {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .postcard {
+            width: 6in;
+            height: 4in;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.3), 0 4px 16px rgba(201,149,46,0.1);
+            position: relative;
+            overflow: hidden;
+            border-radius: 3px;
+        }
+
+        /* ── FRONT ── */
+        .front-card { background: var(--dark); }
+
+        .front {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* Gold inset border frame */
+        .front::after {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border: 1px solid rgba(201,149,46,0.45);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Photo — left 53% */
+        .photo-section {
+            position: relative;
+            width: 53%;
+            height: 100%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .photo-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        /* Feather right edge into dark panel */
+        .photo-section::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0; right: 0;
+            width: 72px;
+            background: linear-gradient(to right, transparent, var(--dark));
+            z-index: 2;
+        }
+
+        /* Agent name over photo */
+        .photo-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 28px 16px 14px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+            z-index: 3;
+        }
+
+        .agent-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--gold-light);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        /* Content panel — right 47% */
+        .content-section {
+            flex: 1;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 18px 10px 22px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Thin gold line along top of content panel */
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(to right, rgba(201,149,46,0) 0%, var(--gold) 40%, var(--gold-light) 60%, rgba(201,149,46,0) 100%);
+        }
+
+        .holiday-header {
+            font-family: 'Satisfy', cursive;
+            font-style: normal;
+            font-size: 19px;
+            font-weight: 700;
+            color: #4ade80;
+            text-align: center;
+            letter-spacing: 0.02em;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .holiday-header .sh { font-style: normal; }
+
+        .quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 11px;
+            color: rgba(245,245,240,0.8);
+            line-height: 1.58;
+            margin-bottom: 9px;
+            text-align: center;
+        }
+
+        .quote em { font-style: italic; color: rgba(245,245,240,0.95); }
+
+        .quote strong {
+            color: var(--gold-light);
+            font-weight: 700;
+        }
+
+        .content-spacer { flex: 1; }
+
+        .icon-row {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .icon-row svg {
+            width: 44px;
+            height: 44px;
+        }
+
+        /* Gold CTA box — uses brand amber, not generic yellow */
+        .cta-box {
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+            border-radius: 2px;
+            padding: 8px 13px;
+            text-align: center;
+        }
+
+        .cta-brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .cta-brokerage {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 7.5px;
+            color: rgba(10,10,10,0.6);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-top: 1px;
+            margin-bottom: 6px;
+        }
+
+        .cta-rule {
+            height: 1px;
+            background: rgba(10,10,10,0.15);
+            margin: 4px 0 7px;
+        }
+
+        .cta-label {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 7.5px;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .contact-item {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 9.5px;
+            color: var(--dark);
+            margin-top: 2px;
+            line-height: 1.4;
+        }
+
+        .contact-item strong { font-weight: 700; }
+
+        /* ── BACK ── */
+        .back-card { background: #fafaf8; }
+
+        .back {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* Subtle gold border on back too */
+        .back::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1.5px solid rgba(201,149,46,0.28);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Left: return address + message */
+        .back-left {
+            width: 42%;
+            height: 100%;
+            padding: 17px 14px 17px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+            border-right: 1px dashed rgba(0,0,0,0.1);
+        }
+
+        .back-gold-rule {
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), var(--gold-light));
+            margin-bottom: 6px;
+        }
+
+        .return-address-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: #0a0a0a;
+            margin-bottom: 2px;
+        }
+
+        .return-address-detail {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 8.5px;
+            color: #555;
+            line-height: 1.65;
+        }
+
+        .back-message-area {
+            flex: 1;
+            border-top: 1px solid rgba(0,0,0,0.07);
+            padding-top: 11px;
+        }
+
+        .message-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 8.5px;
+            font-weight: 700;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 7px;
+        }
+
+        .back-value-add {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 9px;
+            color: #444;
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 13px;
+        }
+
+        .message-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message-line {
+            height: 1px;
+            background: rgba(0,0,0,0.08);
+        }
+
+        /* Right: postage + mailing address */
+        .back-right {
+            flex: 1;
+            height: 100%;
+            padding: 15px 18px 18px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stamp-area {
+            width: 56px;
+            height: 68px;
+            border: 1px solid rgba(0,0,0,0.16);
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 7.5px;
+            color: #c0c0c0;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .address-block { margin-top: auto; }
+
+        .address-label {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 7.5px;
+            color: #c0c0c0;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .address-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding-bottom: 14px;
+        }
+
+        .address-line {
+            height: 1px;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .postcard-label {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 10px;
+            color: #999;
+            letter-spacing: 0.1em;
+        }
+
+        /* ── PRINT ── */
+        /* Force all backgrounds to print — Chrome strips them by default */
+        html {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        @media print {
+            /*
+             * Page = bleed card (6.25"×4.25") + 0.25" white margin on each side
+             * = 6.75"×4.75" — the white margin is where the crop marks live.
+             * Print shop trims 0.125" off each side of the bleed card → final 6"×4" card.
+             */
+            @page {
+                size: 6.75in 4.75in;
+                margin: 0;
+            }
+
+            body {
+                background: transparent;
+                padding: 0;
+                min-height: unset;
+                display: block;
+            }
+
+            .postcard-container {
+                display: block;
+                gap: 0;
+                align-items: unset;
+            }
+
+            /* Hide the screen-only label between front and back */
+            .postcard-label { display: none; }
+
+            /* Bleed card (6.25"×4.25") — 0.25" margin creates the crop-mark gutter */
+            .postcard {
+                width: 6.25in;
+                height: 4.25in;
+                border-radius: 0;
+                box-shadow: none;
+                margin: 0.25in;
+                overflow: visible; /* crop marks extend into the margin */
+                page-break-after: always;
+                break-after: page;
+            }
+
+            /*
+             * Crop marks — 8 lines total (4 horizontal, 4 vertical).
+             * Marks sit in the white margin, aligned to the TRIM edge (0.125" inside bleed).
+             * A 0.0625" gap separates each mark from the bleed edge.
+             *
+             * ::before = 4 horizontal marks via box-shadow copies
+             * ::after  = 4 vertical marks via box-shadow copies
+             *
+             * All offsets are relative to the base element's own top-left corner.
+             */
+
+            /* Horizontal crop marks */
+            .postcard::before {
+                /* Reset screen bleed-guide styles */
+                inset: unset;
+                border: none;
+                /* Crop mark: top-left horizontal */
+                width: 0.1875in;
+                height: 0.75pt;
+                background: #000;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                top: 0.125in;   /* aligned to trim y-edge */
+                left: -0.25in;  /* starts at page edge, 0.0625" gap before bleed */
+                box-shadow:
+                    /* top-right horizontal  */ 6.5625in 0      0 0 #000,
+                    /* bottom-left horizontal */ 0        4in    0 0 #000,
+                    /* bottom-right horizontal*/ 6.5625in 4in    0 0 #000;
+            }
+
+            /* Vertical crop marks */
+            .postcard::after {
+                content: '';
+                position: absolute;
+                width: 0.75pt;
+                height: 0.1875in;
+                background: #000;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                top: -0.25in;   /* starts at page edge, 0.0625" gap before bleed */
+                left: 0.125in;  /* aligned to trim x-edge */
+                box-shadow:
+                    /* top-right vertical    */ 6in 0        0 0 #000,
+                    /* bottom-left vertical  */ 0   4.5625in 0 0 #000,
+                    /* bottom-right vertical */ 6in 4.5625in 0 0 #000;
+            }
+        }
+    </style>
+    <!-- DEV ONLY: auto-refresh every 2 seconds -->
+</head>
+<body>
+    <div class="postcard-container">
+
+        <!-- FRONT -->
+        <div class="postcard front-card">
+            <div class="front">
+                <div class="photo-section">
+                    <img src="family-photo.png" alt="Jeremy &amp; Amanda">
+                    <div class="photo-overlay">
+                        <div class="agent-label">Jeremy &amp; Amanda</div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <div class="holiday-header">
+                        <span class="sh">☘</span> Happy St. Patrick's Day! <span class="sh">☘</span>
+                    </div>
+
+                    <div class="quote">
+                        A good real estate agent team that lives in your neighborhood is like a <strong>four-leaf clover</strong> — hard to find and lucky to have. 🍀
+                    </div>
+
+                    <div class="quote">
+                        We're your neighbors first, your agents second - So whether you've been thinking about making a move, or just need a cup of sugar, we're just a phone call away.<br>The end of a rainbow might be hard to reach, but not us! <svg class="pot-icon" style="width:20px;height:20px;vertical-align:middle;margin-left:2px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="shine" cx="35%" cy="30%" r="60%"><stop offset="0%" stop-color="#FFF8DC"/><stop offset="100%" stop-color="#FFD700"/></radialGradient><linearGradient id="potBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a2a2a"/><stop offset="100%" stop-color="#111"/></linearGradient></defs><ellipse cx="32" cy="18" rx="6" ry="5" fill="url(#shine)" stroke="#DAA520" stroke-width="1"/><ellipse cx="22" cy="21" rx="5.5" ry="5" fill="url(#shine)" stroke="#DAA520" stroke-width="1"/><ellipse cx="42" cy="21" rx="5.5" ry="5" fill="url(#shine)" stroke="#DAA520" stroke-width="1"/><ellipse cx="27" cy="24" rx="5" ry="4.5" fill="url(#shine)" stroke="#DAA520" stroke-width="1"/><ellipse cx="37" cy="24" rx="5" ry="4.5" fill="url(#shine)" stroke="#DAA520" stroke-width="1"/><path d="M12,28 Q10,48 16,56 Q20,60 32,60 Q44,60 48,56 Q54,48 52,28 Z" fill="url(#potBody)" stroke="#333" stroke-width="1"/><rect x="10" y="26" width="44" height="6" rx="3" fill="#333" stroke="#444" stroke-width="0.5"/><path d="M18,36 Q32,34 46,36" stroke="#555" stroke-width="1" fill="none" opacity="0.5"/><ellipse cx="24" cy="15" rx="2" ry="1.5" fill="#FFFACD" opacity="0.6"/><text x="32" y="47" text-anchor="middle" font-size="11" fill="#DAA520" font-weight="bold">&#9752;</text></svg>
+                    </div>
+
+                    <div class="content-spacer"></div>
+
+                    <div class="cta-box">
+                        <div class="cta-brand-name">Ackiss Homes</div>
+                        <div class="cta-brokerage" style="font-size:6px;">Brokered by Triumph Realty</div>
+                        <div class="cta-rule"></div>
+                        <div class="cta-label">☘ Get in Touch ☘</div>
+                        <div class="contact-item"><strong>Call/Text:</strong> (757) 806-8979</div>
+                        <div class="contact-item"><strong>Email:</strong> ackisshomes@gmail.com</div>
+                        <div class="contact-item"><strong>Website:</strong> www.ackisshomes.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="postcard-label">⬆ FRONT &nbsp;•&nbsp; BACK ⬇</div>
+
+        <!-- BACK -->
+        <div class="postcard back-card">
+            <div class="back">
+                <div class="back-left">
+                    <div>
+                        <div class="back-gold-rule"></div>
+                        <div class="return-address-name">Ackiss Homes</div>
+                        <div class="return-address-detail">Brokered by Triumph Realty</div>
+                        <div class="return-address-detail">Jeremy &amp; Amanda Ackiss</div>
+                        <div class="return-address-detail">2135 General Booth Blvd, Suite 146</div>
+                        <div class="return-address-detail">Virginia Beach, VA 23454</div>
+                    </div>
+
+                    <div class="back-message-area">
+                        <div class="message-label">☘ A Note from Jeremy &amp; Amanda</div>
+                        <div class="back-value-add">Whether you're ready to find your dream home or get top dollar for your current one, we're here to make it happen.</div>
+                        <div class="message-lines">
+                            <div class="message-line"></div>
+                            <div class="message-line"></div>
+                            <div class="message-line"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="back-right">
+                    <div class="stamp-area">Stamp</div>
+                    <div class="address-block">
+                        <div class="address-label">Mailing Address</div>
+                        <div class="address-lines">
+                            <div class="address-line"></div>
+                            <div class="address-line"></div>
+                            <div class="address-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
