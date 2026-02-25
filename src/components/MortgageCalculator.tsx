@@ -344,7 +344,7 @@ export default function MortgageCalculator() {
     "block text-sm text-gray-400 mb-1.5 uppercase tracking-wider";
 
   return (
-    <section id="calculator" className="py-20 px-6">
+    <section id="calculator" className="pt-10 pb-20 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Heading — left-aligned asymmetric like About */}
         <div className="grid md:grid-cols-[2fr_3fr] gap-8 mb-10">
