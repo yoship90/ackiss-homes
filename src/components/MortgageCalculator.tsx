@@ -480,7 +480,7 @@ export default function MortgageCalculator() {
                 {/* Loan Term */}
                 <div>
                   <label className={labelCls}>Loan Term</label>
-                  <div className="py-3 px-4 border border-dark-600 rounded-sm text-sm uppercase tracking-wider text-gray-400 w-28">
+                  <div className="inline-block py-3 px-6 rounded-sm text-sm uppercase tracking-wider font-semibold bg-gold-500 text-dark-900 border border-gold-500">
                     30 yr
                   </div>
                 </div>
