@@ -16,22 +16,56 @@ import PageReveal from "@/components/PageReveal";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ackiss-homes.vercel.app";
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "RealEstateAgent",
-  name: "Ackiss Homes",
-  url: siteUrl,
-  logo: `${siteUrl}/logo.png`,
-  image: `${siteUrl}/hero-bg.jpg`,
-  description:
-    "Ackiss Homes delivers exceptional real estate experiences — buying, selling, or investing.",
-  makesOffer: [
-    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Home Buying" } },
-    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Home Selling" } },
-    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Rentals" } },
-    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Real Estate Consultations" } },
-  ],
-};
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    name: "Ackiss Homes",
+    url: siteUrl,
+    logo: `${siteUrl}/logo.png`,
+    image: `${siteUrl}/hero-bg.jpg`,
+    email: "ackisshomes@gmail.com",
+    description:
+      "Ackiss Homes delivers exceptional real estate experiences — buying, selling, or investing.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "2135 General Booth Blvd, Suite 146",
+      addressLocality: "Virginia Beach",
+      addressRegion: "VA",
+      postalCode: "23454",
+      addressCountry: "US",
+    },
+    makesOffer: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Home Buying" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Home Selling" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Rentals" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Real Estate Consultations" } },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Amanda Ackiss",
+    jobTitle: "Real Estate Agent",
+    worksFor: { "@type": "Organization", name: "Ackiss Homes" },
+    url: siteUrl,
+    sameAs: [
+      "https://www.zillow.com/profile/amanda5867",
+      "https://www.instagram.com/ackisshomes/",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Jeremy Ackiss",
+    jobTitle: "Real Estate Agent",
+    worksFor: { "@type": "Organization", name: "Ackiss Homes" },
+    url: siteUrl,
+    sameAs: [
+      "https://www.zillow.com/profile/jeremy2621",
+    ],
+  },
+];
 
 export default function Home() {
   return (
@@ -40,6 +74,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
       <PageReveal>
         <Header />
         <main>

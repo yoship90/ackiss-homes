@@ -33,7 +33,7 @@ export default function Contact() {
       if (!res.ok) throw new Error("Submit failed");
       setSubmitted(true);
     } catch {
-      setError("Something went wrong. Please try again or call us directly.");
+      setError("Something went wrong. Please try again or email us at ackisshomes@gmail.com.");
     } finally {
       setLoading(false);
     }
