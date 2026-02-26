@@ -4,11 +4,11 @@ import SplitHeading from "./SplitHeading";
 
 // To add a thumbnail: screenshot the reel, drop the image in /public/reels/,
 // then set thumbnail to e.g. "/reels/reel-1.jpg"
-const reels: { url: string; thumbnail: string | null }[] = [
-  { url: "https://www.instagram.com/p/DU8NPEQDUTA/", thumbnail: "/reels/reels-1.png" },
-  { url: "https://www.instagram.com/p/C-7ndFNO9wj/",  thumbnail: "/reels/reels-2.png" },
-  { url: "https://www.instagram.com/p/DIT3kupu6Cp/",  thumbnail: "/reels/reels-3.png" },
-  { url: "https://www.instagram.com/p/DSH0N-SDvrP/",  thumbnail: "/reels/reels-4.png" },
+const reels: { url: string; thumbnail: string | null; alt: string }[] = [
+  { url: "https://www.instagram.com/p/DU8NPEQDUTA/", thumbnail: "/reels/reels-1.png", alt: "Amanda Ackiss showcasing a Virginia Beach listing in a St. Patrick's Day themed video" },
+  { url: "https://www.instagram.com/p/C-7ndFNO9wj/",  thumbnail: "/reels/reels-2.png", alt: "Amanda Ackiss advertising a home listing in Norfolk, Virginia" },
+  { url: "https://www.instagram.com/p/DIT3kupu6Cp/",  thumbnail: "/reels/reels-3.png", alt: "Amanda Ackiss showcasing a Chesapeake, Virginia listing in an Easter themed video" },
+  { url: "https://www.instagram.com/p/DSH0N-SDvrP/",  thumbnail: "/reels/reels-4.png", alt: "Jeremy Ackiss advertising a home listing in a Christmas themed video" },
 ];
 
 // Instagram logo SVG
@@ -32,7 +32,7 @@ function PlayIcon() {
   );
 }
 
-function ReelCard({ url, thumbnail }: { url: string; thumbnail: string | null }) {
+function ReelCard({ url, thumbnail, alt }: { url: string; thumbnail: string | null; alt: string }) {
   return (
     <a
       href={url}
@@ -45,7 +45,7 @@ function ReelCard({ url, thumbnail }: { url: string; thumbnail: string | null })
         {thumbnail ? (
           <Image
             src={thumbnail}
-            alt="Instagram reel"
+            alt={alt}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 640px) 100vw, 340px"
