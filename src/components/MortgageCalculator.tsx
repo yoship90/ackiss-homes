@@ -85,9 +85,9 @@ export default function MortgageCalculator() {
   const [extraOneTimeMonth, setExtraOneTimeMonth] = useState("12");
 
   /* ---- Homeowner expenses ---- */
-  const [propertyTax, setPropertyTax] = useState("");
-  const [propertyTaxIsPercent, setPropertyTaxIsPercent] = useState(false);
-  const [insurance, setInsurance] = useState("");
+  const [propertyTax, setPropertyTax] = useState("0.99");
+  const [propertyTaxIsPercent, setPropertyTaxIsPercent] = useState(true);
+  const [insurance, setInsurance] = useState("1800");
   const [pmi, setPmi] = useState("1");
   const [hoa, setHoa] = useState("");
 
@@ -650,6 +650,9 @@ export default function MortgageCalculator() {
                           {propertyTaxIsPercent ? "%" : "$"}
                         </button>
                       </div>
+                      <p className="text-xs text-gray-500 mt-1.5">
+                        Virginia Beach avg. rate (~0.99%) — edit to match your property.
+                      </p>
                     </div>
 
                     {/* Insurance */}
@@ -671,6 +674,9 @@ export default function MortgageCalculator() {
                           placeholder="1,200"
                         />
                       </div>
+                      <p className="text-xs text-gray-500 mt-1.5">
+                        Virginia Beach avg. (~$1,800/yr) — edit to match your policy.
+                      </p>
                     </div>
 
                     {/* PMI */}
