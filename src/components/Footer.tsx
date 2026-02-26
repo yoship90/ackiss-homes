@@ -82,6 +82,12 @@ export default function Footer() {
             >
               Privacy Policy
             </Link>
+            <Link
+              href="/terms"
+              className="text-xs text-gray-600 uppercase tracking-wider hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 transition-colors duration-300"
+            >
+              Terms of Service
+            </Link>
             <p className="text-sm text-gray-500">
               &copy; {new Date().getFullYear()} Ackiss Homes. All rights reserved.
             </p>
