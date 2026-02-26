@@ -15,22 +15,17 @@ export default function NotFound() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at 50% 60%, rgba(201,149,46,0.06) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse at 50% 60%, rgba(201,149,46,0.03) 0%, transparent 60%)",
         }}
         aria-hidden="true"
       />
 
       {/* Logo watermark */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04]" aria-hidden="true">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.07]" aria-hidden="true">
         <Image src="/logo.png" alt="" width={600} height={558} className="w-[70vw] max-w-2xl h-auto" />
       </div>
 
       <div className="relative z-10 text-center max-w-lg">
-
-        {/* Logo */}
-        <div className="flex justify-center mb-8">
-          <Image src="/logo.png" alt="Ackiss Homes" width={56} height={52} className="opacity-80 mix-blend-lighten" />
-        </div>
 
         {/* 404 */}
         <p className="text-gold-500/50 uppercase tracking-[0.4em] text-xs mb-4">404 — Not Found</p>
