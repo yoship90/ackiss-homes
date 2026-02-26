@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   AreaChart,
   Area,
@@ -10,9 +11,13 @@ import {
   ReferenceLine,
 } from "recharts";
 
-// Static 30-yr fixed mortgage rate data (quarterly, Freddie Mac PMMS)
-// Source: Freddie Mac Primary Mortgage Market Survey
-const data = [
+interface RatePoint {
+  label: string;
+  rate: number;
+}
+
+// Static fallback data (Freddie Mac PMMS quarterly averages through Q4 '25)
+const FALLBACK_DATA: RatePoint[] = [
   { label: "Q1 '19", rate: 4.37 },
   { label: "Q2 '19", rate: 4.14 },
   { label: "Q3 '19", rate: 3.73 },
@@ -44,9 +49,6 @@ const data = [
   { label: "Now",    rate: 6.96 },
 ];
 
-// Year tick positions (first Q of each year + "Now")
-const yearTicks = ["Q1 '19", "Q1 '20", "Q1 '21", "Q1 '22", "Q1 '23", "Q1 '24", "Q1 '25", "Now"];
-
 function CustomTooltip({
   active,
   payload,
@@ -66,7 +68,29 @@ function CustomTooltip({
 }
 
 export default function MortgageRateChart() {
+  const [data, setData] = useState<RatePoint[]>(FALLBACK_DATA);
+  const [isLive, setIsLive] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/mortgage-rates")
+      .then((r) => r.json())
+      .then((json) => {
+        if (Array.isArray(json.data) && json.data.length > 0) {
+          setData(json.data);
+          setIsLive(true);
+        }
+      })
+      .catch(() => {
+        // Keep fallback data silently
+      });
+  }, []);
+
   const current = data[data.length - 1].rate;
+
+  // Year ticks: first Q of each year present in data + "Now"
+  const yearTicks = data
+    .filter((d) => d.label.startsWith("Q1") || d.label === "Now")
+    .map((d) => d.label);
 
   return (
     <div className="w-full">
@@ -125,7 +149,6 @@ export default function MortgageRateChart() {
               cursor={{ stroke: "rgba(201,149,46,0.35)", strokeWidth: 1 }}
             />
 
-            {/* Reference lines at notable levels */}
             <ReferenceLine y={3} stroke="rgba(201,149,46,0.18)" strokeDasharray="3 3" />
             <ReferenceLine y={7} stroke="rgba(201,149,46,0.18)" strokeDasharray="3 3" />
 
@@ -144,7 +167,7 @@ export default function MortgageRateChart() {
 
       {/* Footer note */}
       <p className="text-[9px] text-gray-400 text-right mt-1.5">
-        Freddie Mac PMMS · 30-yr fixed · quarterly avg
+        Freddie Mac PMMS · 30-yr fixed · quarterly avg{isLive ? " · live" : ""}
       </p>
     </div>
   );
