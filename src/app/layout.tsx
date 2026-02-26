@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
+import HashScrollHandler from "@/components/HashScrollHandler";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -81,7 +82,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <HashScrollHandler />
+        {children}
+      </body>
     </html>
   );
 }
