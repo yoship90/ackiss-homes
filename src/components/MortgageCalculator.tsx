@@ -76,7 +76,7 @@ export default function MortgageCalculator() {
   const [downPayment, setDownPayment] = useState("");
   const [downPaymentIsPercent, setDownPaymentIsPercent] = useState(true);
   const [interestRate, setInterestRate] = useState("");
-  const [loanTerm, setLoanTerm] = useState(30);
+  const loanTerm = 30;
 
   /* ---- Extra payments ---- */
   const [extraMonthly, setExtraMonthly] = useState("");
@@ -480,21 +480,8 @@ export default function MortgageCalculator() {
                 {/* Loan Term */}
                 <div>
                   <label className={labelCls}>Loan Term</label>
-                  <div className="flex gap-2">
-                    {[15, 20, 30].map((yr) => (
-                      <button
-                        key={yr}
-                        type="button"
-                        onClick={() => setLoanTerm(yr)}
-                        className={`flex-1 py-3 rounded-sm text-sm uppercase tracking-wider transition-colors duration-300 border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
-                          loanTerm === yr
-                            ? "bg-gold-500 text-dark-900 border-gold-500 font-semibold"
-                            : "border-dark-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
-                        }`}
-                      >
-                        {yr} yr
-                      </button>
-                    ))}
+                  <div className="py-3 px-4 border border-dark-600 rounded-sm text-sm uppercase tracking-wider text-gray-400 w-28">
+                    30 yr
                   </div>
                 </div>
               </div>
