@@ -162,7 +162,7 @@ export default function Hero() {
       {/* Logo */}
       <div
         ref={logoRef}
-        className="absolute inset-y-0 left-0 translate-x-0 md:left-auto md:right-[-8rem] flex items-center will-change-transform pointer-events-none transition-opacity duration-700 ease-out"
+        className="absolute inset-y-0 left-0 translate-x-0 md:left-auto md:right-[-10rem] flex items-center will-change-transform pointer-events-none transition-opacity duration-700 ease-out"
         aria-hidden="true"
         style={{ opacity: isMobile ? (logoPhase ? 0.3 : 1) : 0.55 }}
       >
@@ -171,7 +171,7 @@ export default function Hero() {
           alt=""
           width={960}
           height={894}
-          className="w-[150vw] md:w-[52rem] h-auto object-contain mix-blend-lighten [mask-image:linear-gradient(to_right,transparent,black_4%)]"
+          className="w-[150vw] md:w-[52rem] h-auto object-contain mix-blend-lighten [mask-image:linear-gradient(to_right,transparent,black_12%)]"
           priority
         />
       </div>
