@@ -24,3 +24,9 @@ npm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local dev scripts and artifacts
+.claude/
+*.mjs
+"temporary screenshots/"
+temporary\ screenshots/
