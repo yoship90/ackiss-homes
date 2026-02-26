@@ -119,6 +119,7 @@ export default function PropertyInquiry() {
           propertyTypes: propertyType,
           timeline,
           notes: data.get("notes") as string || "",
+          website: data.get("website"),
         }),
       });
 
@@ -195,6 +196,11 @@ export default function PropertyInquiry() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6" aria-label="Home search preferences">
+                  {/* Honeypot — hidden from real users, bots will fill it in */}
+                  <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden" }}>
+                    <label htmlFor="inquiry-website">Website</label>
+                    <input type="text" id="inquiry-website" name="website" tabIndex={-1} autoComplete="off" />
+                  </div>
 
                   <ButtonGroup label="Bedrooms" options={bedOptions} value={beds} onChange={(v) => setBeds(v as string)} />
                   <ButtonGroup label="Bathrooms" options={bathOptions} value={baths} onChange={(v) => setBaths(v as string)} />

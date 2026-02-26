@@ -3,8 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { formType, name, firstName: firstNameField, lastName: lastNameField,
-          email, phone, message,
+          email, phone, message, website,
           beds, baths, priceMin, priceMax, propertyTypes, timeline, preApproval, notes: searchNotes } = body;
+
+  // Honeypot check — real users never fill this field; bots do
+  if (website) {
+    return NextResponse.json({ success: true });
+  }
 
   const apiKey = process.env.FUB_API_KEY;
   if (!apiKey) {

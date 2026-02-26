@@ -27,6 +27,7 @@ export default function Contact() {
           email: data.get("email"),
           phone: data.get("phone"),
           message: data.get("message"),
+          website: data.get("website"),
         }),
       });
 
@@ -79,6 +80,11 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5" aria-label="Contact us">
+                {/* Honeypot — hidden from real users, bots will fill it in */}
+                <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden" }}>
+                  <label htmlFor="contact-website">Website</label>
+                  <input type="text" id="contact-website" name="website" tabIndex={-1} autoComplete="off" />
+                </div>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label htmlFor="contact-first-name" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
