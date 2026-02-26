@@ -40,6 +40,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
+  verification: {
+    google: "DYn3guIYiOMqOMoT4U69IonMLftkhqEHOBsFl3rBi48",
+  },
   robots: {
     index: true,
     follow: true,
