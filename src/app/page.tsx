@@ -51,6 +51,7 @@ const jsonLd = {
       "@type": "Person",
       name: "Amanda Ackiss",
       jobTitle: "Real Estate Agent",
+      image: `${siteUrl}/amanda-ackiss.jpg`,
       worksFor: { "@type": "Organization", name: "Ackiss Homes" },
       url: siteUrl,
       sameAs: [
@@ -62,6 +63,7 @@ const jsonLd = {
       "@type": "Person",
       name: "Jeremy Ackiss",
       jobTitle: "Real Estate Agent",
+      image: `${siteUrl}/jeremy-ackiss.jpg`,
       worksFor: { "@type": "Organization", name: "Ackiss Homes" },
       url: siteUrl,
       sameAs: [
