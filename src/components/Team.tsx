@@ -29,7 +29,7 @@ export default function Team() {
               <div className="h-72 md:h-full md:-ml-16 rounded-sm md:rounded-r-sm relative overflow-hidden">
                 <Image
                   src="/IMG_20260225_131337.jpg"
-                  alt="Ackiss Homes team"
+                  alt="Amanda and Jeremy Ackiss — Ackiss Homes real estate team"
                   fill
                   className="object-cover" style={{ objectPosition: "center 20%" }}
                   sizes="(max-width: 768px) 100vw, 40vw"
