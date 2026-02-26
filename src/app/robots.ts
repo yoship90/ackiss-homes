@@ -1,12 +1,13 @@
 import { MetadataRoute } from "next";
 
-// TODO: when custom domain is live and ready for indexing, change to:
-//   rules: { userAgent: "*", allow: "/" }
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ackiss-homes.vercel.app";
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
-      disallow: "/",
+      allow: "/",
     },
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

@@ -40,13 +40,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
-  // TODO: when ready for launch, change to index: true, follow: true
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
     googleBot: {
-      index: false,
-      follow: false,
+      index: true,
+      follow: true,
     },
   },
   openGraph: {
