@@ -57,14 +57,6 @@ export const metadata: Metadata = {
       "Buying, selling, or investing in Virginia Beach? Ackiss Homes delivers exceptional real estate experiences with local expertise and a client-first approach.",
     url: siteUrl,
     siteName: "Ackiss Homes",
-    images: [
-      {
-        url: "/hero-bg.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Ackiss Homes — Hampton Roads Real Estate",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -73,7 +65,6 @@ export const metadata: Metadata = {
     title: "Ackiss Homes — Virginia Beach & All of Hampton Roads Real Estate",
     description:
       "Buying, selling, or investing in Virginia Beach? Ackiss Homes delivers exceptional real estate experiences with local expertise and a client-first approach.",
-    images: ["/hero-bg.jpg"],
   },
 };
 

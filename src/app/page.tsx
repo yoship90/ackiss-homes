@@ -24,7 +24,7 @@ const jsonLd = {
       name: "Ackiss Homes",
       url: siteUrl,
       logo: `${siteUrl}/logo.png`,
-      image: `${siteUrl}/hero-bg.jpg`,
+      image: `${siteUrl}/opengraph-image`,
       email: "ackisshomes@gmail.com",
       description:
         "Ackiss Homes delivers exceptional real estate experiences — buying, selling, or investing.",
