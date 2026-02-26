@@ -41,6 +41,10 @@ const jsonLd = [
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Rentals" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Real Estate Consultations" } },
     ],
+    sameAs: [
+      "https://www.instagram.com/ackisshomes/",
+      "https://www.facebook.com/profile.php?id=100090275910543",
+    ],
   },
   {
     "@context": "https://schema.org",
@@ -51,7 +55,7 @@ const jsonLd = [
     url: siteUrl,
     sameAs: [
       "https://www.zillow.com/profile/amanda5867",
-      "https://www.instagram.com/ackisshomes/",
+      "https://www.instagram.com/amanda.ackiss/",
     ],
   },
   {
@@ -63,6 +67,7 @@ const jsonLd = [
     url: siteUrl,
     sameAs: [
       "https://www.zillow.com/profile/jeremy2621",
+      "https://www.instagram.com/jeremy.ackiss/",
     ],
   },
 ];
