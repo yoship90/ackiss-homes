@@ -350,7 +350,7 @@ function FeedbackSection({ entryId, initialData, onSave }: {
 
         {/* Status dropdown */}
         <div className="flex items-center gap-2">
-          <span className="text-[9px] uppercase tracking-[0.25em] text-gray-700">Status</span>
+          <span className="text-xs uppercase tracking-[0.2em] text-gray-500">Status</span>
           <div className="relative">
             <select
               value={data.itemStatus}
@@ -374,7 +374,7 @@ function FeedbackSection({ entryId, initialData, onSave }: {
         <div className="flex items-center gap-3">
           {(["amanda", "jeremy"] as const).map((person) => (
             <div key={person} className="flex items-center gap-0.5">
-              <span className="text-[9px] uppercase tracking-[0.15em] text-gray-700 mr-1 capitalize">{person[0]}</span>
+              <span className="text-xs uppercase tracking-[0.1em] text-gray-400 mr-1.5 font-semibold capitalize">{person[0]}</span>
               {(["up", "down", "sideways"] as Reaction[]).map((type) => (
                 <ThumbBtn
                   key={type}
@@ -410,7 +410,7 @@ function FeedbackSection({ entryId, initialData, onSave }: {
       <button
         type="button"
         onClick={() => setNotesOpen(o => !o)}
-        className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.25em] text-gray-600 hover:text-gray-400 transition-[color] duration-150 focus-visible:outline-none focus-visible:text-gold-400"
+        className="flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] text-gray-500 hover:text-gray-300 transition-[color] duration-150 focus-visible:outline-none focus-visible:text-gold-400"
       >
         <svg
           className={`w-3 h-3 transition-transform duration-200 ${notesOpen ? "rotate-180" : ""}`}
@@ -684,6 +684,7 @@ export default function TodoPage() {
   const [dragId, setDragId]           = useState<string | null>(null);
   const [dragOverId, setDragOverId]   = useState<string | null>(null);
   const [completedOpen, setCompletedOpen] = useState(false);
+  const [notDoingOpen, setNotDoingOpen]   = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem(INTERNAL_AUTH_KEY) === "1") setAuthed(true);
@@ -749,9 +750,11 @@ export default function TodoPage() {
     );
   }
 
-  const completedIds = new Set(entries.filter(e => allFeedback[e.id]?.itemStatus === "completed").map(e => e.id));
+  const completedIds  = new Set(entries.filter(e => allFeedback[e.id]?.itemStatus === "completed").map(e => e.id));
+  const notDoingIds   = new Set(entries.filter(e => allFeedback[e.id]?.itemStatus === "not-doing").map(e => e.id));
   const completedEntries = sortedByOrder(entries.filter(e => completedIds.has(e.id)));
-  const activeEntries = (id: string) => !completedIds.has(id);
+  const notDoingEntries  = sortedByOrder(entries.filter(e => notDoingIds.has(e.id)));
+  const activeEntries = (id: string) => !completedIds.has(id) && !notDoingIds.has(id);
 
   const filtered = filter === "all"
     ? entries.filter(e => activeEntries(e.id))
@@ -865,6 +868,32 @@ export default function TodoPage() {
                   {completedOpen && (
                     <div className="grid md:grid-cols-2 gap-4 opacity-50">
                       {completedEntries.map(renderCard)}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Not Doing section — collapsed by default */}
+              {notDoingEntries.length > 0 && (
+                <div className="mb-12">
+                  <button
+                    onClick={() => setNotDoingOpen(o => !o)}
+                    className="flex items-center gap-3 mb-4 group focus-visible:outline-none"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-gray-600/50 shrink-0" />
+                    <span className="text-xs uppercase tracking-[0.3em] text-gray-600 group-hover:text-gray-400 transition-colors">
+                      Not Doing ({notDoingEntries.length})
+                    </span>
+                    <svg
+                      className={`w-3 h-3 text-gray-700 transition-transform duration-200 ${notDoingOpen ? "rotate-0" : "-rotate-90"}`}
+                      fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {notDoingOpen && (
+                    <div className="grid md:grid-cols-2 gap-4 opacity-35">
+                      {notDoingEntries.map(renderCard)}
                     </div>
                   )}
                 </div>
