@@ -17,6 +17,7 @@ interface Entry {
   description: string;
   date: string;
   status: Status;
+  priority?: "high";
   link?: string;
 }
 
@@ -94,6 +95,14 @@ const entries: Entry[] = [
   },
 
   // ---- TO DO ----
+  {
+    id: "google-business-profile",
+    title: "Google Business Profile — Jeremy to Set Up",
+    description: "Highest-impact local SEO action remaining. A verified GBP listing makes Ackiss Homes eligible for the Google Maps pack (the 3 results shown above organic search), dramatically increases visibility for 'Virginia Beach real estate agent' searches, and is required before we can add a real Google review link to the post-closing review page. Go to business.google.com, create the listing, and verify via postcard or phone. Add both Amanda and Jeremy as managers once set up.",
+    date: "Feb 2026",
+    status: "todo",
+    priority: "high",
+  },
   {
     id: "seo-crawling",
     title: "SEO: Enable Search Engine Crawling",
@@ -268,6 +277,11 @@ function EntryCard({ entry }: { entry: Entry }) {
             <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot}`} />
             {cfg.label}
           </span>
+          {entry.priority === "high" && (
+            <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full border bg-red-500/10 text-red-400 border-red-500/20">
+              ↑ High Priority
+            </span>
+          )}
           {entry.link && (
             <Link href={entry.link} className="text-xs text-gold-500/60 hover:text-gold-400 transition-colors uppercase tracking-wider">
               View →
@@ -412,7 +426,7 @@ function EntryCard({ entry }: { entry: Entry }) {
 /*  Page                                                                */
 /* ------------------------------------------------------------------ */
 
-export default function TeamUpdatesPage() {
+export default function TodoPage() {
   const [filter, setFilter] = useState<Status | "all">("all");
 
   const filtered = filter === "all"
@@ -429,7 +443,7 @@ export default function TeamUpdatesPage() {
             <Image src="/logo.png" alt="Ackiss Homes" width={40} height={37} className="opacity-90" />
             <div>
               <div className="text-white font-heading font-bold text-lg leading-none tracking-wide">Ackiss Homes</div>
-              <div className="text-gold-500 text-[10px] uppercase tracking-[0.25em] mt-0.5">Team Updates</div>
+              <div className="text-gold-500 text-[10px] uppercase tracking-[0.25em] mt-0.5">To Do</div>
             </div>
           </Link>
           <Link href="/" className="text-xs text-gray-400 uppercase tracking-widest hover:text-gold-400 transition-colors">
