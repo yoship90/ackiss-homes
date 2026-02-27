@@ -83,7 +83,7 @@ const entries: Entry[] = [
     title: "Email Campaign #1 — Market Shift",
     description: "First reactivation email to ~900 cold leads in FUB. Neutral market update framing that works for both buyers and sellers. Draft ready — needs your approval before sending via FUB bulk email.",
     date: "Feb 2026",
-    status: "needs-approval",
+    status: "todo",
   },
 
   // ---- IN PROGRESS ----
