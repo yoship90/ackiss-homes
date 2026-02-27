@@ -97,6 +97,14 @@ const entries: Entry[] = [
 
   // ---- TO DO ----
   {
+    id: "stpatricks-postcards",
+    title: "St. Patrick's Day Postcards",
+    description: "Design and send St. Patrick's Day postcards to the mailing list. Drafts are ready — needs final approval and mailing.",
+    date: "Feb 2026",
+    status: "todo",
+    priority: "high",
+  },
+  {
     id: "google-business-profile",
     title: "Google Business Profile — Jeremy to Set Up",
     description: "Highest-impact local SEO action remaining. A verified GBP listing makes Ackiss Homes eligible for the Google Maps pack (the 3 results shown above organic search), dramatically increases visibility for 'Virginia Beach real estate agent' searches, and is required before we can add a real Google review link to the post-closing review page. Go to business.google.com, create the listing, and verify via postcard or phone. Add both Amanda and Jeremy as managers once set up.",
