@@ -233,6 +233,218 @@ const defaultApproval = (): ApprovalState => ({
 });
 
 /* ------------------------------------------------------------------ */
+/*  Team Feedback                                                       */
+/* ------------------------------------------------------------------ */
+
+const FEEDBACK_KEY = "ackiss_feedback_v1";
+
+type Reaction = "up" | "down" | "sideways";
+type ItemStatus =
+  | "pending-nate"
+  | "pending-amanda"
+  | "pending-jeremy"
+  | "in-review"
+  | "blocked"
+  | "on-hold"
+  | "completed"
+  | "not-doing";
+
+interface FeedbackData {
+  itemStatus: ItemStatus;
+  reactions: { amanda: Reaction | null; jeremy: Reaction | null };
+  reactionNotes: { amanda: string; jeremy: string };
+  notes: { nate: string; amanda: string; jeremy: string };
+}
+
+const DEFAULT_FEEDBACK: FeedbackData = {
+  itemStatus: "pending-nate",
+  reactions: { amanda: null, jeremy: null },
+  reactionNotes: { amanda: "", jeremy: "" },
+  notes: { nate: "", amanda: "", jeremy: "" },
+};
+
+const ITEM_STATUS_OPTIONS: { value: ItemStatus; label: string; hex: string }[] = [
+  { value: "pending-nate",   label: "Pending · Nate",   hex: "#9ca3af" },
+  { value: "pending-amanda", label: "Pending · Amanda", hex: "#c9952e" },
+  { value: "pending-jeremy", label: "Pending · Jeremy", hex: "#c9952e" },
+  { value: "in-review",      label: "In Review",        hex: "#818cf8" },
+  { value: "blocked",        label: "Blocked",          hex: "#f87171" },
+  { value: "on-hold",        label: "On Hold",          hex: "#fb923c" },
+  { value: "completed",      label: "Completed",        hex: "#34d399" },
+  { value: "not-doing",      label: "Not Doing",        hex: "#4b5563" },
+];
+
+function loadFeedback(entryId: string): FeedbackData {
+  try {
+    const stored = localStorage.getItem(FEEDBACK_KEY);
+    if (stored) {
+      const all = JSON.parse(stored);
+      if (all[entryId]) return { ...DEFAULT_FEEDBACK, ...all[entryId] };
+    }
+  } catch { /* ignore */ }
+  return DEFAULT_FEEDBACK;
+}
+
+function persistFeedback(entryId: string, data: FeedbackData) {
+  try {
+    const stored = localStorage.getItem(FEEDBACK_KEY);
+    const all = stored ? JSON.parse(stored) : {};
+    all[entryId] = data;
+    localStorage.setItem(FEEDBACK_KEY, JSON.stringify(all));
+  } catch { /* ignore */ }
+}
+
+function ThumbBtn({ type, active, onClick }: { type: Reaction; active: boolean; onClick: () => void }) {
+  const rotation = type === "down" ? "180deg" : type === "sideways" ? "-90deg" : "0deg";
+  const activeColor = type === "up" ? "#34d399" : type === "down" ? "#f87171" : "#fbbf24";
+  const title = type === "up" ? "Looks good" : type === "down" ? "Not a fan" : "Needs discussion";
+  return (
+    <button
+      type="button"
+      title={title}
+      onClick={onClick}
+      className={`w-7 h-7 rounded flex items-center justify-center transition-[background-color,transform] duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-500 active:scale-90 ${
+        active ? "bg-dark-600/80" : "hover:bg-dark-600/40"
+      }`}
+      style={{ color: active ? activeColor : "#4b5563" }}
+    >
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" style={{ transform: `rotate(${rotation})` }}>
+        <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+      </svg>
+    </button>
+  );
+}
+
+function FeedbackSection({ entryId }: { entryId: string }) {
+  const [data, setData] = useState<FeedbackData>(DEFAULT_FEEDBACK);
+  const [notesOpen, setNotesOpen] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setData(loadFeedback(entryId));
+    setLoaded(true);
+  }, [entryId]);
+
+  function save(updated: FeedbackData) {
+    setData(updated);
+    persistFeedback(entryId, updated);
+  }
+
+  function toggleReaction(person: "amanda" | "jeremy", reaction: Reaction) {
+    save({
+      ...data,
+      reactions: { ...data.reactions, [person]: data.reactions[person] === reaction ? null : reaction },
+    });
+  }
+
+  if (!loaded) return null;
+
+  const statusOption = ITEM_STATUS_OPTIONS.find(o => o.value === data.itemStatus) ?? ITEM_STATUS_OPTIONS[0];
+  const noteCount = Object.values(data.notes).filter(n => n.trim()).length;
+
+  return (
+    <div className="mt-4 pt-4 border-t border-dark-600/25">
+
+      {/* Status + reactions row */}
+      <div className="flex items-center justify-between gap-3 flex-wrap mb-3">
+
+        {/* Status dropdown */}
+        <div className="flex items-center gap-2">
+          <span className="text-[9px] uppercase tracking-[0.25em] text-gray-700">Status</span>
+          <div className="relative">
+            <select
+              value={data.itemStatus}
+              onChange={(e) => save({ ...data, itemStatus: e.target.value as ItemStatus })}
+              className="bg-dark-700/70 border border-dark-600/40 hover:border-dark-500 rounded-sm text-[11px] pl-2.5 pr-6 py-1.5 focus:outline-none focus:border-gold-500/50 appearance-none cursor-pointer transition-[border-color] duration-200"
+              style={{ color: statusOption.hex }}
+            >
+              {ITEM_STATUS_OPTIONS.map(({ value, label, hex }) => (
+                <option key={value} value={value} style={{ color: hex, background: "#1a1a1a" }}>
+                  {label}
+                </option>
+              ))}
+            </select>
+            <svg className="absolute right-1.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-600 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Thumbs — Amanda & Jeremy */}
+        <div className="flex items-center gap-3">
+          {(["amanda", "jeremy"] as const).map((person) => (
+            <div key={person} className="flex items-center gap-0.5">
+              <span className="text-[9px] uppercase tracking-[0.15em] text-gray-700 mr-1 capitalize">{person[0]}</span>
+              {(["up", "down", "sideways"] as Reaction[]).map((type) => (
+                <ThumbBtn
+                  key={type}
+                  type={type}
+                  active={data.reactions[person] === type}
+                  onClick={() => toggleReaction(person, type)}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Sideways expansion — discussion notes per person */}
+      {(["amanda", "jeremy"] as const).map((person) =>
+        data.reactions[person] === "sideways" ? (
+          <div key={`${person}-rx`} className="mb-3">
+            <label className="block text-[9px] uppercase tracking-[0.25em] text-amber-500/60 mb-1.5 capitalize">
+              {person} — what needs discussing?
+            </label>
+            <textarea
+              value={data.reactionNotes[person]}
+              onChange={(e) => save({ ...data, reactionNotes: { ...data.reactionNotes, [person]: e.target.value } })}
+              rows={2}
+              placeholder="Add discussion notes…"
+              className="w-full bg-dark-700/50 border border-amber-500/15 rounded-sm px-3 py-2 text-white placeholder-gray-600 text-xs focus:outline-none focus:border-amber-500/30 transition-[border-color] duration-200 resize-none"
+            />
+          </div>
+        ) : null
+      )}
+
+      {/* Notes toggle */}
+      <button
+        type="button"
+        onClick={() => setNotesOpen(o => !o)}
+        className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.25em] text-gray-600 hover:text-gray-400 transition-[color] duration-150 focus-visible:outline-none focus-visible:text-gold-400"
+      >
+        <svg
+          className={`w-3 h-3 transition-transform duration-200 ${notesOpen ? "rotate-180" : ""}`}
+          fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+        Notes
+        {noteCount > 0 && <span className="text-gold-500/50 ml-0.5">{noteCount}</span>}
+      </button>
+
+      {notesOpen && (
+        <div className="mt-3 space-y-3">
+          {(["nate", "amanda", "jeremy"] as const).map((person) => (
+            <div key={person}>
+              <label className="block text-[9px] uppercase tracking-[0.25em] text-gray-600 mb-1.5 capitalize">
+                {person}
+              </label>
+              <textarea
+                value={data.notes[person]}
+                onChange={(e) => save({ ...data, notes: { ...data.notes, [person]: e.target.value } })}
+                rows={2}
+                placeholder={person === "nate" ? "Your notes…" : `${person.charAt(0).toUpperCase() + person.slice(1)}'s notes…`}
+                className="w-full bg-dark-700/50 border border-dark-600/30 rounded-sm px-3 py-2 text-white placeholder-gray-600 text-xs focus:outline-none focus:border-gold-500/30 transition-[border-color] duration-200 resize-none"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Card component                                                      */
 /* ------------------------------------------------------------------ */
 
@@ -419,6 +631,9 @@ function EntryCard({ entry }: { entry: Entry }) {
           )}
         </div>
       )}
+
+      {/* Team feedback — status, reactions, notes */}
+      <FeedbackSection entryId={entry.id} />
     </div>
   );
 }
