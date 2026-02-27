@@ -116,7 +116,7 @@ const entries: Entry[] = [
     title: "Improve Social Share (OG) Image",
     description: "When the site is shared on social media or iMessage, the preview image is a low-res screenshot (251×69px). Needs to be rebuilt as a proper high-res image for a professional appearance.",
     date: "Feb 2026",
-    status: "todo",
+    status: "live",
   },
   {
     id: "custom-domain",

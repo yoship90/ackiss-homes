@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import PasswordGate, { INTERNAL_AUTH_KEY } from "@/components/PasswordGate";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                               */
@@ -101,6 +105,14 @@ function getPhaseStatus(phase: Phase): "complete" | "active" | "partial" | "pend
 /* ------------------------------------------------------------------ */
 
 export default function DealPage() {
+  const [authed, setAuthed] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem(INTERNAL_AUTH_KEY) === "1") setAuthed(true);
+  }, []);
+
+  if (!authed) return <PasswordGate onAuth={() => setAuthed(true)} />;
+
   const now = new Date();
   const closing = new Date(DEMO_DEAL.closingDate);
   const daysToClose = Math.ceil((closing.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
