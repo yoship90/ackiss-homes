@@ -158,6 +158,13 @@ const entries: Entry[] = [
   },
 
   {
+    id: "ackiss-email",
+    title: "@ackisshomes.com Email Addresses",
+    description: "Set up professional email addresses (e.g. amanda@ackisshomes.com, jeremy@ackisshomes.com) through your domain registrar (GoDaddy). Most registrars include basic email hosting or forwarding with domain registration — check your GoDaddy account first. Alternatively, Google Workspace starts at ~$6/month per user and includes Gmail with your custom domain.",
+    date: "Feb 2026",
+    status: "todo",
+  },
+  {
     id: "google-voice",
     title: "Google Voice Business Number",
     description: "Set up one shared Google Voice number as the official Ackiss Homes business number — list it on the website, GBP, and business cards. Free plan forwards calls to both Amanda and Jeremy's phones simultaneously so whoever is available picks up. Texts are shared between both phones, so you'd need a quick system to avoid both replying to the same client. Recommendation: one shared number for brand consistency rather than individual numbers per agent.",
