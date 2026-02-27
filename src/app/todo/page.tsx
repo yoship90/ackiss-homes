@@ -477,42 +477,12 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, onEdit, isDragOver, is
       ref={cardRef}
       onDragOver={(e) => { e.preventDefault(); onDragOver(); }}
       onDrop={(e) => { e.preventDefault(); onDrop(); }}
-      className={`relative group bg-dark-700 border rounded-sm p-6 transition-[border-color,opacity] duration-300 ${
+      className={`relative bg-dark-700 border rounded-sm p-6 transition-[border-color,opacity] duration-300 ${
         state.stage === "done"    ? "border-emerald-500/40" :
         isDragOver && !isDragging ? "border-gold-500/50 bg-dark-700/80" :
         "border-dark-600/50 hover:border-dark-600"
       } ${isDragging ? "opacity-40" : ""}`}
     >
-      {/* Card actions — edit + drag */}
-      <div className="absolute top-3 right-3 flex items-center gap-0.5">
-        <button
-          onClick={() => setEditing(true)}
-          title="Edit"
-          className="p-1 rounded text-gray-600 hover:text-gray-400 transition-colors focus-visible:outline-none focus-visible:text-gold-400"
-        >
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-          </svg>
-        </button>
-        <div
-          draggable
-          onDragStart={(e) => {
-            if (cardRef.current) e.dataTransfer.setDragImage(cardRef.current, 20, 20);
-            e.dataTransfer.effectAllowed = "move";
-            onDragStart();
-          }}
-          onDragEnd={onDragEnd}
-          title="Drag to reorder"
-          className="cursor-grab active:cursor-grabbing p-1 rounded"
-        >
-          <svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor" className="text-gray-600">
-            <circle cx="2.5" cy="2" r="1.5"/><circle cx="7.5" cy="2" r="1.5"/>
-            <circle cx="2.5" cy="7" r="1.5"/><circle cx="7.5" cy="7" r="1.5"/>
-            <circle cx="2.5" cy="12" r="1.5"/><circle cx="7.5" cy="12" r="1.5"/>
-          </svg>
-        </div>
-      </div>
-
       {/* Top row */}
       <div className="flex items-start justify-between gap-4 mb-3">
         <div className="flex items-center gap-2 flex-wrap">
@@ -531,7 +501,36 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, onEdit, isDragOver, is
             </Link>
           )}
         </div>
-        <span className="text-xs text-gray-600 shrink-0">{entry.date}</span>
+        {/* Date + actions */}
+        <div className="flex items-center gap-1 shrink-0">
+          <span className="text-xs text-gray-600 mr-1">{entry.date}</span>
+          <button
+            onClick={() => setEditing(true)}
+            title="Edit"
+            className="p-1.5 rounded text-gold-500/50 hover:text-gold-400 transition-colors focus-visible:outline-none focus-visible:text-gold-400"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+          </button>
+          <div
+            draggable
+            onDragStart={(e) => {
+              if (cardRef.current) e.dataTransfer.setDragImage(cardRef.current, 20, 20);
+              e.dataTransfer.effectAllowed = "move";
+              onDragStart();
+            }}
+            onDragEnd={onDragEnd}
+            title="Drag to reorder"
+            className="cursor-grab active:cursor-grabbing p-1.5 rounded"
+          >
+            <svg width="11" height="15" viewBox="0 0 10 14" fill="currentColor" className="text-gold-500/50 hover:text-gold-400 transition-colors">
+              <circle cx="2.5" cy="2" r="1.5"/><circle cx="7.5" cy="2" r="1.5"/>
+              <circle cx="2.5" cy="7" r="1.5"/><circle cx="7.5" cy="7" r="1.5"/>
+              <circle cx="2.5" cy="12" r="1.5"/><circle cx="7.5" cy="12" r="1.5"/>
+            </svg>
+          </div>
+        </div>
       </div>
 
       {/* Title + Description — editable */}
