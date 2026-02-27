@@ -25,7 +25,8 @@ export async function POST(req: Request) {
       addRandomSuffix: false,
     });
     return NextResponse.json({ ok: true });
-  } catch {
-    return NextResponse.json({ ok: false }, { status: 500 });
+  } catch (err) {
+    console.error("[todo-feedback POST]", err);
+    return NextResponse.json({ ok: false, error: String(err) }, { status: 500 });
   }
 }
