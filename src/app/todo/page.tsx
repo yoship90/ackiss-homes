@@ -9,7 +9,7 @@ import PasswordGate, { INTERNAL_AUTH_KEY } from "@/components/PasswordGate";
 /*  Types & Data                                                        */
 /* ------------------------------------------------------------------ */
 
-type Status = "live" | "in-progress" | "needs-approval" | "todo";
+type Status = "in-progress" | "todo";
 type Decision = "approved" | "approved-with-notes" | "changes-requested";
 
 interface Entry {
@@ -23,43 +23,40 @@ interface Entry {
 }
 
 const entries: Entry[] = [
-  // ---- LIVE ----
   {
     id: "hero-redesign",
     title: "Hero Section Redesign",
     description: "Complete dark luxury redesign of the homepage hero. Desktop uses a typewriter animation. Mobile shows the A logo at full brightness first, then fades it back as the text slides in.",
     date: "Feb 2026",
-    status: "live",
+    status: "todo",
   },
   {
     id: "mortgage-calculator",
     title: "Mortgage Calculator",
     description: "Full-featured calculator with amortization schedule, extra payment modeling, homeowner expenses, a donut chart breakdown of lifetime costs, and a live mortgage rate chart.",
     date: "Feb 2026",
-    status: "live",
+    status: "todo",
   },
   {
     id: "social-feed",
     title: "Instagram Social Feed",
     description: "Social feed section with two embedded Instagram reels. Add new reel URLs directly in the code as content is posted.",
     date: "Feb 2026",
-    status: "live",
+    status: "todo",
   },
   {
     id: "fub-lead-type",
     title: "FUB Lead Type Custom Field",
     description: "Created a 'Lead Type' dropdown custom field in FUB (Buyer / Seller / Both) to track lead intent going forward. Should be filled in on every new lead.",
     date: "Feb 2026",
-    status: "live",
+    status: "todo",
   },
-
-  // ---- NEEDS APPROVAL ----
   {
     id: "deal-progress",
     title: "Deal Progress Page (/deal/[token])",
     description: "A private, unguessable-URL page Amanda or Jeremy texts to clients after going under contract. Shows a live timeline of all closing milestones — inspection, PICRA, mortgage paperwork, appraisal, title, clear to close, and more. Currently a hardcoded demo — data would eventually feed from Airtable. Try the demo link to see the concept.",
     date: "Feb 2026",
-    status: "needs-approval",
+    status: "todo",
     link: "/deal/demo-ah7k2m9p4x",
   },
   {
@@ -67,7 +64,7 @@ const entries: Entry[] = [
     title: "Post-Closing Review Funnel (/reviews)",
     description: "A private page to send clients after closing. They pick their agent (Amanda or Jeremy), then get directed to leave a Google review (primary) or the right Zillow profile (secondary). Noindex — not listed on the main site. The Google review link is a placeholder until the GBP is set up.",
     date: "Feb 2026",
-    status: "needs-approval",
+    status: "todo",
     link: "/reviews",
   },
   {
@@ -75,7 +72,7 @@ const entries: Entry[] = [
     title: "Referral Page (/referrals)",
     description: "A private page to send past clients. They enter their name and their friend's contact info — we get a warm referral lead pushed straight into FUB, tagged 'website-referral'. Noindex — not listed on the main site.",
     date: "Feb 2026",
-    status: "needs-approval",
+    status: "todo",
     link: "/referrals",
   },
   {
@@ -86,7 +83,6 @@ const entries: Entry[] = [
     status: "todo",
   },
 
-  // ---- IN PROGRESS ----
   {
     id: "email-campaigns-234",
     title: "Email Campaigns #2, #3, #4 (Drip Sequence)",
@@ -95,7 +91,6 @@ const entries: Entry[] = [
     status: "todo",
   },
 
-  // ---- TO DO ----
   {
     id: "stpatricks-postcards",
     title: "St. Patrick's Day Postcards",
@@ -124,14 +119,14 @@ const entries: Entry[] = [
     title: "Improve Social Share (OG) Image",
     description: "When the site is shared on social media or iMessage, the preview image is a low-res screenshot (251×69px). Needs to be rebuilt as a proper high-res image for a professional appearance.",
     date: "Feb 2026",
-    status: "live",
+    status: "todo",
   },
   {
     id: "custom-domain",
     title: "Custom Domain (ackisshomes.com)",
     description: "ackisshomes.com is connected and live via Vercel.",
     date: "Feb 2026",
-    status: "live",
+    status: "todo",
   },
   {
     id: "calendly",
@@ -197,17 +192,13 @@ const entries: Entry[] = [
 /* ------------------------------------------------------------------ */
 
 const STATUS_CONFIG: Record<Status, { label: string; color: string; dot: string }> = {
-  "live":             { label: "Live",            color: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20", dot: "bg-emerald-400" },
-  "in-progress":      { label: "In Progress",     color: "bg-amber-500/10 text-amber-400 border-amber-500/20",       dot: "bg-amber-400" },
-  "needs-approval":   { label: "Needs Approval",  color: "bg-gold-500/10 text-gold-400 border-gold-500/20",         dot: "bg-gold-400" },
-  "todo":             { label: "To Do",            color: "bg-gray-500/10 text-gray-400 border-gray-500/20",         dot: "bg-gray-400" },
+  "in-progress": { label: "In Progress", color: "bg-amber-500/10 text-amber-400 border-amber-500/20", dot: "bg-amber-400" },
+  "todo":        { label: "To Do",       color: "bg-gray-500/10 text-gray-400 border-gray-500/20",   dot: "bg-gray-400" },
 };
 
 const SECTIONS: { status: Status; heading: string }[] = [
-  { status: "todo",           heading: "To Do" },
-  { status: "needs-approval", heading: "Needs Your Approval" },
-  { status: "in-progress",    heading: "In Progress" },
-  { status: "live",           heading: "Live on the Site" },
+  { status: "todo",        heading: "To Do" },
+  { status: "in-progress", heading: "In Progress" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -470,7 +461,6 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, isDragOver, isDragging
       className={`relative group bg-dark-700 border rounded-sm p-6 transition-[border-color,opacity] duration-300 ${
         state.stage === "done"    ? "border-emerald-500/40" :
         isDragOver && !isDragging ? "border-gold-500/50 bg-dark-700/80" :
-        entry.status === "needs-approval" ? "border-gold-500/30 hover:border-gold-500/50" :
         "border-dark-600/50 hover:border-dark-600"
       } ${isDragging ? "opacity-40" : ""}`}
     >
@@ -519,128 +509,6 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, isDragOver, isDragging
 
       {/* Description */}
       <p className="text-gray-400 text-sm leading-relaxed">{entry.description}</p>
-
-      {/* Approval UI — only for needs-approval items */}
-      {entry.status === "needs-approval" && (
-        <div className="mt-5 pt-5 border-t border-dark-600/50">
-
-          {/* Done */}
-          {state.stage === "done" && (
-            <div className="flex items-center gap-2 text-emerald-400 text-sm">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              Response logged in FUB — thank you, {state.approver}!
-            </div>
-          )}
-
-          {/* Idle */}
-          {state.stage === "idle" && (
-            <button
-              onClick={() => setState((s) => ({ ...s, stage: "who" }))}
-              className="text-xs uppercase tracking-widest text-gold-400 hover:text-gold-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-colors border border-gold-500/30 hover:border-gold-500/60 px-4 py-2 rounded-sm"
-            >
-              Respond to this item →
-            </button>
-          )}
-
-          {/* Who are you? */}
-          {state.stage === "who" && (
-            <div>
-              <p className="text-xs text-gray-400 uppercase tracking-wider mb-3">Who is responding?</p>
-              <div className="flex gap-2">
-                {["Amanda", "Jeremy"].map((name) => (
-                  <button
-                    key={name}
-                    onClick={() => setState((s) => ({ ...s, stage: "decision", approver: name }))}
-                    className="px-5 py-2 border border-dark-600 rounded-sm text-sm text-gray-300 hover:border-gold-500/50 hover:text-gold-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-colors"
-                  >
-                    {name}
-                  </button>
-                ))}
-                <button
-                  onClick={() => setState(defaultApproval())}
-                  className="px-3 py-2 text-xs text-gray-600 hover:text-gray-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-60 transition-colors"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Decision */}
-          {state.stage === "decision" && (
-            <div>
-              <p className="text-xs text-gray-400 uppercase tracking-wider mb-3">{state.approver} — your decision:</p>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={() => { setState((s) => ({ ...s, decision: "approved", notes: "", stage: "submitting" })); submitApproval(); }}
-                  className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-sm text-sm hover:bg-emerald-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 active:scale-95 transition-colors uppercase tracking-wider"
-                >
-                  ✅ Approve
-                </button>
-                <button
-                  onClick={() => setState((s) => ({ ...s, decision: "approved-with-notes", stage: "notes" }))}
-                  className="px-4 py-2 bg-gold-500/10 border border-gold-500/30 text-gold-400 rounded-sm text-sm hover:bg-gold-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-colors uppercase tracking-wider"
-                >
-                  📝 Approve with Notes
-                </button>
-                <button
-                  onClick={() => setState((s) => ({ ...s, decision: "changes-requested", stage: "notes" }))}
-                  className="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 rounded-sm text-sm hover:bg-red-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 active:scale-95 transition-colors uppercase tracking-wider"
-                >
-                  🔄 Request Changes
-                </button>
-                <button
-                  onClick={() => setState(defaultApproval())}
-                  className="px-3 py-2 text-xs text-gray-600 hover:text-gray-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-60 transition-colors"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Notes */}
-          {state.stage === "notes" && (
-            <div>
-              <p className="text-xs text-gray-400 uppercase tracking-wider mb-3">
-                {state.decision === "approved-with-notes" ? "What changes would you like?" : "What needs to change?"}
-              </p>
-              <textarea
-                value={state.notes}
-                onChange={(e) => setState((s) => ({ ...s, notes: e.target.value }))}
-                rows={3}
-                placeholder="Add your notes here..."
-                className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-gold-500 transition-colors resize-none"
-              />
-              {state.error && (
-                <p className="text-red-400 text-xs mt-1">Something went wrong — please try again.</p>
-              )}
-              <div className="flex gap-2 mt-3">
-                <button
-                  onClick={submitApproval}
-                  disabled={!state.notes.trim()}
-                  className="px-5 py-2 bg-gold-500 hover:bg-gold-400 disabled:opacity-40 text-dark-900 font-bold rounded-sm text-xs uppercase tracking-widest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-1 focus-visible:ring-offset-dark-800 active:scale-95 transition-colors"
-                >
-                  Submit
-                </button>
-                <button
-                  onClick={() => setState(defaultApproval())}
-                  className="px-3 py-2 text-xs text-gray-600 hover:text-gray-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-60 transition-colors"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Submitting */}
-          {state.stage === "submitting" && (
-            <p className="text-xs text-gray-500 uppercase tracking-widest">Logging response...</p>
-          )}
-        </div>
-      )}
 
       {/* Team feedback — status, reactions, notes */}
       <FeedbackSection entryId={entry.id} initialData={feedbackData} onSave={onFeedbackSave} />
