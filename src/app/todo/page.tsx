@@ -590,6 +590,7 @@ export default function TodoPage() {
     const fd = new FormData(e.currentTarget);
     const title = (fd.get("title") as string ?? "").trim();
     const description = (fd.get("description") as string ?? "").trim();
+    const highPriority = fd.get("highPriority") === "on";
     if (!title) return;
     const newEntry: Entry = {
       id: `custom-${Date.now()}`,
@@ -597,6 +598,7 @@ export default function TodoPage() {
       description,
       date: new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" }),
       status: "todo",
+      ...(highPriority ? { priority: "high" } : {}),
     };
     const updated = [...customEntries, newEntry];
     setCustomEntries(updated);
@@ -731,6 +733,15 @@ export default function TodoPage() {
                     className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-gold-500 transition-[border-color] duration-200 resize-none"
                   />
                 </div>
+                <label className="flex items-center gap-2.5 cursor-pointer select-none w-fit">
+                  <input
+                    type="checkbox"
+                    name="highPriority"
+                    className="w-3.5 h-3.5 rounded-sm accent-red-500 cursor-pointer"
+                  />
+                  <span className="text-xs text-gray-400 uppercase tracking-wider">High Priority</span>
+                </label>
+
                 <div className="flex gap-3">
                   <button
                     type="submit"
