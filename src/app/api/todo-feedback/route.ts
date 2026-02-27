@@ -1,6 +1,8 @@
 import { put, list, del } from "@vercel/blob";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 const BLOB_PATHNAME = "todo-feedback.json";
 
 export async function GET() {
