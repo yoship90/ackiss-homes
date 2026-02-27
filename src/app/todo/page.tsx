@@ -301,7 +301,7 @@ function FeedbackSection({ entryId, initialData, onSave }: {
   const [data, setData] = useState<FeedbackData>(initialData);
   const [notesOpen, setNotesOpen] = useState(false);
 
-  useEffect(() => { setData(initialData); }, [entryId]);
+  useEffect(() => { setData(initialData); }, [entryId, initialData]);
 
   function save(updated: FeedbackData) {
     setData(updated);
@@ -671,7 +671,7 @@ export default function TodoPage() {
         if (data.feedback) setAllFeedback(data.feedback);
         if (data.order?.length) setCustomOrder(data.order);
       })
-      .catch(() => { /* silent fail — page works, changes just won't persist */ });
+      .catch(() => { /* silent fail */ });
   }, []);
 
   if (!authed) return <PasswordGate onAuth={() => setAuthed(true)} />;
