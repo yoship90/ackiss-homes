@@ -534,6 +534,8 @@ export default function TodoPage() {
   const [customOrder, setCustomOrder]   = useState<string[]>([]);
   const [customEntries, setCustomEntries] = useState<Entry[]>([]);
   const [showAddForm, setShowAddForm]   = useState(false);
+  const [completedOpen, setCompletedOpen] = useState(false);
+  const [scrapedOpen, setScrapedOpen]     = useState(false);
   const [dragId, setDragId]             = useState<string | null>(null);
   const [dragOverId, setDragOverId]     = useState<string | null>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -779,6 +781,52 @@ export default function TodoPage() {
                   </div>
                 );
               })}
+
+              {/* Completed — collapsed */}
+              {completedEntries.length > 0 && (
+                <div className="mb-12">
+                  <button
+                    onClick={() => setCompletedOpen(o => !o)}
+                    className="flex items-center gap-3 mb-4 group focus-visible:outline-none"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-emerald-500/40 shrink-0" />
+                    <span className="text-xs uppercase tracking-[0.3em] text-gray-600 group-hover:text-gray-400 transition-colors">
+                      Completed ({completedEntries.length})
+                    </span>
+                    <svg className={`w-3 h-3 text-gray-700 transition-transform duration-200 ${completedOpen ? "rotate-0" : "-rotate-90"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {completedOpen && (
+                    <div className="grid md:grid-cols-2 gap-4 opacity-50">
+                      {completedEntries.map(renderCard)}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Scrapped — collapsed */}
+              {scrapedEntries.length > 0 && (
+                <div className="mb-12">
+                  <button
+                    onClick={() => setScrapedOpen(o => !o)}
+                    className="flex items-center gap-3 mb-4 group focus-visible:outline-none"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-gray-600/50 shrink-0" />
+                    <span className="text-xs uppercase tracking-[0.3em] text-gray-600 group-hover:text-gray-400 transition-colors">
+                      Scrapped ({scrapedEntries.length})
+                    </span>
+                    <svg className={`w-3 h-3 text-gray-700 transition-transform duration-200 ${scrapedOpen ? "rotate-0" : "-rotate-90"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {scrapedOpen && (
+                    <div className="grid md:grid-cols-2 gap-4 opacity-35">
+                      {scrapedEntries.map(renderCard)}
+                    </div>
+                  )}
+                </div>
+              )}
             </>
           )}
 
