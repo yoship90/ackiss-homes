@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import PasswordGate, { INTERNAL_AUTH_KEY } from "@/components/PasswordGate";
 
 // TODO: Replace with real Google Business Profile review URL once GBP is set up
 // Format: https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID
@@ -20,7 +21,14 @@ const agents = {
 };
 
 export default function ReviewsPage() {
+  const [authed, setAuthed] = useState(false);
   const [agent, setAgent] = useState<"amanda" | "jeremy" | null>(null);
+
+  useEffect(() => {
+    if (localStorage.getItem(INTERNAL_AUTH_KEY) === "1") setAuthed(true);
+  }, []);
+
+  if (!authed) return <PasswordGate onAuth={() => setAuthed(true)} />;
 
   const zillowUrl = agent ? agents[agent].zillowUrl : null;
 

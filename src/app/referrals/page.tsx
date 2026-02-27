@@ -2,12 +2,20 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import PasswordGate, { INTERNAL_AUTH_KEY } from "@/components/PasswordGate";
 
 type Stage = "form" | "submitting" | "done" | "error";
 
 export default function ReferralsPage() {
+  const [authed, setAuthed] = useState(false);
   const [stage, setStage] = useState<Stage>("form");
+
+  useEffect(() => {
+    if (localStorage.getItem(INTERNAL_AUTH_KEY) === "1") setAuthed(true);
+  }, []);
+
+  if (!authed) return <PasswordGate onAuth={() => setAuthed(true)} />;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
