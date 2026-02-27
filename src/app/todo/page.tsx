@@ -483,8 +483,8 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, onEdit, isDragOver, is
         "border-dark-600/50 hover:border-dark-600"
       } ${isDragging ? "opacity-40" : ""}`}
     >
-      {/* Card actions — edit + drag, reveal on hover */}
-      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center gap-0.5">
+      {/* Card actions — edit + drag */}
+      <div className="absolute top-3 right-3 flex items-center gap-0.5">
         <button
           onClick={() => setEditing(true)}
           title="Edit"
