@@ -9,7 +9,7 @@ import PasswordGate, { INTERNAL_AUTH_KEY } from "@/components/PasswordGate";
 /*  Types & Data                                                        */
 /* ------------------------------------------------------------------ */
 
-type Status = "live" | "in-progress" | "needs-approval" | "todo" | "idea";
+type Status = "live" | "in-progress" | "needs-approval" | "todo";
 type Decision = "approved" | "approved-with-notes" | "changes-requested";
 
 interface Entry {
@@ -162,7 +162,6 @@ const entries: Entry[] = [
     status: "todo",
   },
 
-  // ---- IDEAS ----
   {
     id: "google-voice",
     title: "Google Voice Business Number",
@@ -175,21 +174,21 @@ const entries: Entry[] = [
     title: "Hampton Roads Market Report Page",
     description: "A quarterly-updated page showing local market stats — median price, days on market, active inventory, year-over-year change — sourced from Virginia REALTORS or HRRA data. Positions Jeremy & Amanda as the local market authority.",
     date: "Feb 2026",
-    status: "idea",
+    status: "todo",
   },
   {
     id: "neighborhoods",
     title: "Featured Neighborhoods Section",
     description: "Re-add the Neighborhoods component to the homepage (already built, just needs to be enabled). Showcases key Virginia Beach and Hampton Roads neighborhoods with descriptions and photos.",
     date: "Feb 2026",
-    status: "idea",
+    status: "todo",
   },
   {
     id: "zillow-landing-pages",
     title: "SEO Landing Pages — 'Alternatives to Zillow'",
     description: "Create targeted landing pages for low-competition, high-intent searches like 'alternatives to Zillow Virginia Beach' and 'is Zillow accurate Virginia Beach'. Strong SEO opportunity with minimal competition.",
     date: "Feb 2026",
-    status: "idea",
+    status: "todo",
   },
 ];
 
@@ -202,14 +201,12 @@ const STATUS_CONFIG: Record<Status, { label: string; color: string; dot: string 
   "in-progress":      { label: "In Progress",     color: "bg-amber-500/10 text-amber-400 border-amber-500/20",       dot: "bg-amber-400" },
   "needs-approval":   { label: "Needs Approval",  color: "bg-gold-500/10 text-gold-400 border-gold-500/20",         dot: "bg-gold-400" },
   "todo":             { label: "To Do",            color: "bg-gray-500/10 text-gray-400 border-gray-500/20",         dot: "bg-gray-400" },
-  "idea":             { label: "Idea",             color: "bg-purple-500/10 text-purple-400 border-purple-500/20",   dot: "bg-purple-400" },
 };
 
 const SECTIONS: { status: Status; heading: string }[] = [
   { status: "todo",           heading: "To Do" },
   { status: "needs-approval", heading: "Needs Your Approval" },
   { status: "in-progress",    heading: "In Progress" },
-  { status: "idea",           heading: "Ideas" },
   { status: "live",           heading: "Live on the Site" },
 ];
 
