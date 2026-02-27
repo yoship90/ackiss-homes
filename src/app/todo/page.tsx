@@ -422,10 +422,11 @@ function FeedbackSection({ entryId, initialData, onSave }: {
 /*  Card component                                                      */
 /* ------------------------------------------------------------------ */
 
-function EntryCard({ entry, feedbackData, onFeedbackSave, isDragOver, isDragging, onDragStart, onDragOver, onDrop, onDragEnd }: {
+function EntryCard({ entry, feedbackData, onFeedbackSave, onEdit, isDragOver, isDragging, onDragStart, onDragOver, onDrop, onDragEnd }: {
   entry: Entry;
   feedbackData: FeedbackData;
   onFeedbackSave: (d: FeedbackData) => void;
+  onEdit: (updates: { title: string; description: string }) => void;
   isDragOver: boolean;
   isDragging: boolean;
   onDragStart: () => void;
@@ -434,8 +435,19 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, isDragOver, isDragging
   onDragEnd: () => void;
 }) {
   const [state, setState] = useState<ApprovalState>(defaultApproval());
+  const [editing, setEditing] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const cfg = STATUS_CONFIG[entry.status];
+
+  function handleEditSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const title = (fd.get("title") as string ?? "").trim();
+    const description = (fd.get("description") as string ?? "").trim();
+    if (!title) return;
+    onEdit({ title, description });
+    setEditing(false);
+  }
 
   async function submitApproval() {
     if (!state.approver || !state.decision) return;
@@ -471,23 +483,34 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, isDragOver, isDragging
         "border-dark-600/50 hover:border-dark-600"
       } ${isDragging ? "opacity-40" : ""}`}
     >
-      {/* Drag handle */}
-      <div
-        draggable
-        onDragStart={(e) => {
-          if (cardRef.current) e.dataTransfer.setDragImage(cardRef.current, 20, 20);
-          e.dataTransfer.effectAllowed = "move";
-          onDragStart();
-        }}
-        onDragEnd={onDragEnd}
-        title="Drag to reorder"
-        className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 cursor-grab active:cursor-grabbing transition-opacity duration-150 p-1 rounded"
-      >
-        <svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor" className="text-gray-600">
-          <circle cx="2.5" cy="2" r="1.5"/><circle cx="7.5" cy="2" r="1.5"/>
-          <circle cx="2.5" cy="7" r="1.5"/><circle cx="7.5" cy="7" r="1.5"/>
-          <circle cx="2.5" cy="12" r="1.5"/><circle cx="7.5" cy="12" r="1.5"/>
-        </svg>
+      {/* Card actions — edit + drag, reveal on hover */}
+      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center gap-0.5">
+        <button
+          onClick={() => setEditing(true)}
+          title="Edit"
+          className="p-1 rounded text-gray-600 hover:text-gray-400 transition-colors focus-visible:outline-none focus-visible:text-gold-400"
+        >
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+        </button>
+        <div
+          draggable
+          onDragStart={(e) => {
+            if (cardRef.current) e.dataTransfer.setDragImage(cardRef.current, 20, 20);
+            e.dataTransfer.effectAllowed = "move";
+            onDragStart();
+          }}
+          onDragEnd={onDragEnd}
+          title="Drag to reorder"
+          className="cursor-grab active:cursor-grabbing p-1 rounded"
+        >
+          <svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor" className="text-gray-600">
+            <circle cx="2.5" cy="2" r="1.5"/><circle cx="7.5" cy="2" r="1.5"/>
+            <circle cx="2.5" cy="7" r="1.5"/><circle cx="7.5" cy="7" r="1.5"/>
+            <circle cx="2.5" cy="12" r="1.5"/><circle cx="7.5" cy="12" r="1.5"/>
+          </svg>
+        </div>
       </div>
 
       {/* Top row */}
@@ -503,7 +526,7 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, isDragOver, isDragging
             </span>
           )}
           {entry.link && (
-            <Link href={entry.link} className="text-xs text-gold-500/60 hover:text-gold-400 transition-colors uppercase tracking-wider">
+            <Link href={entry.link} className="text-xs font-bold text-gold-400 hover:text-gold-300 transition-colors uppercase tracking-wider">
               View →
             </Link>
           )}
@@ -511,11 +534,34 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, isDragOver, isDragging
         <span className="text-xs text-gray-600 shrink-0">{entry.date}</span>
       </div>
 
-      {/* Title */}
-      <h3 className="text-white font-semibold mb-2 leading-snug">{entry.title}</h3>
-
-      {/* Description */}
-      <p className="text-gray-400 text-sm leading-relaxed">{entry.description}</p>
+      {/* Title + Description — editable */}
+      {editing ? (
+        <form onSubmit={handleEditSubmit} className="mt-1 space-y-3">
+          <input
+            name="title"
+            type="text"
+            required
+            autoFocus
+            defaultValue={entry.title}
+            className="w-full bg-dark-800 border border-gold-500/30 rounded-sm px-3 py-2 text-white text-sm font-semibold focus:outline-none focus:border-gold-500 transition-[border-color] duration-200"
+          />
+          <textarea
+            name="description"
+            rows={3}
+            defaultValue={entry.description}
+            className="w-full bg-dark-800 border border-dark-600 rounded-sm px-3 py-2 text-gray-400 text-sm focus:outline-none focus:border-gold-500 transition-[border-color] duration-200 resize-none"
+          />
+          <div className="flex gap-2">
+            <button type="submit" className="px-4 py-1.5 bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold text-xs uppercase tracking-wider rounded-sm active:scale-95 transition-[background-color,transform] duration-200 focus-visible:outline-none">Save</button>
+            <button type="button" onClick={() => setEditing(false)} className="px-3 py-1.5 text-xs text-gray-600 hover:text-gray-400 transition-colors focus-visible:outline-none">Cancel</button>
+          </div>
+        </form>
+      ) : (
+        <>
+          <h3 className="text-white font-semibold mb-2 leading-snug">{entry.title}</h3>
+          <p className="text-gray-400 text-sm leading-relaxed">{entry.description}</p>
+        </>
+      )}
 
       {/* Team feedback — status, reactions, notes */}
       <FeedbackSection entryId={entry.id} initialData={feedbackData} onSave={onFeedbackSave} />
@@ -533,9 +579,10 @@ export default function TodoPage() {
   const [allFeedback, setAllFeedback]   = useState<Record<string, FeedbackData>>({});
   const [customOrder, setCustomOrder]   = useState<string[]>([]);
   const [customEntries, setCustomEntries] = useState<Entry[]>([]);
-  const [showAddForm, setShowAddForm]   = useState(false);
-  const [completedOpen, setCompletedOpen] = useState(false);
-  const [scrapedOpen, setScrapedOpen]     = useState(false);
+  const [showAddForm, setShowAddForm]       = useState(false);
+  const [entryOverrides, setEntryOverrides] = useState<Record<string, { title: string; description: string }>>({});
+  const [completedOpen, setCompletedOpen]   = useState(false);
+  const [scrapedOpen, setScrapedOpen]       = useState(false);
   const [dragId, setDragId]             = useState<string | null>(null);
   const [dragOverId, setDragOverId]     = useState<string | null>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -548,19 +595,25 @@ export default function TodoPage() {
         if (data.feedback) setAllFeedback(data.feedback);
         if (data.order?.length) setCustomOrder(data.order);
         if (data.customEntries?.length) setCustomEntries(data.customEntries);
+        if (data.entryOverrides) setEntryOverrides(data.entryOverrides);
       })
       .catch(() => { /* silent fail */ });
   }, []);
 
   if (!authed) return <PasswordGate onAuth={() => setAuthed(true)} />;
 
-  function debounceSave(feedback: Record<string, FeedbackData>, order: string[], custom: Entry[]) {
+  function debounceSave(
+    feedback: Record<string, FeedbackData>,
+    order: string[],
+    custom: Entry[],
+    overrides: Record<string, { title: string; description: string }>,
+  ) {
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
       fetch("/api/todo-feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ feedback, order, customEntries: custom }),
+        body: JSON.stringify({ feedback, order, customEntries: custom, entryOverrides: overrides }),
       }).catch(() => { /* silent fail */ });
     }, 600);
   }
@@ -568,7 +621,7 @@ export default function TodoPage() {
   function handleFeedbackSave(entryId: string, data: FeedbackData) {
     const updated = { ...allFeedback, [entryId]: data };
     setAllFeedback(updated);
-    debounceSave(updated, customOrder, customEntries);
+    debounceSave(updated, customOrder, customEntries, entryOverrides);
   }
 
   function handleReorder(fromId: string, toId: string) {
@@ -584,7 +637,7 @@ export default function TodoPage() {
     next.splice(fi, 1);
     next.splice(ti, 0, fromId);
     setCustomOrder(next);
-    debounceSave(allFeedback, next, customEntries);
+    debounceSave(allFeedback, next, customEntries, entryOverrides);
   }
 
   function handleAddItem(e: React.FormEvent<HTMLFormElement>) {
@@ -605,7 +658,20 @@ export default function TodoPage() {
     const updated = [...customEntries, newEntry];
     setCustomEntries(updated);
     setShowAddForm(false);
-    debounceSave(allFeedback, customOrder, updated);
+    debounceSave(allFeedback, customOrder, updated, entryOverrides);
+  }
+
+  function handleEntryEdit(entryId: string, updates: { title: string; description: string }) {
+    const isCustom = customEntries.some(e => e.id === entryId);
+    if (isCustom) {
+      const updated = customEntries.map(e => e.id === entryId ? { ...e, ...updates } : e);
+      setCustomEntries(updated);
+      debounceSave(allFeedback, customOrder, updated, entryOverrides);
+    } else {
+      const updated = { ...entryOverrides, [entryId]: updates };
+      setEntryOverrides(updated);
+      debounceSave(allFeedback, customOrder, customEntries, updated);
+    }
   }
 
   function sortedByOrder(items: Entry[]): Entry[] {
@@ -620,12 +686,15 @@ export default function TodoPage() {
   }
 
   function renderCard(entry: Entry) {
+    const override = entryOverrides[entry.id];
+    const displayEntry = override ? { ...entry, ...override } : entry;
     return (
       <EntryCard
         key={entry.id}
-        entry={entry}
+        entry={displayEntry}
         feedbackData={allFeedback[entry.id] ?? DEFAULT_FEEDBACK}
         onFeedbackSave={(d) => handleFeedbackSave(entry.id, d)}
+        onEdit={(updates) => handleEntryEdit(entry.id, updates)}
         isDragOver={dragOverId === entry.id}
         isDragging={dragId === entry.id}
         onDragStart={() => setDragId(entry.id)}
@@ -705,7 +774,7 @@ export default function TodoPage() {
               onClick={() => { setShowAddForm(o => !o); setFilter("todo"); }}
               className="shrink-0 text-xs uppercase tracking-widest text-gold-400 hover:text-gold-300 border border-gold-500/30 hover:border-gold-500/60 px-4 py-1.5 rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95"
             >
-              + Add Item
+              + Add To Do
             </button>
           </div>
 
@@ -749,7 +818,7 @@ export default function TodoPage() {
                     type="submit"
                     className="px-5 py-2 bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold text-xs uppercase tracking-widest rounded-sm active:scale-95 transition-[background-color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
                   >
-                    Add Item
+                    Add To Do
                   </button>
                   <button
                     type="button"
