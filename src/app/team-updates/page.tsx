@@ -153,6 +153,13 @@ const entries: Entry[] = [
 
   // ---- IDEAS ----
   {
+    id: "google-voice",
+    title: "Google Voice Business Number",
+    description: "Set up one shared Google Voice number as the official Ackiss Homes business number — list it on the website, GBP, and business cards. Free plan forwards calls to both Amanda and Jeremy's phones simultaneously so whoever is available picks up. Texts are shared between both phones, so you'd need a quick system to avoid both replying to the same client. Recommendation: one shared number for brand consistency rather than individual numbers per agent.",
+    date: "Feb 2026",
+    status: "idea",
+  },
+  {
     id: "market-report",
     title: "Hampton Roads Market Report Page",
     description: "A quarterly-updated page showing local market stats — median price, days on market, active inventory, year-over-year change — sourced from Virginia REALTORS or HRRA data. Positions Jeremy & Amanda as the local market authority.",
