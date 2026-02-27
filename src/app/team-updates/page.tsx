@@ -53,6 +53,22 @@ const entries: Entry[] = [
 
   // ---- NEEDS APPROVAL ----
   {
+    id: "review-funnel",
+    title: "Post-Closing Review Funnel (/reviews)",
+    description: "A private page to send clients after closing. They pick their agent (Amanda or Jeremy), then get directed to leave a Google review (primary) or the right Zillow profile (secondary). Noindex — not listed on the main site. The Google review link is a placeholder until the GBP is set up.",
+    date: "Feb 2026",
+    status: "needs-approval",
+    link: "/reviews",
+  },
+  {
+    id: "referral-page",
+    title: "Referral Page (/referrals)",
+    description: "A private page to send past clients. They enter their name and their friend's contact info — we get a warm referral lead pushed straight into FUB, tagged 'website-referral'. Noindex — not listed on the main site.",
+    date: "Feb 2026",
+    status: "needs-approval",
+    link: "/referrals",
+  },
+  {
     id: "email-campaign-1",
     title: "Email Campaign #1 — Market Shift",
     description: "First reactivation email to ~900 cold leads in FUB. Neutral market update framing that works for both buyers and sellers. Draft ready — needs your approval before sending via FUB bulk email.",

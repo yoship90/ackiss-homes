@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { formType, name, firstName: firstNameField, lastName: lastNameField,
-          email, phone, message, website,
-          beds, baths, priceMin, priceMax, propertyTypes, timeline, preApproval, notes: searchNotes } = body;
+          email, phone, message, website, referrerName, intent, notes: searchNotes,
+          beds, baths, priceMin, priceMax, propertyTypes, timeline, preApproval } = body;
 
   // Honeypot check — real users never fill this field; bots do
   if (website) {
@@ -33,6 +33,12 @@ export async function POST(req: NextRequest) {
   let note = "";
   if (formType === "contact") {
     note = message || "";
+  } else if (formType === "referral") {
+    const lines: string[] = ["🤝 Client Referral", ""];
+    lines.push(`Referred by: ${referrerName || "Unknown"}`);
+    if (intent) lines.push(`Intent: ${intent}`);
+    if (searchNotes) { lines.push(""); lines.push(`Notes: ${searchNotes}`); }
+    note = lines.join("\n");
   } else if (formType === "inquiry") {
     const lines: string[] = ["🏠 Home Search Inquiry", ""];
 
@@ -56,9 +62,17 @@ export async function POST(req: NextRequest) {
   if (email) person.emails = [{ value: email }];
   if (phone) person.phones = [{ value: phone }];
 
+  const sourceMap: Record<string, string> = {
+    inquiry:  "Ackiss Homes Website - Find Your Perfect Home",
+    referral: "Ackiss Homes Website - Client Referral",
+  };
+  const typeMap: Record<string, string> = {
+    inquiry:  "Property Inquiry",
+    referral: "Referral",
+  };
   const payload: Record<string, unknown> = {
-    source: formType === "inquiry" ? "Ackiss Homes Website - Find Your Perfect Home" : "Ackiss Homes Website - General Inquiry",
-    type: formType === "inquiry" ? "Property Inquiry" : "General Inquiry",
+    source: sourceMap[formType] ?? "Ackiss Homes Website - General Inquiry",
+    type:   typeMap[formType]   ?? "General Inquiry",
     person,
   };
   if (note) payload.message = note;
@@ -99,6 +113,8 @@ export async function POST(req: NextRequest) {
         ...(timelineTagMap[timeline]       ? [timelineTagMap[timeline]]       : []),
         ...(preApprovalTagMap[preApproval] ? [preApprovalTagMap[preApproval]] : []),
       ]
+    : formType === "referral"
+    ? ["website-lead", "website-referral"]
     : ["website-lead", "website-contact"];
 
   try {
@@ -116,7 +132,7 @@ export async function POST(req: NextRequest) {
         },
         body: JSON.stringify({
           tags,
-          customWebsiteInquiryType: formType === "inquiry" ? "Find Your Perfect Home" : "General Inquiry",
+          customWebsiteInquiryType: formType === "inquiry" ? "Find Your Perfect Home" : formType === "referral" ? "Client Referral" : "General Inquiry",
         }),
       });
 
