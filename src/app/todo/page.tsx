@@ -264,7 +264,7 @@ const ITEM_STATUS_OPTIONS: { value: ItemStatus; label: string; hex: string }[] =
   { value: "pending-nate",   label: "Pending · Nate",   hex: "#9ca3af" },
   { value: "pending-amanda", label: "Pending · Amanda", hex: "#c9952e" },
   { value: "pending-jeremy", label: "Pending · Jeremy", hex: "#c9952e" },
-  { value: "in-review",      label: "Needs Discussion",  hex: "#818cf8" },
+  { value: "in-review",      label: "Needs Review/Discussion", hex: "#818cf8" },
   { value: "blocked",        label: "Blocked",          hex: "#f87171" },
   { value: "on-hold",        label: "On Hold",          hex: "#fb923c" },
   { value: "completed",      label: "Completed",        hex: "#34d399" },
