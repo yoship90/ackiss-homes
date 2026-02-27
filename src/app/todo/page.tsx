@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import PasswordGate, { INTERNAL_AUTH_KEY } from "@/components/PasswordGate";
 
 /* ------------------------------------------------------------------ */
@@ -238,6 +238,7 @@ const defaultApproval = (): ApprovalState => ({
 /* ------------------------------------------------------------------ */
 
 const FEEDBACK_KEY = "ackiss_feedback_v1";
+const ORDER_KEY    = "ackiss_order_v1";
 
 type Reaction = "up" | "down" | "sideways";
 type ItemStatus =
@@ -316,19 +317,19 @@ function ThumbBtn({ type, active, onClick }: { type: Reaction; active: boolean; 
   );
 }
 
-function FeedbackSection({ entryId }: { entryId: string }) {
-  const [data, setData] = useState<FeedbackData>(DEFAULT_FEEDBACK);
+function FeedbackSection({ entryId, initialData, onSave }: {
+  entryId: string;
+  initialData: FeedbackData;
+  onSave: (d: FeedbackData) => void;
+}) {
+  const [data, setData] = useState<FeedbackData>(initialData);
   const [notesOpen, setNotesOpen] = useState(false);
-  const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    setData(loadFeedback(entryId));
-    setLoaded(true);
-  }, [entryId]);
+  useEffect(() => { setData(initialData); }, [entryId]);
 
   function save(updated: FeedbackData) {
     setData(updated);
-    persistFeedback(entryId, updated);
+    onSave(updated);
   }
 
   function toggleReaction(person: "amanda" | "jeremy", reaction: Reaction) {
@@ -337,8 +338,6 @@ function FeedbackSection({ entryId }: { entryId: string }) {
       reactions: { ...data.reactions, [person]: data.reactions[person] === reaction ? null : reaction },
     });
   }
-
-  if (!loaded) return null;
 
   const statusOption = ITEM_STATUS_OPTIONS.find(o => o.value === data.itemStatus) ?? ITEM_STATUS_OPTIONS[0];
   const noteCount = Object.values(data.notes).filter(n => n.trim()).length;
@@ -449,8 +448,19 @@ function FeedbackSection({ entryId }: { entryId: string }) {
 /*  Card component                                                      */
 /* ------------------------------------------------------------------ */
 
-function EntryCard({ entry }: { entry: Entry }) {
+function EntryCard({ entry, feedbackData, onFeedbackSave, isDragOver, isDragging, onDragStart, onDragOver, onDrop, onDragEnd }: {
+  entry: Entry;
+  feedbackData: FeedbackData;
+  onFeedbackSave: (d: FeedbackData) => void;
+  isDragOver: boolean;
+  isDragging: boolean;
+  onDragStart: () => void;
+  onDragOver: () => void;
+  onDrop: () => void;
+  onDragEnd: () => void;
+}) {
   const [state, setState] = useState<ApprovalState>(defaultApproval());
+  const cardRef = useRef<HTMLDivElement>(null);
   const cfg = STATUS_CONFIG[entry.status];
 
   async function submitApproval() {
@@ -477,13 +487,36 @@ function EntryCard({ entry }: { entry: Entry }) {
   }
 
   return (
-    <div className={`relative bg-dark-700 border rounded-sm p-6 transition-[border-color] duration-300 ${
-      state.stage === "done"
-        ? "border-emerald-500/40"
-        : entry.status === "needs-approval"
-        ? "border-gold-500/30 hover:border-gold-500/50"
-        : "border-dark-600/50 hover:border-dark-600"
-    }`}>
+    <div
+      ref={cardRef}
+      onDragOver={(e) => { e.preventDefault(); onDragOver(); }}
+      onDrop={(e) => { e.preventDefault(); onDrop(); }}
+      className={`relative group bg-dark-700 border rounded-sm p-6 transition-[border-color,opacity] duration-300 ${
+        state.stage === "done"    ? "border-emerald-500/40" :
+        isDragOver && !isDragging ? "border-gold-500/50 bg-dark-700/80" :
+        entry.status === "needs-approval" ? "border-gold-500/30 hover:border-gold-500/50" :
+        "border-dark-600/50 hover:border-dark-600"
+      } ${isDragging ? "opacity-40" : ""}`}
+    >
+      {/* Drag handle */}
+      <div
+        draggable
+        onDragStart={(e) => {
+          if (cardRef.current) e.dataTransfer.setDragImage(cardRef.current, 20, 20);
+          e.dataTransfer.effectAllowed = "move";
+          onDragStart();
+        }}
+        onDragEnd={onDragEnd}
+        title="Drag to reorder"
+        className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 cursor-grab active:cursor-grabbing transition-opacity duration-150 p-1 rounded"
+      >
+        <svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor" className="text-gray-600">
+          <circle cx="2.5" cy="2" r="1.5"/><circle cx="7.5" cy="2" r="1.5"/>
+          <circle cx="2.5" cy="7" r="1.5"/><circle cx="7.5" cy="7" r="1.5"/>
+          <circle cx="2.5" cy="12" r="1.5"/><circle cx="7.5" cy="12" r="1.5"/>
+        </svg>
+      </div>
+
       {/* Top row */}
       <div className="flex items-start justify-between gap-4 mb-3">
         <div className="flex items-center gap-2 flex-wrap">
@@ -634,7 +667,7 @@ function EntryCard({ entry }: { entry: Entry }) {
       )}
 
       {/* Team feedback — status, reactions, notes */}
-      <FeedbackSection entryId={entry.id} />
+      <FeedbackSection entryId={entry.id} initialData={feedbackData} onSave={onFeedbackSave} />
     </div>
   );
 }
@@ -644,18 +677,85 @@ function EntryCard({ entry }: { entry: Entry }) {
 /* ------------------------------------------------------------------ */
 
 export default function TodoPage() {
-  const [authed, setAuthed] = useState(false);
-  const [filter, setFilter] = useState<Status | "all">("all");
+  const [authed, setAuthed]         = useState(false);
+  const [filter, setFilter]         = useState<Status | "all">("all");
+  const [allFeedback, setAllFeedback] = useState<Record<string, FeedbackData>>({});
+  const [customOrder, setCustomOrder] = useState<string[]>([]);
+  const [dragId, setDragId]           = useState<string | null>(null);
+  const [dragOverId, setDragOverId]   = useState<string | null>(null);
+  const [completedOpen, setCompletedOpen] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem(INTERNAL_AUTH_KEY) === "1") setAuthed(true);
+    try {
+      const fb = localStorage.getItem(FEEDBACK_KEY);
+      if (fb) setAllFeedback(JSON.parse(fb));
+    } catch { /* ignore */ }
+    try {
+      const ord = localStorage.getItem(ORDER_KEY);
+      if (ord) setCustomOrder(JSON.parse(ord));
+    } catch { /* ignore */ }
   }, []);
 
   if (!authed) return <PasswordGate onAuth={() => setAuthed(true)} />;
 
+  function handleFeedbackSave(entryId: string, data: FeedbackData) {
+    const updated = { ...allFeedback, [entryId]: data };
+    setAllFeedback(updated);
+    try { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(updated)); } catch { /* ignore */ }
+  }
+
+  function handleReorder(fromId: string, toId: string) {
+    if (!fromId || fromId === toId) return;
+    const allIds = entries.map(e => e.id);
+    const base = [
+      ...customOrder.filter(id => allIds.includes(id)),
+      ...allIds.filter(id => !customOrder.includes(id)),
+    ];
+    const fi = base.indexOf(fromId), ti = base.indexOf(toId);
+    if (fi === -1 || ti === -1) return;
+    const next = [...base];
+    next.splice(fi, 1);
+    next.splice(ti, 0, fromId);
+    setCustomOrder(next);
+    try { localStorage.setItem(ORDER_KEY, JSON.stringify(next)); } catch { /* ignore */ }
+  }
+
+  function sortedByOrder(items: Entry[]): Entry[] {
+    if (customOrder.length === 0) return items;
+    return [...items].sort((a, b) => {
+      const ai = customOrder.indexOf(a.id), bi = customOrder.indexOf(b.id);
+      if (ai === -1 && bi === -1) return 0;
+      if (ai === -1) return 1;
+      if (bi === -1) return -1;
+      return ai - bi;
+    });
+  }
+
+  function renderCard(entry: Entry) {
+    return (
+      <EntryCard
+        key={entry.id}
+        entry={entry}
+        feedbackData={allFeedback[entry.id] ?? DEFAULT_FEEDBACK}
+        onFeedbackSave={(d) => handleFeedbackSave(entry.id, d)}
+        isDragOver={dragOverId === entry.id}
+        isDragging={dragId === entry.id}
+        onDragStart={() => setDragId(entry.id)}
+        onDragOver={() => setDragOverId(entry.id)}
+        onDrop={() => handleReorder(dragId!, entry.id)}
+        onDragEnd={() => { setDragId(null); setDragOverId(null); }}
+      />
+    );
+  }
+
+  const completedIds = new Set(entries.filter(e => allFeedback[e.id]?.itemStatus === "completed").map(e => e.id));
+  const completedEntries = sortedByOrder(entries.filter(e => completedIds.has(e.id)));
+  const activeEntries = (id: string) => !completedIds.has(id);
+
   const filtered = filter === "all"
-    ? entries
-    : entries.filter((e) => e.status === filter);
+    ? entries.filter(e => activeEntries(e.id))
+    : entries.filter(e => e.status === filter && activeEntries(e.id));
 
   return (
     <div className="min-h-screen bg-black flex flex-col">
@@ -727,24 +827,52 @@ export default function TodoPage() {
 
           {/* Sections */}
           {filter === "all" ? (
-            SECTIONS.map(({ status, heading }) => {
-              const items = entries.filter((e) => e.status === status);
-              if (items.length === 0) return null;
-              return (
-                <div key={status} className="mb-12">
-                  <h2 className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4 flex items-center gap-3">
-                    <span className={`w-2 h-2 rounded-full ${STATUS_CONFIG[status].dot}`} />
-                    {heading}
-                  </h2>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {items.map((entry) => <EntryCard key={entry.id} entry={entry} />)}
+            <>
+              {SECTIONS.map(({ status, heading }) => {
+                const items = sortedByOrder(entries.filter(e => e.status === status && activeEntries(e.id)));
+                if (items.length === 0) return null;
+                return (
+                  <div key={status} className="mb-12">
+                    <h2 className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4 flex items-center gap-3">
+                      <span className={`w-2 h-2 rounded-full ${STATUS_CONFIG[status].dot}`} />
+                      {heading}
+                    </h2>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {items.map(renderCard)}
+                    </div>
                   </div>
+                );
+              })}
+
+              {/* Completed section — collapsed by default */}
+              {completedEntries.length > 0 && (
+                <div className="mb-12">
+                  <button
+                    onClick={() => setCompletedOpen(o => !o)}
+                    className="flex items-center gap-3 mb-4 group focus-visible:outline-none"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-emerald-500/40 shrink-0" />
+                    <span className="text-xs uppercase tracking-[0.3em] text-gray-600 group-hover:text-gray-400 transition-colors">
+                      Completed ({completedEntries.length})
+                    </span>
+                    <svg
+                      className={`w-3 h-3 text-gray-700 transition-transform duration-200 ${completedOpen ? "rotate-0" : "-rotate-90"}`}
+                      fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {completedOpen && (
+                    <div className="grid md:grid-cols-2 gap-4 opacity-50">
+                      {completedEntries.map(renderCard)}
+                    </div>
+                  )}
                 </div>
-              );
-            })
+              )}
+            </>
           ) : (
             <div className="grid md:grid-cols-2 gap-4">
-              {filtered.map((entry) => <EntryCard key={entry.id} entry={entry} />)}
+              {filtered.map(renderCard)}
             </div>
           )}
 
