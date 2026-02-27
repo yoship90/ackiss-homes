@@ -53,6 +53,14 @@ const entries: Entry[] = [
 
   // ---- NEEDS APPROVAL ----
   {
+    id: "deal-progress",
+    title: "Deal Progress Page (/deal/[token])",
+    description: "A private, unguessable-URL page Amanda or Jeremy texts to clients after going under contract. Shows a live timeline of all closing milestones — inspection, PICRA, mortgage paperwork, appraisal, title, clear to close, and more. Currently a hardcoded demo — data would eventually feed from Airtable. Try the demo link to see the concept.",
+    date: "Feb 2026",
+    status: "needs-approval",
+    link: "/deal/demo-ah7k2m9p4x",
+  },
+  {
     id: "review-funnel",
     title: "Post-Closing Review Funnel (/reviews)",
     description: "A private page to send clients after closing. They pick their agent (Amanda or Jeremy), then get directed to leave a Google review (primary) or the right Zillow profile (secondary). Noindex — not listed on the main site. The Google review link is a placeholder until the GBP is set up.",
