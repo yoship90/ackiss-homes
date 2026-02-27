@@ -230,6 +230,9 @@ const defaultApproval = (): ApprovalState => ({
   error: false,
 });
 
+const LS_FEEDBACK = "ackiss_feedback_v1";
+const LS_ORDER    = "ackiss_order_v1";
+
 /* ------------------------------------------------------------------ */
 /*  Team Feedback                                                       */
 /* ------------------------------------------------------------------ */
@@ -665,18 +668,32 @@ export default function TodoPage() {
 
   useEffect(() => {
     if (localStorage.getItem(INTERNAL_AUTH_KEY) === "1") setAuthed(true);
+    // Load localStorage immediately (instant — prevents blank state on same-browser nav)
+    try {
+      const fb = localStorage.getItem(LS_FEEDBACK);
+      if (fb) setAllFeedback(JSON.parse(fb));
+      const ord = localStorage.getItem(LS_ORDER);
+      if (ord) setCustomOrder(JSON.parse(ord));
+    } catch { /* ignore */ }
+    // Then fetch from API — overwrites with shared data from other devices if available
     fetch("/api/todo-feedback")
       .then((r) => r.json())
       .then((data) => {
-        if (data.feedback) setAllFeedback(data.feedback);
+        if (data.feedback && Object.keys(data.feedback).length > 0) setAllFeedback(data.feedback);
         if (data.order?.length) setCustomOrder(data.order);
       })
-      .catch(() => { /* silent fail — page works, changes just won't persist */ });
+      .catch(() => { /* silent fail */ });
   }, []);
 
   if (!authed) return <PasswordGate onAuth={() => setAuthed(true)} />;
 
   function debounceSave(feedback: Record<string, FeedbackData>, order: string[]) {
+    // Write to localStorage immediately — persists across same-browser navigation instantly
+    try {
+      localStorage.setItem(LS_FEEDBACK, JSON.stringify(feedback));
+      localStorage.setItem(LS_ORDER, JSON.stringify(order));
+    } catch { /* ignore */ }
+    // Debounce the API write — syncs to other devices after 600ms of inactivity
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
       fetch("/api/todo-feedback", {
