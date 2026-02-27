@@ -92,7 +92,7 @@ const entries: Entry[] = [
     title: "Email Campaigns #2, #3, #4 (Drip Sequence)",
     description: "Follow-up drip emails for non-responders: #2 'Are you starting to browse online?' (buyer angle), #3 'What's your home worth?' (seller angle), #4 simple personal check-in. Drafts pending.",
     date: "Feb 2026",
-    status: "in-progress",
+    status: "todo",
   },
 
   // ---- TO DO ----
@@ -158,13 +158,6 @@ const entries: Entry[] = [
     id: "triumph-permission",
     title: "Confirm Triumph Realty MLS iframe Permission",
     description: "The MLS search iframe from Triumph Realty works technically but needs their formal sign-off before going live permanently. Need to follow up with Triumph.",
-    date: "Feb 2026",
-    status: "todo",
-  },
-  {
-    id: "fub-drip-setup",
-    title: "Set Up Drip Sequence in FUB Action Plans",
-    description: "Once all four email drafts are approved, configure them as an automated action plan in FUB so non-responders receive follow-ups on the right cadence.",
     date: "Feb 2026",
     status: "todo",
   },
