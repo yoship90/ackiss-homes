@@ -166,7 +166,7 @@ const entries: Entry[] = [
     title: "Google Voice Business Number",
     description: "Set up one shared Google Voice number as the official Ackiss Homes business number — list it on the website, GBP, and business cards. Free plan forwards calls to both Amanda and Jeremy's phones simultaneously so whoever is available picks up. Texts are shared between both phones, so you'd need a quick system to avoid both replying to the same client. Recommendation: one shared number for brand consistency rather than individual numbers per agent.",
     date: "Feb 2026",
-    status: "idea",
+    status: "todo",
   },
   {
     id: "market-report",
@@ -204,11 +204,11 @@ const STATUS_CONFIG: Record<Status, { label: string; color: string; dot: string 
 };
 
 const SECTIONS: { status: Status; heading: string }[] = [
+  { status: "todo",           heading: "To Do" },
   { status: "needs-approval", heading: "Needs Your Approval" },
   { status: "in-progress",    heading: "In Progress" },
-  { status: "live",           heading: "Live on the Site" },
-  { status: "todo",           heading: "To Do" },
   { status: "idea",           heading: "Ideas" },
+  { status: "live",           heading: "Live on the Site" },
 ];
 
 /* ------------------------------------------------------------------ */
