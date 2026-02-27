@@ -234,8 +234,6 @@ const defaultApproval = (): ApprovalState => ({
 /*  Team Feedback                                                       */
 /* ------------------------------------------------------------------ */
 
-const FEEDBACK_KEY = "ackiss_feedback_v1";
-const ORDER_KEY    = "ackiss_order_v1";
 
 type Reaction = "up" | "down" | "sideways";
 type ItemStatus =
@@ -273,25 +271,6 @@ const ITEM_STATUS_OPTIONS: { value: ItemStatus; label: string; hex: string }[] =
   { value: "not-doing",      label: "Not Doing",        hex: "#4b5563" },
 ];
 
-function loadFeedback(entryId: string): FeedbackData {
-  try {
-    const stored = localStorage.getItem(FEEDBACK_KEY);
-    if (stored) {
-      const all = JSON.parse(stored);
-      if (all[entryId]) return { ...DEFAULT_FEEDBACK, ...all[entryId] };
-    }
-  } catch { /* ignore */ }
-  return DEFAULT_FEEDBACK;
-}
-
-function persistFeedback(entryId: string, data: FeedbackData) {
-  try {
-    const stored = localStorage.getItem(FEEDBACK_KEY);
-    const all = stored ? JSON.parse(stored) : {};
-    all[entryId] = data;
-    localStorage.setItem(FEEDBACK_KEY, JSON.stringify(all));
-  } catch { /* ignore */ }
-}
 
 function ThumbBtn({ type, active, onClick }: { type: Reaction; active: boolean; onClick: () => void }) {
   const rotation = type === "down" ? "180deg" : type === "sideways" ? "-90deg" : "0deg";
@@ -682,25 +661,36 @@ export default function TodoPage() {
   const [dragOverId, setDragOverId]   = useState<string | null>(null);
   const [completedOpen, setCompletedOpen] = useState(false);
   const [notDoingOpen, setNotDoingOpen]   = useState(false);
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (localStorage.getItem(INTERNAL_AUTH_KEY) === "1") setAuthed(true);
-    try {
-      const fb = localStorage.getItem(FEEDBACK_KEY);
-      if (fb) setAllFeedback(JSON.parse(fb));
-    } catch { /* ignore */ }
-    try {
-      const ord = localStorage.getItem(ORDER_KEY);
-      if (ord) setCustomOrder(JSON.parse(ord));
-    } catch { /* ignore */ }
+    fetch("/api/todo-feedback")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.feedback) setAllFeedback(data.feedback);
+        if (data.order?.length) setCustomOrder(data.order);
+      })
+      .catch(() => { /* silent fail — page works, changes just won't persist */ });
   }, []);
 
   if (!authed) return <PasswordGate onAuth={() => setAuthed(true)} />;
 
+  function debounceSave(feedback: Record<string, FeedbackData>, order: string[]) {
+    if (saveTimer.current) clearTimeout(saveTimer.current);
+    saveTimer.current = setTimeout(() => {
+      fetch("/api/todo-feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ feedback, order }),
+      }).catch(() => { /* silent fail */ });
+    }, 600);
+  }
+
   function handleFeedbackSave(entryId: string, data: FeedbackData) {
     const updated = { ...allFeedback, [entryId]: data };
     setAllFeedback(updated);
-    try { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(updated)); } catch { /* ignore */ }
+    debounceSave(updated, customOrder);
   }
 
   function handleReorder(fromId: string, toId: string) {
@@ -716,7 +706,7 @@ export default function TodoPage() {
     next.splice(fi, 1);
     next.splice(ti, 0, fromId);
     setCustomOrder(next);
-    try { localStorage.setItem(ORDER_KEY, JSON.stringify(next)); } catch { /* ignore */ }
+    debounceSave(allFeedback, next);
   }
 
   function sortedByOrder(items: Entry[]): Entry[] {
