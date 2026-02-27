@@ -266,7 +266,7 @@ const ITEM_STATUS_OPTIONS: { value: ItemStatus; label: string; hex: string }[] =
   { value: "blocked",        label: "Blocked",          hex: "#f87171" },
   { value: "on-hold",        label: "On Hold",          hex: "#fb923c" },
   { value: "completed",      label: "Completed",        hex: "#34d399" },
-  { value: "not-doing",      label: "Not Doing",        hex: "#4b5563" },
+  { value: "not-doing",      label: "Scrapped",         hex: "#4b5563" },
 ];
 
 
@@ -528,14 +528,14 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, isDragOver, isDragging
 /* ------------------------------------------------------------------ */
 
 export default function TodoPage() {
-  const [authed, setAuthed]         = useState(false);
-  const [filter, setFilter]         = useState<Status | "all">("all");
-  const [allFeedback, setAllFeedback] = useState<Record<string, FeedbackData>>({});
-  const [customOrder, setCustomOrder] = useState<string[]>([]);
-  const [dragId, setDragId]           = useState<string | null>(null);
-  const [dragOverId, setDragOverId]   = useState<string | null>(null);
-  const [completedOpen, setCompletedOpen] = useState(false);
-  const [notDoingOpen, setNotDoingOpen]   = useState(false);
+  const [authed, setAuthed]             = useState(false);
+  const [filter, setFilter]             = useState<"todo" | "completed" | "scrapped">("todo");
+  const [allFeedback, setAllFeedback]   = useState<Record<string, FeedbackData>>({});
+  const [customOrder, setCustomOrder]   = useState<string[]>([]);
+  const [customEntries, setCustomEntries] = useState<Entry[]>([]);
+  const [showAddForm, setShowAddForm]   = useState(false);
+  const [dragId, setDragId]             = useState<string | null>(null);
+  const [dragOverId, setDragOverId]     = useState<string | null>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -545,19 +545,20 @@ export default function TodoPage() {
       .then((data) => {
         if (data.feedback) setAllFeedback(data.feedback);
         if (data.order?.length) setCustomOrder(data.order);
+        if (data.customEntries?.length) setCustomEntries(data.customEntries);
       })
       .catch(() => { /* silent fail */ });
   }, []);
 
   if (!authed) return <PasswordGate onAuth={() => setAuthed(true)} />;
 
-  function debounceSave(feedback: Record<string, FeedbackData>, order: string[]) {
+  function debounceSave(feedback: Record<string, FeedbackData>, order: string[], custom: Entry[]) {
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
       fetch("/api/todo-feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ feedback, order }),
+        body: JSON.stringify({ feedback, order, customEntries: custom }),
       }).catch(() => { /* silent fail */ });
     }, 600);
   }
@@ -565,12 +566,12 @@ export default function TodoPage() {
   function handleFeedbackSave(entryId: string, data: FeedbackData) {
     const updated = { ...allFeedback, [entryId]: data };
     setAllFeedback(updated);
-    debounceSave(updated, customOrder);
+    debounceSave(updated, customOrder, customEntries);
   }
 
   function handleReorder(fromId: string, toId: string) {
     if (!fromId || fromId === toId) return;
-    const allIds = entries.map(e => e.id);
+    const allIds = [...entries, ...customEntries].map(e => e.id);
     const base = [
       ...customOrder.filter(id => allIds.includes(id)),
       ...allIds.filter(id => !customOrder.includes(id)),
@@ -581,7 +582,26 @@ export default function TodoPage() {
     next.splice(fi, 1);
     next.splice(ti, 0, fromId);
     setCustomOrder(next);
-    debounceSave(allFeedback, next);
+    debounceSave(allFeedback, next, customEntries);
+  }
+
+  function handleAddItem(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const title = (fd.get("title") as string ?? "").trim();
+    const description = (fd.get("description") as string ?? "").trim();
+    if (!title) return;
+    const newEntry: Entry = {
+      id: `custom-${Date.now()}`,
+      title,
+      description,
+      date: new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" }),
+      status: "todo",
+    };
+    const updated = [...customEntries, newEntry];
+    setCustomEntries(updated);
+    setShowAddForm(false);
+    debounceSave(allFeedback, customOrder, updated);
   }
 
   function sortedByOrder(items: Entry[]): Entry[] {
@@ -612,15 +632,12 @@ export default function TodoPage() {
     );
   }
 
-  const completedIds  = new Set(entries.filter(e => allFeedback[e.id]?.itemStatus === "completed").map(e => e.id));
-  const notDoingIds   = new Set(entries.filter(e => allFeedback[e.id]?.itemStatus === "not-doing").map(e => e.id));
-  const completedEntries = sortedByOrder(entries.filter(e => completedIds.has(e.id)));
-  const notDoingEntries  = sortedByOrder(entries.filter(e => notDoingIds.has(e.id)));
-  const activeEntries = (id: string) => !completedIds.has(id) && !notDoingIds.has(id);
-
-  const filtered = filter === "all"
-    ? entries.filter(e => activeEntries(e.id))
-    : entries.filter(e => e.status === filter && activeEntries(e.id));
+  const allEntries    = [...entries, ...customEntries];
+  const completedIds  = new Set(allEntries.filter(e => allFeedback[e.id]?.itemStatus === "completed").map(e => e.id));
+  const scrapedIds    = new Set(allEntries.filter(e => allFeedback[e.id]?.itemStatus === "not-doing").map(e => e.id));
+  const completedEntries = sortedByOrder(allEntries.filter(e => completedIds.has(e.id)));
+  const scrapedEntries   = sortedByOrder(allEntries.filter(e => scrapedIds.has(e.id)));
+  const activeEntries = (id: string) => !completedIds.has(id) && !scrapedIds.has(id);
 
   return (
     <div className="min-h-screen bg-black flex flex-col">
@@ -655,46 +672,89 @@ export default function TodoPage() {
               What We&rsquo;re <span className="text-gold-400">Working On</span>
             </h1>
             <p className="text-gray-400 max-w-xl leading-relaxed">
-              A running log of everything live on the site, in progress, and on the roadmap. Items marked <span className="text-gold-400 font-medium">Needs Approval</span> are waiting on your go-ahead before we move forward.
+              A running log of everything in progress and on the roadmap. Add items, leave notes, and track what we&rsquo;re working on together.
             </p>
           </div>
 
-          {/* Filter pills */}
-          <div className="flex flex-wrap gap-2 mb-10">
-            <button
-              onClick={() => setFilter("all")}
-              className={`px-4 py-1.5 rounded-full text-xs uppercase tracking-wider border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
-                filter === "all"
-                  ? "bg-white/10 text-white border-white/20"
-                  : "text-gray-500 border-dark-600 hover:border-gray-500 hover:text-gray-300"
-              }`}
-            >
-              All ({entries.length})
-            </button>
-            {Object.entries(STATUS_CONFIG).map(([status, cfg]) => {
-              const count = entries.filter((e) => e.status === status).length;
-              if (count === 0) return null;
-              return (
+          {/* Filter pills + Add Item */}
+          <div className="flex items-center justify-between gap-4 mb-10">
+            <div className="flex flex-wrap gap-2">
+              {([
+                { key: "todo",      label: "To Do",     count: allEntries.filter(e => activeEntries(e.id)).length },
+                { key: "completed", label: "Completed", count: completedEntries.length },
+                { key: "scrapped",  label: "Scrapped",  count: scrapedEntries.length },
+              ] as const).map(({ key, label, count }) => (key === "todo" || count > 0) && (
                 <button
-                  key={status}
-                  onClick={() => setFilter(status as Status)}
+                  key={key}
+                  onClick={() => setFilter(key)}
                   className={`px-4 py-1.5 rounded-full text-xs uppercase tracking-wider border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
-                    filter === status
-                      ? `${cfg.color}`
+                    filter === key
+                      ? "bg-white/10 text-white border-white/20"
                       : "text-gray-500 border-dark-600 hover:border-gray-500 hover:text-gray-300"
                   }`}
                 >
-                  {cfg.label} ({count})
+                  {label}{count > 0 ? ` (${count})` : ""}
                 </button>
-              );
-            })}
+              ))}
+            </div>
+            <button
+              onClick={() => { setShowAddForm(o => !o); setFilter("todo"); }}
+              className="shrink-0 text-xs uppercase tracking-widest text-gold-400 hover:text-gold-300 border border-gold-500/30 hover:border-gold-500/60 px-4 py-1.5 rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95"
+            >
+              + Add Item
+            </button>
           </div>
 
+          {/* Add Item form */}
+          {showAddForm && filter === "todo" && (
+            <div className="mb-8 bg-dark-700 border border-gold-500/25 rounded-sm p-6">
+              <form onSubmit={handleAddItem} className="space-y-4">
+                <div>
+                  <label className="block text-[10px] uppercase tracking-[0.25em] text-gray-500 mb-2">Title</label>
+                  <input
+                    name="title"
+                    type="text"
+                    required
+                    autoFocus
+                    placeholder="What needs to be done?"
+                    className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-gold-500 transition-[border-color] duration-200"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] uppercase tracking-[0.25em] text-gray-500 mb-2">
+                    Description <span className="text-gray-700">(optional)</span>
+                  </label>
+                  <textarea
+                    name="description"
+                    rows={3}
+                    placeholder="More details…"
+                    className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-gold-500 transition-[border-color] duration-200 resize-none"
+                  />
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    type="submit"
+                    className="px-5 py-2 bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold text-xs uppercase tracking-widest rounded-sm active:scale-95 transition-[background-color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
+                  >
+                    Add Item
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowAddForm(false)}
+                    className="px-4 py-2 text-xs text-gray-600 hover:text-gray-400 transition-colors focus-visible:outline-none"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+
           {/* Sections */}
-          {filter === "all" ? (
+          {filter === "todo" && (
             <>
               {SECTIONS.map(({ status, heading }) => {
-                const items = sortedByOrder(entries.filter(e => e.status === status && activeEntries(e.id)));
+                const items = sortedByOrder(allEntries.filter(e => e.status === status && activeEntries(e.id)));
                 if (items.length === 0) return null;
                 return (
                   <div key={status} className="mb-12">
@@ -708,63 +768,19 @@ export default function TodoPage() {
                   </div>
                 );
               })}
-
-              {/* Completed section — collapsed by default */}
-              {completedEntries.length > 0 && (
-                <div className="mb-12">
-                  <button
-                    onClick={() => setCompletedOpen(o => !o)}
-                    className="flex items-center gap-3 mb-4 group focus-visible:outline-none"
-                  >
-                    <span className="w-2 h-2 rounded-full bg-emerald-500/40 shrink-0" />
-                    <span className="text-xs uppercase tracking-[0.3em] text-gray-600 group-hover:text-gray-400 transition-colors">
-                      Completed ({completedEntries.length})
-                    </span>
-                    <svg
-                      className={`w-3 h-3 text-gray-700 transition-transform duration-200 ${completedOpen ? "rotate-0" : "-rotate-90"}`}
-                      fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  {completedOpen && (
-                    <div className="grid md:grid-cols-2 gap-4 opacity-50">
-                      {completedEntries.map(renderCard)}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Not Doing section — collapsed by default */}
-              {notDoingEntries.length > 0 && (
-                <div className="mb-12">
-                  <button
-                    onClick={() => setNotDoingOpen(o => !o)}
-                    className="flex items-center gap-3 mb-4 group focus-visible:outline-none"
-                  >
-                    <span className="w-2 h-2 rounded-full bg-gray-600/50 shrink-0" />
-                    <span className="text-xs uppercase tracking-[0.3em] text-gray-600 group-hover:text-gray-400 transition-colors">
-                      Not Doing ({notDoingEntries.length})
-                    </span>
-                    <svg
-                      className={`w-3 h-3 text-gray-700 transition-transform duration-200 ${notDoingOpen ? "rotate-0" : "-rotate-90"}`}
-                      fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  {notDoingOpen && (
-                    <div className="grid md:grid-cols-2 gap-4 opacity-35">
-                      {notDoingEntries.map(renderCard)}
-                    </div>
-                  )}
-                </div>
-              )}
             </>
-          ) : (
-            <div className="grid md:grid-cols-2 gap-4">
-              {filtered.map(renderCard)}
-            </div>
+          )}
+
+          {filter === "completed" && (
+            completedEntries.length > 0
+              ? <div className="grid md:grid-cols-2 gap-4 opacity-60">{completedEntries.map(renderCard)}</div>
+              : <p className="text-gray-600 text-sm">No completed items yet.</p>
+          )}
+
+          {filter === "scrapped" && (
+            scrapedEntries.length > 0
+              ? <div className="grid md:grid-cols-2 gap-4 opacity-40">{scrapedEntries.map(renderCard)}</div>
+              : <p className="text-gray-600 text-sm">No scrapped items yet.</p>
           )}
 
         </div>
