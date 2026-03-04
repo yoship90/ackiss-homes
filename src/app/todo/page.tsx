@@ -165,6 +165,23 @@ const entries: Entry[] = [
     status: "todo",
   },
   {
+    id: "meta-business-manager",
+    title: "Meta Business Manager + Pixel ID — Jeremy",
+    description: "Go to business.facebook.com, log in or create a Business Manager account, then go to Events Manager → Connect Data Sources → Web → Meta Pixel. Create a Pixel named 'Ackiss Homes' and share the Pixel ID with Nate so it can be installed on the site. See the Ads Guide for full context.",
+    date: "Mar 2026",
+    status: "todo",
+    priority: "high",
+    link: "/ads",
+  },
+  {
+    id: "meta-pixel-install",
+    title: "Install Meta Pixel on Site — Waiting on Jeremy",
+    description: "Once Jeremy shares the Pixel ID from Meta Business Manager, add the Pixel snippet to layout.tsx (covers all pages) and update the Privacy Policy with a disclosure paragraph. Takes about 5 minutes once the ID is in hand.",
+    date: "Mar 2026",
+    status: "todo",
+    link: "/ads",
+  },
+  {
     id: "google-voice",
     title: "Google Voice Business Number",
     description: "Set up one shared Google Voice number as the official Ackiss Homes business number — list it on the website, GBP, and business cards. Free plan forwards calls to both Amanda and Jeremy's phones simultaneously so whoever is available picks up. Texts are shared between both phones, so you'd need a quick system to avoid both replying to the same client. Recommendation: one shared number for brand consistency rather than individual numbers per agent.",
