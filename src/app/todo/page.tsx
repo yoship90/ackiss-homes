@@ -115,6 +115,13 @@ const entries: Entry[] = [
     status: "todo",
   },
   {
+    id: "search-console-ga4",
+    title: "Link Google Search Console to GA4",
+    description: "Once GBP is set up and organic traffic starts flowing, connect Google Search Console to GA4. This unlocks keyword-level data in Analytics — you'll see exactly which search terms people used to find the site. Do this after GBP is verified and the site is getting some organic traffic. Setup is in GA4 under Admin → Property Settings → Search Console Links.",
+    date: "Mar 2026",
+    status: "todo",
+  },
+  {
     id: "og-image",
     title: "Improve Social Share (OG) Image",
     description: "When the site is shared on social media or iMessage, the preview image is a low-res screenshot (251×69px). Needs to be rebuilt as a proper high-res image for a professional appearance.",
