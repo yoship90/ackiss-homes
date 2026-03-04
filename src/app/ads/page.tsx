@@ -31,6 +31,10 @@ const sections = [
     label: "Instagram Ads",
   },
   {
+    id: "tiktok",
+    label: "TikTok",
+  },
+  {
     id: "priority",
     label: "What to Do First",
   },
@@ -382,7 +386,75 @@ export default function AdsPage() {
           </section>
 
           {/* -------------------------------------------------------- */}
-          {/* 6. Priority Order                                          */}
+          {/* 6. TikTok                                                  */}
+          {/* -------------------------------------------------------- */}
+          <section>
+            <SectionHeading id="tiktok" eyebrow="Platform" title="TikTok — Worth It?" />
+            <div className="space-y-4 text-gray-400 leading-relaxed">
+              <p>
+                TikTok is worth understanding, but the answer for Ackiss Homes is: <strong className="text-white">don&apos;t run TikTok ads yet, but do consider it for organic content.</strong>
+              </p>
+            </div>
+
+            <div className="mt-6 grid md:grid-cols-2 gap-4">
+              <Card>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-emerald-400/70 mb-3">The case for it</p>
+                <ul className="space-y-3 text-sm text-gray-400">
+                  {[
+                    { title: "Audience older than you think", desc: "25–34 is now one of TikTok's largest segments — that's first-time homebuyer territory." },
+                    { title: "Organic reach is exceptional", desc: "A property walkthrough that might reach 500 people on Instagram could reach 50,000 on TikTok for free. The algorithm pushes content to non-followers aggressively." },
+                    { title: "Ads are currently cheaper", desc: "The ad platform is less saturated than Meta right now. Cost per click and cost per lead tend to be lower — though that gap will close." },
+                  ].map(({ title, desc }) => (
+                    <li key={title} className="flex items-start gap-2">
+                      <span className="text-emerald-400 mt-0.5 shrink-0">→</span>
+                      <span><strong className="text-white">{title}.</strong> {desc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+              <Card>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-red-400/70 mb-3">The case against it</p>
+                <ul className="space-y-3 text-sm text-gray-400">
+                  {[
+                    { title: "Video only", desc: "TikTok is video-only. No image ads or carousels. Someone needs to be comfortable on camera filming walkthroughs, market updates, neighborhood content." },
+                    { title: "Weaker local targeting", desc: "Meta's zip code and radius targeting is more precise. For a hyperlocal Virginia Beach business, Meta is simply better for paid ads." },
+                    { title: "Platform uncertainty", desc: "TikTok has faced ongoing US ban threats for over a year. Investing heavily in a platform that could be restricted is a real risk. Meta isn't going anywhere." },
+                    { title: "Less refined ad tools", desc: "The TikTok Pixel exists but isn't as mature as Meta's. Retargeting and lookalike audiences work, but the sophistication isn't there yet." },
+                  ].map(({ title, desc }) => (
+                    <li key={title} className="flex items-start gap-2">
+                      <span className="text-red-400 mt-0.5 shrink-0">→</span>
+                      <span><strong className="text-white">{title}.</strong> {desc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </div>
+
+            <div className="mt-6">
+              <Table
+                headers={["", "Meta (Facebook/Instagram)", "TikTok"]}
+                rows={[
+                  ["Ad platform maturity",   "Very mature",         "Less mature"],
+                  ["Local targeting",        "Excellent",           "Good but weaker"],
+                  ["Pixel / retargeting",    "Industry-leading",    "Exists, less refined"],
+                  ["Ad cost right now",      "Moderate",            "Currently lower"],
+                  ["Organic reach",          "Weak on FB, decent on Reels", "Exceptional"],
+                  ["Content requirement",    "Images or video",     "Video only"],
+                  ["Platform stability",     "Very stable",         "Uncertain (ban risk)"],
+                  ["Best use for real estate", "Paid ads + retargeting", "Organic video content"],
+                ]}
+              />
+            </div>
+
+            <div className="mt-6">
+              <Callout type="tip">
+                <strong>The organic opportunity is real.</strong> Some of the most successful real estate agents on TikTok aren&apos;t running a single paid ad — they post consistently (property tours, &quot;what $400k buys you in Virginia Beach,&quot; neighborhood guides, market updates) and let the algorithm drive free reach to a local audience. If either of you is comfortable on camera, this is worth exploring alongside Meta — just don&apos;t pay for TikTok ads until Meta is dialed in first.
+              </Callout>
+            </div>
+          </section>
+
+          {/* -------------------------------------------------------- */}
+          {/* 7. Priority Order                                          */}
           {/* -------------------------------------------------------- */}
           <section>
             <SectionHeading id="priority" eyebrow="Strategy" title="What to Do First" />
@@ -415,16 +487,28 @@ export default function AdsPage() {
                 ],
                 [
                   <span key="4" className="text-gray-400">4</span>,
-                  "Run first paid campaign",
+                  "TikTok organic content",
+                  "Free",
+                  "If comfortable on camera — property tours, neighborhood guides, market updates. TikTok's algorithm gives exceptional organic reach to non-followers. No ad spend needed."
+                ],
+                [
+                  <span key="5" className="text-gray-400">5</span>,
+                  "Run first Meta paid campaign",
                   "$5–10/day",
                   "Once the pixel has a meaningful audience pool (1,000+ visitors), retargeting and lookalike audiences are ready. First campaign can start very small."
+                ],
+                [
+                  <span key="6" className="text-gray-400">6</span>,
+                  "TikTok paid ads",
+                  "$",
+                  "Not a priority until Meta is dialed in. Consider only after Meta campaigns are running and performing well."
                 ],
               ]}
             />
 
             <div className="mt-6">
               <Callout type="tip">
-                Steps 1–3 build on each other. GBP drives traffic → Pixel collects that traffic → organic posts drive more traffic → Pixel collects those too. By the time you run paid ads (step 4), the audience data is already there and campaigns are more effective from day one.
+                Steps 1–3 build on each other. GBP drives traffic → Pixel collects that traffic → organic posts drive more traffic → Pixel collects those too. By the time you run paid ads (step 5), the audience data is already there and campaigns are more effective from day one.
               </Callout>
             </div>
           </section>
