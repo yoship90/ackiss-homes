@@ -165,6 +165,13 @@ const entries: Entry[] = [
     status: "todo",
   },
   {
+    id: "social-scheduling-tools",
+    title: "Social Scheduling Tools — Amanda",
+    description: "Check out Meta Business Suite (business.facebook.com — free) and Later (later.com — free tier available) for simultaneously posting videos to your personal Instagram and the Ackiss Homes Instagram. Note: Jeremy may already have a Meta Business Suite login from running Facebook ads — check with him before creating a new account, as you can be added as a user to the existing one.",
+    date: "Mar 2026",
+    status: "todo",
+  },
+  {
     id: "meta-business-manager",
     title: "Meta Business Manager + Pixel ID — Jeremy",
     description: "Go to business.facebook.com, log in or create a Business Manager account, then go to Events Manager → Connect Data Sources → Web → Meta Pixel. Create a Pixel named 'Ackiss Homes' and share the Pixel ID with Nate so it can be installed on the site. See the Ads Guide for full context.",
