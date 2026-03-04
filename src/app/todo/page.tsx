@@ -189,6 +189,13 @@ const entries: Entry[] = [
     link: "/ads",
   },
   {
+    id: "cloudflare",
+    title: "Cloudflare Bot Protection",
+    description: "Add Cloudflare as a proxy in front of the site for DDoS protection, bot filtering, and firewall rules — all free on Cloudflare's free tier. Setup involves pointing the domain's nameservers from GoDaddy/Vercel to Cloudflare, which takes 24–48hrs to propagate. No urgency — current honeypot spam protection is adequate for now. Do this on a calm afternoon when you can monitor the site for a few hours afterward. Vercel + Cloudflare are fully compatible.",
+    date: "Mar 2026",
+    status: "todo",
+  },
+  {
     id: "google-voice",
     title: "Google Voice Business Number",
     description: "Set up one shared Google Voice number as the official Ackiss Homes business number — list it on the website, GBP, and business cards. Free plan forwards calls to both Amanda and Jeremy's phones simultaneously so whoever is available picks up. Texts are shared between both phones, so you'd need a quick system to avoid both replying to the same client. Recommendation: one shared number for brand consistency rather than individual numbers per agent.",
