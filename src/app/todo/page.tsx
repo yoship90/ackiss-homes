@@ -92,6 +92,13 @@ const entries: Entry[] = [
   },
 
   {
+    id: "services-perks-copy",
+    title: "Finalize Services Card Value Items — Amanda & Jeremy",
+    description: "The Buying and Selling service cards now show a list of included value items (e.g. professional photography, staging consultation, open houses for Selling; neighborhood expertise, negotiation, off-market listings for Buying). Review and confirm the exact items to list — add, remove, or reword anything. Once finalized, Nate will update the site.",
+    date: "Mar 2026",
+    status: "todo",
+  },
+  {
     id: "stpatricks-postcards",
     title: "St. Patrick's Day Postcards",
     description: "Design and send St. Patrick's Day postcards to the mailing list. Drafts are ready — needs final approval and mailing.",
