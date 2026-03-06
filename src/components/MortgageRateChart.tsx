@@ -69,7 +69,7 @@ function CustomTooltip({
 
 export default function MortgageRateChart() {
   const [data, setData] = useState<RatePoint[]>(FALLBACK_DATA);
-  const [isLive, setIsLive] = useState(false);
+  const [ratesAsOf, setRatesAsOf] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/mortgage-rates")
@@ -77,8 +77,8 @@ export default function MortgageRateChart() {
       .then((json) => {
         if (Array.isArray(json.data) && json.data.length > 0) {
           setData(json.data);
-          setIsLive(true);
         }
+        if (json.ratesAsOf) setRatesAsOf(json.ratesAsOf);
       })
       .catch(() => {
         // Keep fallback data silently
@@ -167,7 +167,8 @@ export default function MortgageRateChart() {
 
       {/* Footer note */}
       <p className="text-[9px] text-gray-400 text-right mt-1.5">
-        Freddie Mac PMMS · 30-yr fixed · quarterly avg{isLive ? " · live" : ""}
+        Freddie Mac PMMS · 30-yr fixed · quarterly avg
+        {ratesAsOf ? ` · updated ${new Date(ratesAsOf).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}` : ""}
       </p>
     </div>
   );

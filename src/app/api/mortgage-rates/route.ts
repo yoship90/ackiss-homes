@@ -66,5 +66,5 @@ export async function GET() {
 
   const data = [...historicalQuarters, { label: "Now", rate: latestRate }];
 
-  return NextResponse.json({ data, updatedAt: new Date().toISOString() });
+  return NextResponse.json({ data, ratesAsOf: latestDate });
 }
