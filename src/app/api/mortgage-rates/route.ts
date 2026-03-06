@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const revalidate = 86400; // Cache for 24 hours
+export const revalidate = 3600; // Cache for 1 hour
 
 interface FredObservation {
   date: string;
