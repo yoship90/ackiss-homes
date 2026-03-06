@@ -73,11 +73,11 @@ export async function GET() {
 
     weeklyPoints.push({ label, rate });
 
-    // First reading of each month → add to ticks
-    if (month !== lastMonth) {
+    // First reading of each quarter (Jan/Apr/Jul/Oct) → add to ticks
+    if (month !== lastMonth && month % 3 === 0) {
       ticks.push(label);
-      lastMonth = month;
     }
+    if (month !== lastMonth) lastMonth = month;
 
     if (obs.date > latestDate) latestDate = obs.date;
   }
