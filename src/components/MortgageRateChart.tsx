@@ -69,6 +69,7 @@ function CustomTooltip({
 
 export default function MortgageRateChart() {
   const [data, setData] = useState<RatePoint[]>(FALLBACK_DATA);
+  const [ticks, setTicks] = useState<string[]>([]);
   const [ratesAsOf, setRatesAsOf] = useState<string | null>(null);
 
   useEffect(() => {
@@ -78,6 +79,7 @@ export default function MortgageRateChart() {
         if (Array.isArray(json.data) && json.data.length > 0) {
           setData(json.data);
         }
+        if (Array.isArray(json.ticks)) setTicks(json.ticks);
         if (json.ratesAsOf) setRatesAsOf(json.ratesAsOf);
       })
       .catch(() => {
@@ -87,10 +89,12 @@ export default function MortgageRateChart() {
 
   const current = data[data.length - 1].rate;
 
-  // Year ticks: first Q of each year present in data + "Now"
-  const yearTicks = data
+  // Fallback ticks for static data — Q1 of each year + last point
+  const fallbackTicks = data
     .filter((d) => d.label.startsWith("Q1") || d.label === "Now")
     .map((d) => d.label);
+
+  const yearTicks = ticks.length > 0 ? ticks : fallbackTicks;
 
   return (
     <div className="w-full">
@@ -140,7 +144,9 @@ export default function MortgageRateChart() {
               interval="preserveStartEnd"
               tickFormatter={(v) => {
                 if (v === "Now") return "Now";
-                return v.replace("Q1 ", "'");
+                if (v.startsWith("Q1 ")) return v.replace("Q1 ", "'"); // "'19", "'20" etc.
+                if (v.startsWith("Q")) return "";
+                return v.split(" ")[0]; // "Jan 2" → "Jan"
               }}
             />
 
