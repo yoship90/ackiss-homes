@@ -20,6 +20,7 @@ interface Entry {
   status: Status;
   priority?: "high";
   link?: string;
+  previewImage?: string;
 }
 
 const entries: Entry[] = [
@@ -97,6 +98,7 @@ const entries: Entry[] = [
     description: "The Buying and Selling service cards now show a list of included value items (e.g. professional photography, staging consultation, open houses for Selling; neighborhood expertise, negotiation, off-market listings for Buying). Review and confirm the exact items to list — add, remove, or reword anything. Once finalized, Nate will update the site.",
     date: "Mar 2026",
     status: "todo",
+    previewImage: "/previews/services-perks.png",
   },
   {
     id: "stpatricks-postcards",
@@ -604,6 +606,15 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, onEdit, isDragOver, is
         <>
           <h3 className="text-white font-semibold mb-2 leading-snug">{entry.title}</h3>
           <p className="text-gray-400 text-sm leading-relaxed">{entry.description}</p>
+          {entry.previewImage && (
+            <div className="mt-4">
+              <img
+                src={entry.previewImage}
+                alt="Preview"
+                className="w-full rounded-sm border border-dark-600/50 opacity-80 hover:opacity-100 transition-opacity duration-200"
+              />
+            </div>
+          )}
         </>
       )}
 
