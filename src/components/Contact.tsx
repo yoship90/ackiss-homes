@@ -160,6 +160,9 @@ export default function Contact() {
                 {error && (
                   <p className="text-red-400/80 text-sm">{error}</p>
                 )}
+                <p className="text-center text-[11px] text-gray-600">
+                  Don&rsquo;t worry, we don&rsquo;t sell your info — we sell homes
+                </p>
                 <button
                   type="submit"
                   disabled={loading}
