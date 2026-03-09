@@ -11,6 +11,12 @@ const services = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" />
       </svg>
     ),
+    perks: [
+      "Neighborhood expertise",
+      "Offer strategy & negotiation",
+      "Access to off-market listings",
+      "Full closing support",
+    ],
   },
   {
     title: "Selling",
@@ -21,6 +27,12 @@ const services = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
+    perks: [
+      "Professional photography",
+      "Staging consultation",
+      "Social media marketing",
+      "Open houses",
+    ],
   },
   {
     title: "Consultations",
@@ -65,6 +77,21 @@ export default function Services() {
                 <p className="text-gray-400 text-sm leading-relaxed">
                   {service.description}
                 </p>
+                {"perks" in service && service.perks && (
+                  <>
+                    <div className="my-5 h-px bg-dark-600/60" />
+                    <ul className="space-y-2">
+                      {service.perks.map((perk) => (
+                        <li key={perk} className="flex items-center gap-2.5">
+                          <svg className="w-3 h-3 text-gold-500 shrink-0" viewBox="0 0 12 12" fill="none">
+                            <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                          <span className="text-xs text-gray-400 tracking-wide">{perk}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
               </div>
             </ScrollReveal>
           ))}
