@@ -608,11 +608,13 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, onEdit, isDragOver, is
           <p className="text-gray-400 text-sm leading-relaxed">{entry.description}</p>
           {entry.previewImage && (
             <div className="mt-4">
-              <img
-                src={entry.previewImage}
-                alt="Preview"
-                className="w-full rounded-sm border border-dark-600/50 opacity-80 hover:opacity-100 transition-opacity duration-200"
-              />
+              <a href={entry.previewImage} target="_blank" rel="noopener noreferrer">
+                <img
+                  src={entry.previewImage}
+                  alt="Preview"
+                  className="w-full rounded-sm border border-dark-600/50 opacity-80 hover:opacity-100 transition-opacity duration-200 cursor-zoom-in"
+                />
+              </a>
             </div>
           )}
         </>
