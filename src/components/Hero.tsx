@@ -162,18 +162,15 @@ export default function Hero() {
       {/* Logo */}
       <div
         ref={logoRef}
-        className="absolute inset-y-0 left-0 translate-x-0 md:left-auto md:right-[-10rem] flex items-center will-change-transform pointer-events-none transition-opacity duration-700 ease-out"
-        aria-hidden="true"
+        className="absolute inset-y-0 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-[16rem]
+        flex items-center will-change-transform pointer-events-none
+        transition-opacity duration-700 ease-out"
         style={{ opacity: isMobile ? (logoPhase ? 0.3 : 1) : 0.55 }}
       >
-        <Image
-          src="/logo.png"
-          alt=""
-          width={960}
-          height={894}
-          className="w-[150vw] md:w-[52rem] h-auto object-contain mix-blend-lighten [mask-image:linear-gradient(to_right,transparent,black_12%)]"
-          priority
-        />
+        <Image src="/logo-a.svg" alt="" width={788} height={716}
+          className="w-[65vw] md:w-[30rem] h-auto object-contain mix-blend-lighten
+          [mask-image:linear-gradient(to_right,transparent,black_12%)]"
+          priority />
       </div>
 
       {/* Grain texture */}
