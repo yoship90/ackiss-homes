@@ -88,7 +88,7 @@ export default function About() {
             <div className="md:pt-8">
               <p className="text-gray-400 leading-relaxed text-lg mb-6">
                 At Ackiss Homes, we believe that finding the right property is
-                about more than square footage and price — it&apos;s about finding a
+                about more than square footage and price - it&apos;s about finding a
                 place where life happens. We bring a personalized, client-first
                 approach to every transaction.
               </p>
