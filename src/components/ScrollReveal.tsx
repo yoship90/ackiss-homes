@@ -22,6 +22,12 @@ export default function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
+    // Skip animation on mobile — reveal immediately
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      setIsVisible(true);
+      return;
+    }
+
     // If already in the viewport on mount, reveal immediately
     if (el.getBoundingClientRect().top < window.innerHeight) {
       setIsVisible(true);

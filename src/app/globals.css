@@ -159,9 +159,11 @@ h4 {
   --shimmer-duration: 4s;
 }
 
-.btn-shimmer:hover {
-  --shimmer-color: rgba(255, 248, 220, 0.3);
-  --shimmer-duration: 1.4s;
+@media (hover: hover) {
+  .btn-shimmer:hover {
+    --shimmer-color: rgba(255, 248, 220, 0.3);
+    --shimmer-duration: 1.4s;
+  }
 }
 
 /* Gradient fill — fades in on hover */
@@ -175,8 +177,10 @@ h4 {
   z-index: 0;
 }
 
-.btn-shimmer:hover::after {
-  opacity: 1;
+@media (hover: hover) {
+  .btn-shimmer:hover::after {
+    opacity: 1;
+  }
 }
 
 /* Shimmer sweep — sits above the gradient fill */

@@ -145,6 +145,16 @@ export default function Header() {
         </button>
       </div>
 
+      {/* Mobile CTA bar */}
+      <div className="md:hidden border-t border-dark-600/30 py-2 flex justify-center">
+        <a
+          href="#property-inquiry"
+          className="btn-shimmer px-6 py-1.5 text-[0.72rem] uppercase tracking-widest text-gold-400 hover:text-dark-900 border border-gold-500/70 hover:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-[color,border-color,transform] duration-[220ms]"
+        >
+          <span className="relative z-[2]">Find My Home</span>
+        </a>
+      </div>
+
       {/* Mobile menu */}
       {mobileOpen && (
         <nav aria-label="Mobile navigation" className="md:hidden bg-dark-800 border-t border-dark-600/50 px-6 pb-4">
@@ -193,16 +203,7 @@ export default function Header() {
             </a>
           ))}
 
-          {/* Find My Home CTA */}
-          <div className="pt-3 pb-1">
-            <a
-              href="#property-inquiry"
-              onClick={() => setMobileOpen(false)}
-              className="btn-shimmer inline-block px-5 py-2.5 text-sm uppercase tracking-widest text-gold-400 hover:text-dark-900 border border-gold-500/70 hover:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-[color,border-color,transform] duration-[220ms]"
-            >
-              <span className="relative z-[2]">Find My Home</span>
-            </a>
-          </div>
+
         </nav>
       )}
     </header>
