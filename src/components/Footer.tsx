@@ -13,7 +13,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <a href="#hero">
-            <Image src="/logo-full.svg" alt="Ackiss Homes" width={1926} height={811}
+            <Image src="/logo-full-v2.svg" alt="Ackiss Homes" width={1924} height={765}
               className="w-[32rem] h-auto" />
           </a>
 

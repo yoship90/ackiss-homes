@@ -45,7 +45,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 w-full z-50 bg-dark-900/90 backdrop-blur-md border-b border-dark-600/50">
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
         <a href="#hero" className="flex items-center gap-3 shrink-0">
-          <Image src="/logo-a-new-test.svg" alt="Ackiss Homes" width={788} height={716}
+          <Image src="/logo-a-v2.svg" alt="Ackiss Homes" width={788} height={716}
             className="h-14 w-auto" />
           <div className="h-7 w-px bg-gold-500/40 shrink-0" aria-hidden="true" />
           <div className="flex flex-col leading-none gap-1 whitespace-nowrap">
