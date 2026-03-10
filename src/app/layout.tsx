@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Playfair_Display, Inter, Bodoni_Moda } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import HashScrollHandler from "@/components/HashScrollHandler";
@@ -16,6 +16,12 @@ const inter = Inter({
   display: "swap",
 });
 
+const bodoni = Bodoni_Moda({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-bodoni",
+  display: "swap",
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ackiss-homes.vercel.app";
 
@@ -75,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${inter.variable} ${bodoni.variable}`}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-Y20W26TBDS"
