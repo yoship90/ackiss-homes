@@ -60,7 +60,7 @@ export default function Header() {
                 Homes
               </span>
             </div>
-            <p className="text-[0.55rem] text-gray-500 uppercase tracking-[0.2em]
+            <p className="text-[0.55rem] text-gray-400 uppercase tracking-[0.2em]
               flex flex-col md:flex-row md:items-center gap-y-0.5 md:gap-x-1.5">
               <span>Real Estate Services</span>
               <span className="hidden md:inline-block w-px h-2.5 bg-gold-500/50" />
