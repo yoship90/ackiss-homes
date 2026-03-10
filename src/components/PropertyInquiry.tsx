@@ -329,6 +329,7 @@ export default function PropertyInquiry() {
                           autoComplete="tel"
                           value={phone}
                           onChange={(e: ChangeEvent<HTMLInputElement>) => setPhone(formatPhone(e.target.value))}
+                          placeholder="(      )"
                           className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
                         />
                       </div>
