@@ -8,7 +8,7 @@ const leftNav = [
 ];
 
 const rightNav = [
-  { label: "Payment\nCalculator", href: "#calculator" },
+  { label: "Calculator", href: "#calculator" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Social", href: "#social" },
   { label: "Contact", href: "#contact" },
@@ -115,7 +115,7 @@ export default function Header() {
             >
               {link.label.includes("\n") ? (
                 <>
-                  <span className="block text-[0.55rem] tracking-[0.2em]">{link.label.split("\n")[0]}</span>
+                  <span className="block text-[0.82rem] tracking-widest">{link.label.split("\n")[0]}</span>
                   <span className="block">{link.label.split("\n")[1]}</span>
                 </>
               ) : (
