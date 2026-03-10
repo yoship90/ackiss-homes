@@ -598,7 +598,7 @@ function EntryCard({ entry, feedbackData, onFeedbackSave, onEdit, isDragOver, is
             className="w-full bg-dark-800 border border-dark-600 rounded-sm px-3 py-2 text-gray-400 text-sm focus:outline-none focus:border-gold-500 transition-[border-color] duration-200 resize-none"
           />
           <div className="flex gap-2">
-            <button type="submit" className="px-4 py-1.5 bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold text-xs uppercase tracking-wider rounded-sm active:scale-95 transition-[background-color,transform] duration-200 focus-visible:outline-none">Save</button>
+            <button type="submit" className="btn-shimmer btn-shimmer-filled px-4 py-1.5 text-dark-900 font-semibold text-xs uppercase tracking-wider rounded-sm hover:scale-[1.015] active:scale-95 transition-transform duration-200 focus-visible:outline-none"><span className="relative z-[2]">Save</span></button>
             <button type="button" onClick={() => setEditing(false)} className="px-3 py-1.5 text-xs text-gray-600 hover:text-gray-400 transition-colors focus-visible:outline-none">Cancel</button>
           </div>
         </form>
@@ -873,9 +873,9 @@ export default function TodoPage() {
                 <div className="flex gap-3">
                   <button
                     type="submit"
-                    className="px-5 py-2 bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold text-xs uppercase tracking-widest rounded-sm active:scale-95 transition-[background-color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
+                    className="btn-shimmer btn-shimmer-filled px-5 py-2 text-dark-900 font-semibold text-xs uppercase tracking-widest rounded-sm hover:scale-[1.015] active:scale-95 transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
                   >
-                    Add To Do
+                    <span className="relative z-[2]">Add To Do</span>
                   </button>
                   <button
                     type="button"
