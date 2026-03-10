@@ -54,6 +54,28 @@ Professional real estate website for Ackiss Homes. Single-page site with dark/lu
 - GitHub CLI installed at C:/Users/Admin/gh-temp/bin/gh.exe
 - Start local dev server: `export PATH="/c/Users/Admin/nodejs:$PATH" && npm run dev -- --port 3000` or double-click `start-dev.bat`
 
+## Deploying to Production (dev → master)
+
+Two safeguards are in place to prevent WIP content from reaching ackisshomes.com:
+
+**1. Always use a PR to merge dev → master — never merge directly.**
+Create a PR and review the diff before merging:
+```bash
+C:/Users/Admin/gh-temp/bin/gh.exe pr create --base master --head dev --title "Deploy: [summary]"
+```
+Review the diff on GitHub, confirm nothing unfinished is included, then merge.
+
+**2. Gate any WIP/unfinished content behind `NEXT_PUBLIC_DEV_PREVIEW`.**
+Wrap content that isn't ready for production:
+```tsx
+{process.env.NEXT_PUBLIC_DEV_PREVIEW === "true" && (
+  // Only renders on local dev and Vercel preview — never on ackisshomes.com
+)}
+```
+- Set `NEXT_PUBLIC_DEV_PREVIEW=true` in `.env.local` (gitignored) and in the Vercel **preview** environment
+- Do NOT set it in the Vercel **production** environment
+- This ensures gated content never renders on the live site even if it reaches master
+
 ## Environment Variables
 - `NEXT_PUBLIC_SITE_URL` — set to `https://www.ackisshomes.com` in Vercel and `.env`. Locally overridden to `http://localhost:3000` in `.env.local`
 - `FUB_API_KEY` — Follow Up Boss API key. Set in Vercel env vars and `.env.local` (gitignored). Never committed to git.
