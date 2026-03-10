@@ -5,7 +5,7 @@ const agents = [
   {
     name: "Jeremy & Amanda Ackiss",
     title: "The Family Behind Ackiss Homes",
-    bio: "What started with Amanda's passion for helping families find their perfect home has grown into a true family affair. A few years later, Jeremy jumped on board — because why should she have all the fun? Together, they bring heart, hustle, and a shared obsession with getting every detail right. Their littlest team member, Liam, hasn't closed a deal yet — but he's already nailing the open-house snack table.",
+    bio: "What started with Amanda's passion for helping families find their perfect home has grown into a true family affair. A few years later, Jeremy jumped on board - because why should she have all the fun? Together, they bring heart, hustle, and a shared obsession with getting every detail right. Their littlest team member, Liam, hasn't closed a deal yet - but he's already nailing the open-house snack table.",
   },
 ];
 

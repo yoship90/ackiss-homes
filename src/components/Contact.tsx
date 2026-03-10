@@ -168,7 +168,7 @@ export default function Contact() {
                   <p className="text-red-400/80 text-sm">{error}</p>
                 )}
                 <p className="text-center text-[11px] text-gray-600">
-                  Don&rsquo;t worry, we don&rsquo;t sell your info — we sell homes
+                  Don&rsquo;t worry, we don&rsquo;t sell your info. We sell homes.
                 </p>
                 <button
                   type="submit"

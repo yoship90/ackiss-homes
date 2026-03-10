@@ -169,7 +169,7 @@ export default function Hero() {
 
         {/* Brand copy */}
         <p {...r(250)} className={`${r(250).className} text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-5 leading-relaxed`}>
-          At Ackiss Homes, we believe that finding the right property is about more than square footage and price — it&apos;s about finding a place where life happens. We bring a personalized, client-first approach to every transaction.
+          At Ackiss Homes, we believe that finding the right property is about more than square footage and price - it&apos;s about finding a place where life happens. We bring a personalized, client-first approach to every transaction.
         </p>
         <p {...r(340)} className={`${r(340).className} text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-6 leading-relaxed`}>
           With deep local market knowledge and a commitment to integrity, we guide buyers, sellers, and investors through every step of the real estate journey. Our reputation is built on results, relationships, and trust.

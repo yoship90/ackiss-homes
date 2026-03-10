@@ -12,7 +12,7 @@ import ScrollReveal from "./ScrollReveal";
 import SplitHeading from "./SplitHeading";
 
 const perks = [
-  "Live MLS data — so you're not falling in love with homes that are no longer available",
+  "Live MLS data, so you're never falling in love with homes that are already gone",
   "Personalized matches based on your criteria",
   "Price history, days on market & neighborhood comps",
   "Local expertise from agents who know Hampton Roads",
@@ -274,7 +274,7 @@ export default function PropertyInquiry() {
 
                   {/* Divider */}
                   <div className="border-t border-dark-600/50 pt-6 space-y-4">
-                    <p className="text-xs text-gray-600 text-center">Don&apos;t worry, we don&apos;t sell your info — we sell homes</p>
+                    <p className="text-xs text-gray-600 text-center">Don&apos;t worry, we don&apos;t sell your info. We sell homes.</p>
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="inquiry-first-name" className="block text-sm text-gray-400 mb-1.5 uppercase tracking-wider">
