@@ -29,7 +29,7 @@ const Sep = () => (
   <span className="h-3 w-px bg-gray-700 shrink-0" aria-hidden="true" />
 );
 
-const navLinkClass = "text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300";
+const navLinkClass = "text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-[color,transform] duration-300";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -73,14 +73,12 @@ export default function Header() {
         </a>
 
         {/* Desktop nav */}
-        <nav aria-label="Main navigation" className="hidden md:flex items-center gap-4 ml-8">
+        <nav aria-label="Main navigation" className="hidden md:flex items-center gap-6 ml-8">
           {leftNav.map((link) => (
             <a key={link.href} href={link.href} className={navLinkClass}>
               {link.label}
             </a>
           ))}
-
-          <Sep />
 
           {/* Communities dropdown */}
           <div
@@ -108,15 +106,10 @@ export default function Header() {
             )}
           </div>
 
-          <Sep />
-
-          {rightNav.map((link, i) => (
-            <>
-              {i > 0 && <Sep key={`sep-${link.href}`} />}
-              <a key={link.href} href={link.href} className={navLinkClass}>
-                {link.label}
-              </a>
-            </>
+          {rightNav.map((link) => (
+            <a key={link.href} href={link.href} className={navLinkClass}>
+              {link.label}
+            </a>
           ))}
 
           {/* Find My Home CTA */}
