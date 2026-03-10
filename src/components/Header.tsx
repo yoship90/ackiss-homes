@@ -110,7 +110,7 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300 text-center leading-tight"
+              className="text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
             >
               {link.label.includes("\n") ? (
                 <>
