@@ -167,7 +167,7 @@ export default function Hero() {
         transition-opacity duration-700 ease-out"
         style={{ opacity: isMobile ? (logoPhase ? 0.4 : 1) : 0.75 }}
       >
-        <Image src="/logo-a-new-test.svg" alt="" width={788} height={716}
+        <Image src="/logo-a-v2.svg" alt="" width={788} height={716}
           className="w-[65vw] md:w-[30rem] h-auto object-contain mix-blend-lighten
           [mask-image:linear-gradient(to_right,transparent,black_12%)]"
           priority />
