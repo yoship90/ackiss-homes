@@ -6,8 +6,6 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-const fullText = "Where Home Begins";
-
 const stats = [
   { target: 200, suffix: "+", label: "Homes Sold" },
   { target: 10,  suffix: "+", label: "Years Experience" },
@@ -84,54 +82,24 @@ function usePrefersReducedMotion() {
 
 export default function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion();
-
-  // Desktop typewriter state
-  const [displayed, setDisplayed] = useState("");
-  const [done, setDone] = useState(false);
-
-  // Mobile logo-first sequence
-  const [isMobile, setIsMobile] = useState(false);
-  const [logoPhase, setLogoPhase] = useState(false);
-
+  const [revealed, setRevealed] = useState(false);
   const logoRef = useRef<HTMLDivElement>(null);
 
-  // Detect mobile and trigger the logo → text reveal sequence
+  // Trigger staggered reveal
   useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
-    setIsMobile(mobile);
-    if (!mobile) return;
-
     if (prefersReducedMotion) {
-      setLogoPhase(true);
+      setRevealed(true);
       return;
     }
-    const t = setTimeout(() => setLogoPhase(true), 1200);
+    const t = setTimeout(() => setRevealed(true), 80);
     return () => clearTimeout(t);
   }, [prefersReducedMotion]);
 
-  // Desktop typewriter — skipped on mobile
-  useEffect(() => {
-    if (window.matchMedia("(max-width: 767px)").matches) return;
-    if (prefersReducedMotion) {
-      setDisplayed(fullText);
-      setDone(true);
-      return;
-    }
-    let i = 0;
-    const timer = setInterval(() => {
-      i++;
-      setDisplayed(fullText.slice(0, i));
-      if (i >= fullText.length) {
-        clearInterval(timer);
-        setDone(true);
-      }
-    }, 60);
-    return () => clearInterval(timer);
-  }, [prefersReducedMotion]);
-
-  // Subtle parallax on logo watermark
+  // Parallax on logo — desktop only (mobile would override -translate-x-1/2)
   useEffect(() => {
     if (prefersReducedMotion) return;
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+    if (!isDesktop) return;
     function handleScroll() {
       if (logoRef.current) {
         logoRef.current.style.transform = `translateY(${window.scrollY * 0.2}px)`;
@@ -141,10 +109,14 @@ export default function Hero() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prefersReducedMotion]);
 
-  // Shared class for mobile fade+slide-up reveal
-  const mobileBase = "transition-[transform,opacity] duration-700 ease-out";
-  const mobileVisible = "opacity-100 translate-y-0";
-  const mobileHidden = "opacity-0 translate-y-8";
+  const r = (delay: number, lift = 12) => ({
+    style: {
+      opacity: revealed ? 1 : 0,
+      transform: revealed ? "translateY(0)" : `translateY(${lift}px)`,
+      transitionDelay: `${delay}ms`,
+    },
+    className: "transition-[transform,opacity] duration-700 ease-out",
+  });
 
   return (
     <section
@@ -159,13 +131,12 @@ export default function Hero() {
         }}
       />
 
-      {/* Logo */}
+      {/* Logo watermark */}
       <div
         ref={logoRef}
         className="absolute inset-y-0 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-[16rem]
         flex items-center will-change-transform pointer-events-none
-        transition-opacity duration-700 ease-out"
-        style={{ opacity: isMobile ? (logoPhase ? 0.4 : 1) : 0.75 }}
+        opacity-[0.4] md:opacity-[0.75]"
       >
         <Image src="/logo-a-v2.svg" alt="" width={788} height={716}
           className="w-[65vw] md:w-[30rem] h-auto object-contain mix-blend-lighten
@@ -176,195 +147,85 @@ export default function Hero() {
       {/* Grain texture */}
       <div className="absolute inset-0 hero-grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
-      {/* Scroll indicator */}
-      <div
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex md:hidden flex-col items-center gap-1.5 text-gold-400/40 transition-opacity duration-1000 ${
-          logoPhase ? "opacity-100" : "opacity-0"
-        }`}
-        aria-hidden="true"
-      >
-        <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
-        <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-        </svg>
-      </div>
-
-      {/* Text content — centered */}
+      {/* Text content */}
       <div className="relative text-center max-w-5xl mx-auto">
 
-        {/* ---- DESKTOP: typewriter animation ---- */}
-        {!isMobile && (
-          <>
-            {/* Eyebrow */}
-            <div className={`flex items-center justify-center gap-4 mb-8 transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
-              <div className="h-px w-12 bg-gold-500/60" />
-              <p className="text-gold-400 uppercase tracking-[0.4em] text-xs">Virginia Beach &amp; All of Hampton Roads</p>
-              <div className="h-px w-12 bg-gold-500/60" />
+        {/* Eyebrow */}
+        <div {...r(0)} className={`${r(0).className} flex items-center justify-center gap-4 mb-8`}>
+          <div className="h-px w-12 bg-gold-500/60" />
+          <p className="text-gold-400 uppercase tracking-[0.4em] text-xs">Virginia Beach &amp; All of Hampton Roads</p>
+          <div className="h-px w-12 bg-gold-500/60" />
+        </div>
+
+        {/* Headline — two lines reveal independently */}
+        <h1 className="text-6xl md:text-8xl font-heading font-bold leading-[1.05] mb-8 tracking-tight">
+          <span {...r(60, 20)} className={`${r(60, 20).className} block`}>
+            Where
+          </span>
+          <span {...r(150, 20)} className={`${r(150, 20).className} block text-gold-400`}>
+            Home Begins
+          </span>
+        </h1>
+
+        {/* Brand copy */}
+        <p {...r(250)} className={`${r(250).className} text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-5 leading-relaxed`}>
+          At Ackiss Homes, we believe that finding the right property is about more than square footage and price — it&apos;s about finding a place where life happens. We bring a personalized, client-first approach to every transaction.
+        </p>
+        <p {...r(340)} className={`${r(340).className} text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-6 leading-relaxed`}>
+          With deep local market knowledge and a commitment to integrity, we guide buyers, sellers, and investors through every step of the real estate journey. Our reputation is built on results, relationships, and trust.
+        </p>
+
+        {/* Stats */}
+        <div {...r(430)} className={`${r(430).className} flex justify-center gap-10 md:gap-16 mb-5`}>
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <p className="text-3xl md:text-4xl font-heading font-bold text-gold-400">
+                <AnimatedCounter target={stat.target} suffix={stat.suffix} />
+              </p>
+              <p className="text-[10px] text-gray-500 uppercase tracking-[0.2em] mt-1.5">{stat.label}</p>
             </div>
+          ))}
+        </div>
 
-            {/* Main headline */}
-            <h1 className="text-6xl md:text-8xl font-heading font-bold leading-[1.05] mb-8 min-h-[1.1em] tracking-tight">
-              {displayed.length <= 6 ? (
-                <>
-                  {displayed}
-                  {!done && displayed.length > 0 && <span className="animate-pulse text-gold-400">|</span>}
-                </>
-              ) : (
-                <>
-                  {displayed.slice(0, 6)}
-                  <br />
-                  <span className="text-gold-400">{displayed.slice(6)}</span>
-                  {!done && displayed.length > 0 && <span className="animate-pulse text-gold-400">|</span>}
-                </>
-              )}
-            </h1>
+        {/* Zillow review links */}
+        <div {...r(520)} className={`${r(520).className} flex flex-wrap items-center justify-center gap-3`}>
+          <span className="text-[11px] uppercase tracking-[0.25em] text-gray-600">Verified reviews on</span>
+          <div className="h-px w-4 bg-gold-500/30" />
+          <a
+            href="https://www.zillow.com/profile/amanda5867"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
+          >
+            <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+            </svg>
+            Zillow — Amanda
+          </a>
+          <span className="text-gray-700">·</span>
+          <a
+            href="https://www.zillow.com/profile/jeremy2621"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
+          >
+            <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+            </svg>
+            Zillow — Jeremy
+          </a>
+        </div>
 
-            {/* Brand copy */}
-            <p className={`text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-5 leading-relaxed transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
-              At Ackiss Homes, we believe that finding the right property is about more than square footage and price — it&apos;s about finding a place where life happens. We bring a personalized, client-first approach to every transaction.
-            </p>
-            <p className={`text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-6 leading-relaxed transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
-              With deep local market knowledge and a commitment to integrity, we guide buyers, sellers, and investors through every step of the real estate journey. Our reputation is built on results, relationships, and trust.
-            </p>
+        {/* Scroll indicator */}
+        <div {...r(620)} className={`${r(620).className} flex justify-center mt-8`} aria-hidden="true">
+          <div className="flex flex-col items-center gap-1.5 text-gold-400/40">
+            <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+            <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
 
-            {/* Stats */}
-            <div className={`flex justify-center gap-12 md:gap-16 mb-5 transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <p className="text-3xl md:text-4xl font-heading font-bold text-gold-400">
-                    <AnimatedCounter target={stat.target} suffix={stat.suffix} />
-                  </p>
-                  <p className="text-[10px] text-gray-500 uppercase tracking-[0.2em] mt-1.5">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Zillow review links */}
-            <div className={`flex flex-wrap items-center justify-center gap-3 transition-opacity duration-700 ${done ? "opacity-100" : "opacity-0"}`}>
-              <span className="text-[11px] uppercase tracking-[0.25em] text-gray-600">Verified reviews on</span>
-              <div className="h-px w-4 bg-gold-500/30" />
-              <a
-                href="https://www.zillow.com/profile/amanda5867"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
-              >
-                <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
-                </svg>
-                Zillow — Amanda
-              </a>
-              <span className="text-gray-700">·</span>
-              <a
-                href="https://www.zillow.com/profile/jeremy2621"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
-              >
-                <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
-                </svg>
-                Zillow — Jeremy
-              </a>
-            </div>
-
-            {/* Desktop scroll indicator — inline so section sizes to content */}
-            <div className={`flex justify-center mt-8 transition-opacity duration-1000 ${done ? "opacity-100" : "opacity-0"}`} aria-hidden="true">
-              <div className="flex flex-col items-center gap-1.5 text-gold-400/40">
-                <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
-                <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </div>
-          </>
-        )}
-
-        {/* ---- MOBILE: logo moment → fade + slide-up ---- */}
-        {isMobile && (
-          <>
-            {/* Eyebrow */}
-            <div
-              className={`flex items-center justify-center gap-4 mb-8 ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
-              style={{ transitionDelay: "0ms" }}
-            >
-              <div className="h-px w-12 bg-gold-500/60" />
-              <p className="text-gold-400 uppercase tracking-[0.4em] text-xs">Virginia Beach &amp; All of Hampton Roads</p>
-              <div className="h-px w-12 bg-gold-500/60" />
-            </div>
-
-            {/* Main headline */}
-            <h1
-              className={`text-6xl font-heading font-bold leading-[1.05] mb-8 tracking-tight ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
-              style={{ transitionDelay: "150ms" }}
-            >
-              Where
-              <br />
-              <span className="text-gold-400">Home Begins</span>
-            </h1>
-
-            {/* Brand copy */}
-            <p
-              className={`text-base text-gray-400 max-w-2xl mx-auto mb-5 leading-relaxed ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
-              style={{ transitionDelay: "300ms" }}
-            >
-              At Ackiss Homes, we believe that finding the right property is about more than square footage and price — it&apos;s about finding a place where life happens. We bring a personalized, client-first approach to every transaction.
-            </p>
-            <p
-              className={`text-base text-gray-400 max-w-2xl mx-auto mb-6 leading-relaxed ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
-              style={{ transitionDelay: "400ms" }}
-            >
-              With deep local market knowledge and a commitment to integrity, we guide buyers, sellers, and investors through every step of the real estate journey. Our reputation is built on results, relationships, and trust.
-            </p>
-
-            {/* Stats */}
-            <div
-              className={`flex justify-center gap-10 mb-5 ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
-              style={{ transitionDelay: "500ms" }}
-            >
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <p className="text-3xl font-heading font-bold text-gold-400">
-                    <AnimatedCounter target={stat.target} suffix={stat.suffix} />
-                  </p>
-                  <p className="text-[10px] text-gray-500 uppercase tracking-[0.2em] mt-1.5">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Zillow review links */}
-            <div
-              className={`flex flex-wrap items-center justify-center gap-3 ${mobileBase} ${logoPhase ? mobileVisible : mobileHidden}`}
-              style={{ transitionDelay: "650ms" }}
-            >
-              <span className="text-[11px] uppercase tracking-[0.25em] text-gray-600">Verified reviews on</span>
-              <div className="h-px w-4 bg-gold-500/30" />
-              <a
-                href="https://www.zillow.com/profile/amanda5867"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
-              >
-                <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
-                </svg>
-                Zillow — Amanda
-              </a>
-              <span className="text-gray-700">·</span>
-              <a
-                href="https://www.zillow.com/profile/jeremy2621"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
-              >
-                <svg className="w-3.5 h-3.5 text-gold-500/70" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
-                </svg>
-                Zillow — Jeremy
-              </a>
-            </div>
-          </>
-        )}
       </div>
     </section>
   );
