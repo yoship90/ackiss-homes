@@ -44,28 +44,9 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-dark-900/90 backdrop-blur-md border-b border-dark-600/50">
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-        <a href="#hero" className="flex items-center gap-3 shrink-0">
-          <Image src="/logo-a.svg" alt="Ackiss Homes" width={788} height={716}
-            className="h-12 w-auto" />
-          <div className="h-7 w-px bg-gold-500/40 shrink-0" aria-hidden="true" />
-          <div className="flex flex-col leading-none gap-1 whitespace-nowrap">
-            <div className="flex items-baseline gap-2">
-              <span className="font-brand text-[1.35rem] font-semibold tracking-[0.06em]
-                bg-clip-text text-transparent" style={{ backgroundImage:
-                "linear-gradient(135deg,#d4a853 0%,#f5d89a 25%,#c9952e 50%,#f5d89a 75%,#d4a853 100%)" }}>
-                Ackiss
-              </span>
-              <span className="font-body text-[0.65rem] uppercase tracking-[0.3em] text-gold-400/65">
-                Homes
-              </span>
-            </div>
-            <p className="text-[0.55rem] text-gray-500 uppercase tracking-[0.2em]
-              flex flex-col md:flex-row md:items-center gap-y-0.5 md:gap-x-1.5">
-              <span>Real Estate Services</span>
-              <span className="hidden md:inline-block w-px h-2.5 bg-gold-500/50" />
-              <span>Brokered by Triumph Realty</span>
-            </p>
-          </div>
+        <a href="#hero" className="shrink-0">
+          <Image src="/logo-lockup.svg" alt="Ackiss Homes" width={5925} height={716}
+            className="h-14 w-auto" />
         </a>
 
         {/* Desktop nav */}
