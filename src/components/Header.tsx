@@ -50,10 +50,9 @@ export default function Header() {
           <div className="h-7 w-px bg-gold-500/40 shrink-0" aria-hidden="true" />
           <div className="flex flex-col leading-none gap-1 whitespace-nowrap">
             <div className="flex items-baseline gap-2">
-              <span className="text-[1.45rem] font-semibold tracking-[0.06em]
-                bg-clip-text text-transparent" style={{
-                fontFamily: "var(--font-bodoni)",
-                backgroundImage: "linear-gradient(135deg,#d4a853 0%,#f5d89a 25%,#c9952e 50%,#f5d89a 75%,#d4a853 100%)" }}>
+              <span className="font-brand text-[1.35rem] font-semibold tracking-[0.06em]
+                bg-clip-text text-transparent" style={{ backgroundImage:
+                "linear-gradient(135deg,#d4a853 0%,#f5d89a 25%,#c9952e 50%,#f5d89a 75%,#d4a853 100%)" }}>
                 Ackiss
               </span>
               <span className="font-body text-[0.65rem] uppercase tracking-[0.3em] text-gold-400">
