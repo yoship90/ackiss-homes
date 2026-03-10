@@ -52,7 +52,7 @@ export default function Header() {
             <div className="flex items-baseline gap-2">
               <span className="font-brand text-[1.35rem] font-semibold tracking-[0.06em]
                 bg-clip-text text-transparent" style={{ backgroundImage:
-                "linear-gradient(135deg,#d4a853 0%,#f5d89a 25%,#c9952e 50%,#f5d89a 75%,#d4a853 100%)" }}>
+                "linear-gradient(135deg,#a06719 0%,#e1a144 20%,#f0be68 40%,#9b681a 55%,#e0a853 78%,#a06719 100%)" }}>
                 Ackiss
               </span>
               <span className="font-body text-[0.65rem] uppercase tracking-[0.3em] text-gold-400">
