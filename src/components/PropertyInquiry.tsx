@@ -1,6 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef, type FormEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent, type ChangeEvent } from "react";
+
+function formatPhone(value: string) {
+  const d = value.replace(/\D/g, "").slice(0, 10);
+  if (d.length <= 3) return d.length ? `(${d}` : "";
+  if (d.length <= 6) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
+  return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
+}
 import ScrollReveal from "./ScrollReveal";
 import SplitHeading from "./SplitHeading";
 
@@ -63,8 +70,8 @@ function ButtonGroup({
             onClick={() => handleClick(opt)}
             className={`px-3 py-1.5 rounded-sm text-sm border transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
               isActive(opt)
-                ? "bg-gold-500 border-gold-500 text-dark-900 font-semibold"
-                : "bg-dark-800 border-dark-600 text-gray-400 hover:border-gold-500/50 hover:text-gray-200"
+                ? "btn-option-selected"
+                : "bg-dark-800 border-gray-600 text-gray-400 hover:border-gold-500/50 hover:text-gray-200"
             }`}
           >
             {opt}
@@ -87,6 +94,7 @@ export default function PropertyInquiry() {
     }
   }, [submitted]);
 
+  const [phone, setPhone] = useState("");
   const [beds, setBeds] = useState("Any");
   const [baths, setBaths] = useState("Any");
   const [propertyType, setPropertyType] = useState<string[]>(["Any"]);
@@ -240,8 +248,8 @@ export default function PropertyInquiry() {
                           onClick={() => setTimeline(opt)}
                           className={`px-3 py-1.5 rounded-sm text-sm border transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
                             timeline === opt
-                              ? "bg-gold-500 border-gold-500 text-dark-900 font-semibold"
-                              : "bg-dark-800 border-dark-600 text-gray-400 hover:border-gold-500/50 hover:text-gray-200"
+                              ? "btn-option-selected"
+                              : "bg-dark-800 border-gray-600 text-gray-400 hover:border-gold-500/50 hover:text-gray-200"
                           }`}
                         >
                           {opt}
@@ -279,7 +287,6 @@ export default function PropertyInquiry() {
                           required
                           autoComplete="given-name"
                           className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
-                          placeholder="Jane"
                         />
                       </div>
                       <div>
@@ -293,7 +300,6 @@ export default function PropertyInquiry() {
                           required
                           autoComplete="family-name"
                           className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
-                          placeholder="Smith"
                         />
                       </div>
                     </div>
@@ -309,7 +315,6 @@ export default function PropertyInquiry() {
                           required
                           autoComplete="email"
                           className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
-                          placeholder="you@example.com"
                         />
                       </div>
                       <div>
@@ -322,8 +327,9 @@ export default function PropertyInquiry() {
                           name="phone"
                           required
                           autoComplete="tel"
+                          value={phone}
+                          onChange={(e: ChangeEvent<HTMLInputElement>) => setPhone(formatPhone(e.target.value))}
                           className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors"
-                          placeholder="(555) 123-4567"
                         />
                       </div>
                     </div>
@@ -335,9 +341,9 @@ export default function PropertyInquiry() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-gold-500 hover:bg-gold-600 disabled:opacity-60 disabled:cursor-not-allowed text-dark-900 font-semibold px-8 py-4 rounded-sm text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(201,149,46,0.25)] hover:shadow-[0_0_30px_rgba(201,149,46,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dark-700 active:scale-[0.97] transition-[background-color,box-shadow,transform] duration-300 cursor-pointer"
+                    className="btn-shimmer btn-shimmer-filled w-full text-dark-900 font-semibold px-8 py-4 rounded-sm text-sm uppercase tracking-widest disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dark-700 hover:scale-[1.015] active:scale-[0.97] transition-transform duration-300 cursor-pointer"
                   >
-                    {loading ? "Submitting…" : "Find My Home →"}
+                    <span className="relative z-[2]">{loading ? "Submitting…" : "Find My Home →"}</span>
                   </button>
                 </form>
               )}

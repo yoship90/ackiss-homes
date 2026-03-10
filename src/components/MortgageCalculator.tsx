@@ -392,7 +392,7 @@ export default function MortgageCalculator() {
                 <div>
                   <label htmlFor="down-payment" className={labelCls}>Down Payment</label>
                   <div className="flex gap-2">
-                    <div className={`relative ${downPaymentIsPercent ? "w-28" : "w-44"}`}>
+                    <div className="relative w-44">
                       {!downPaymentIsPercent && (
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">$</span>
                       )}
@@ -423,8 +423,8 @@ export default function MortgageCalculator() {
                       }}
                       className={`px-4 py-1.5 border rounded-sm text-sm transition-colors uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
                         !downPaymentIsPercent
-                          ? "bg-gold-500 text-dark-900 border-gold-500 font-semibold"
-                          : "border-dark-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
+                          ? "btn-option-selected"
+                          : "border-gray-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
                       }`}
                     >
                       $
@@ -441,8 +441,8 @@ export default function MortgageCalculator() {
                       }}
                       className={`px-4 py-1.5 border rounded-sm text-sm transition-colors uppercase tracking-wider ${
                         downPaymentIsPercent
-                          ? "bg-gold-500 text-dark-900 border-gold-500 font-semibold"
-                          : "border-dark-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
+                          ? "btn-option-selected"
+                          : "border-gray-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
                       }`}
                     >
                       %
@@ -480,7 +480,7 @@ export default function MortgageCalculator() {
                 {/* Loan Term */}
                 <div>
                   <label className={labelCls}>Loan Term</label>
-                  <div className="inline-block py-3 px-6 rounded-sm text-sm uppercase tracking-wider font-semibold bg-gold-500 text-dark-900 border border-gold-500">
+                  <div className="btn-option-selected inline-block py-3 px-6 rounded-sm text-sm uppercase tracking-wider border">
                     30 yr
                   </div>
                 </div>
@@ -598,43 +598,57 @@ export default function MortgageCalculator() {
                       </label>
                       <div className="flex gap-2">
                         <div className="relative w-44">
-                          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
-                            {propertyTaxIsPercent ? "%" : "$"}
-                          </span>
+                          {!propertyTaxIsPercent && (
+                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                          )}
+                          {propertyTaxIsPercent && (
+                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">%</span>
+                          )}
                           <input
                             type="text"
                             id="property-tax"
                             inputMode="decimal"
                             value={propertyTax}
                             onChange={(e) => setPropertyTax(e.target.value)}
-                            className={`${inputCls} pl-8`}
-                            placeholder={
-                              propertyTaxIsPercent ? "1.2" : "4,200"
-                            }
+                            className={`${inputCls} ${propertyTaxIsPercent ? "pr-8" : "pl-8"}`}
+                            placeholder={propertyTaxIsPercent ? "1.2" : "4,200"}
                           />
                         </div>
                         <button
                           type="button"
                           onClick={() => {
+                            if (propertyTaxIsPercent && price > 0) {
+                              setPropertyTax(
+                                Math.round((parseNum(propertyTax) / 100) * price).toString()
+                              );
+                              setPropertyTaxIsPercent(false);
+                            }
+                          }}
+                          className={`px-4 py-1.5 border rounded-sm text-sm transition-colors uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
+                            !propertyTaxIsPercent
+                              ? "btn-option-selected"
+                              : "border-gray-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
+                          }`}
+                        >
+                          $
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
                             if (!propertyTaxIsPercent && price > 0) {
                               setPropertyTax(
-                                (
-                                  (parseNum(propertyTax) / price) *
-                                  100
-                                ).toFixed(2)
+                                ((parseNum(propertyTax) / price) * 100).toFixed(2)
                               );
-                            } else {
-                              setPropertyTax(
-                                Math.round(
-                                  (parseNum(propertyTax) / 100) * price
-                                ).toString()
-                              );
+                              setPropertyTaxIsPercent(true);
                             }
-                            setPropertyTaxIsPercent(!propertyTaxIsPercent);
                           }}
-                          className="px-4 py-1.5 border border-dark-600 rounded-sm text-sm text-gold-400 hover:border-gold-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-colors uppercase tracking-wider"
+                          className={`px-4 py-1.5 border rounded-sm text-sm transition-colors uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
+                            propertyTaxIsPercent
+                              ? "btn-option-selected"
+                              : "border-gray-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
+                          }`}
                         >
-                          {propertyTaxIsPercent ? "%" : "$"}
+                          %
                         </button>
                       </div>
                       <p className="text-xs text-gray-500 mt-1.5">
@@ -915,8 +929,8 @@ export default function MortgageCalculator() {
                     onClick={() => setScheduleView(view)}
                     className={`px-4 py-2 rounded-sm text-sm uppercase tracking-wider transition-colors border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 ${
                       scheduleView === view
-                        ? "bg-gold-500 text-dark-900 border-gold-500 font-semibold"
-                        : "border-dark-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
+                        ? "btn-option-selected"
+                        : "border-gray-600 text-gray-300 hover:border-gold-500/50 hover:text-gold-400"
                     }`}
                   >
                     {view}

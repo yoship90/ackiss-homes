@@ -58,9 +58,9 @@ export default function PasswordGate({ onAuth }: { onAuth: () => void }) {
           {error && <p className="text-red-400 text-xs mb-3">Incorrect password — try again.</p>}
           <button
             type="submit"
-            className="w-full py-3 rounded-sm bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold text-sm uppercase tracking-widest shadow-[0_0_24px_rgba(201,149,46,0.2)] hover:shadow-[0_0_36px_rgba(201,149,46,0.35)] active:scale-[0.98] transition-[background-color,box-shadow,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            className="btn-shimmer btn-shimmer-filled w-full py-3 rounded-sm text-dark-900 font-semibold text-sm uppercase tracking-widest hover:scale-[1.015] active:scale-[0.98] transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
-            Enter
+            <span className="relative z-[2]">Enter</span>
           </button>
         </form>
       </div>

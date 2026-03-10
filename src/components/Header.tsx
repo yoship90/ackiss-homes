@@ -25,7 +25,11 @@ const communities = [
   "Williamsburg",
 ];
 
-const allLinks = [...leftNav, ...rightNav];
+const Sep = () => (
+  <span className="h-3 w-px bg-gray-700 shrink-0" aria-hidden="true" />
+);
+
+const navLinkClass = "text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -69,16 +73,14 @@ export default function Header() {
         </a>
 
         {/* Desktop nav */}
-        <nav aria-label="Main navigation" className="hidden md:flex items-center gap-5 ml-8">
+        <nav aria-label="Main navigation" className="hidden md:flex items-center gap-4 ml-8">
           {leftNav.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
-            >
+            <a key={link.href} href={link.href} className={navLinkClass}>
               {link.label}
             </a>
           ))}
+
+          <Sep />
 
           {/* Communities dropdown */}
           <div
@@ -86,7 +88,7 @@ export default function Header() {
             onMouseEnter={openCommunities}
             onMouseLeave={closeCommunities}
           >
-            <button className="text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300 flex items-center gap-1 cursor-pointer">
+            <button className={`${navLinkClass} flex items-center gap-1 cursor-pointer`}>
               Communities
               <svg className="w-3 h-3 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -106,29 +108,23 @@ export default function Header() {
             )}
           </div>
 
-          {rightNav.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-300"
-            >
-              {link.label.includes("\n") ? (
-                <>
-                  <span className="block text-[0.82rem] tracking-widest">{link.label.split("\n")[0]}</span>
-                  <span className="block">{link.label.split("\n")[1]}</span>
-                </>
-              ) : (
-                link.label
-              )}
-            </a>
+          <Sep />
+
+          {rightNav.map((link, i) => (
+            <>
+              {i > 0 && <Sep key={`sep-${link.href}`} />}
+              <a key={link.href} href={link.href} className={navLinkClass}>
+                {link.label}
+              </a>
+            </>
           ))}
 
           {/* Find My Home CTA */}
           <a
             href="#property-inquiry"
-            className="ml-2 px-4 py-1.5 text-[0.75rem] uppercase tracking-widest whitespace-nowrap text-gold-400 border border-gold-500/60 hover:bg-gold-500 hover:text-dark-900 hover:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-1 focus-visible:ring-offset-dark-900 active:scale-95 transition-[background-color,color,border-color,transform] duration-200"
+            className="btn-shimmer ml-2 px-4 py-1.5 text-[0.75rem] uppercase tracking-widest whitespace-nowrap text-gold-400 hover:text-dark-900 border border-gold-500/70 hover:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-1 focus-visible:ring-offset-dark-900 active:scale-95 transition-[color,border-color,transform] duration-[220ms]"
           >
-            Find My Home
+            <span className="relative z-[2]">Find My Home</span>
           </a>
         </nav>
 
@@ -202,9 +198,9 @@ export default function Header() {
             <a
               href="#property-inquiry"
               onClick={() => setMobileOpen(false)}
-              className="inline-block px-5 py-2.5 text-sm uppercase tracking-widest text-gold-400 border border-gold-500/60 hover:bg-gold-500 hover:text-dark-900 hover:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-[background-color,color,border-color,transform] duration-200"
+              className="btn-shimmer inline-block px-5 py-2.5 text-sm uppercase tracking-widest text-gold-400 hover:text-dark-900 border border-gold-500/70 hover:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-[color,border-color,transform] duration-[220ms]"
             >
-              Find My Home
+              <span className="relative z-[2]">Find My Home</span>
             </a>
           </div>
         </nav>

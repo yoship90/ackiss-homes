@@ -146,8 +146,81 @@ h4 {
   animation: marquee 55s linear infinite;
 }
 
+/* Find My Home button — shimmer at rest, living gold on hover */
+@keyframes btn-shimmer {
+  0%   { transform: translateX(-150%); }
+  40%, 100% { transform: translateX(350%); }
+}
+
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+  --shimmer-color: rgba(240, 190, 104, 0.18);
+  --shimmer-duration: 4s;
+}
+
+.btn-shimmer:hover {
+  --shimmer-color: rgba(255, 248, 220, 0.3);
+  --shimmer-duration: 1.4s;
+}
+
+/* Gradient fill — fades in on hover */
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #9b681a 0%, #c9952e 40%, #e1a144 65%, #f0be68 100%);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  z-index: 0;
+}
+
+.btn-shimmer:hover::after {
+  opacity: 1;
+}
+
+/* Shimmer sweep — sits above the gradient fill */
+.btn-shimmer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 45%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    var(--shimmer-color) 50%,
+    transparent 100%
+  );
+  animation: btn-shimmer var(--shimmer-duration) ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Always-filled variant — gradient always visible, shimmer always white */
+.btn-shimmer-filled {
+  --shimmer-color: rgba(255, 248, 220, 0.22);
+  --shimmer-duration: 3.5s;
+}
+.btn-shimmer-filled:hover:not(:disabled) {
+  --shimmer-color: rgba(255, 248, 220, 0.38);
+  --shimmer-duration: 3.5s;
+}
+.btn-shimmer-filled::after {
+  opacity: 1 !important;
+  transition: none;
+}
+
+/* Selected state for toggle buttons */
+.btn-option-selected {
+  background: linear-gradient(135deg, #9b681a 0%, #c9952e 40%, #e1a144 65%, #f0be68 100%);
+  border-color: #c9952e;
+  color: #0a0a0a;
+  font-weight: 600;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .marquee-animate {
+  .marquee-animate,
+  .btn-shimmer::before {
     animation-play-state: paused;
   }
 }
