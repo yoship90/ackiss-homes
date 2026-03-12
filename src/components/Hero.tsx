@@ -193,7 +193,7 @@ export default function Hero() {
 
           {/* Zillow review links */}
           <div {...r(520)} className={`${r(520).className} flex flex-wrap items-center justify-center gap-3`}>
-            <span className="text-[11px] uppercase tracking-[0.25em] text-gray-600">Verified reviews on</span>
+            <span className="text-[11px] uppercase tracking-[0.25em] text-gray-400">Verified reviews on</span>
             <div className="h-px w-4 bg-gold-500/30" />
             <a
               href="https://www.zillow.com/profile/amanda5867"

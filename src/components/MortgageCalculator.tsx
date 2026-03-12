@@ -742,7 +742,7 @@ export default function MortgageCalculator() {
             <div className="space-y-6">
               {/* Empty state */}
               {basePnI === 0 && (
-                <div className="flex flex-col items-center justify-center h-64 text-center text-gray-500 border border-dark-600/30 rounded-sm bg-dark-700/30">
+                <div className="flex flex-col items-center justify-center h-64 text-center text-gray-400 border border-dark-600/30 rounded-sm bg-dark-700/30">
                   <svg className="w-10 h-10 mb-3 text-gold-500/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>

@@ -34,10 +34,10 @@ export default function Footer() {
 
         {/* Communities */}
         <div className="border-t border-dark-600/50 mt-8 pt-8">
-          <p className="text-xs text-gray-500 uppercase tracking-[0.2em] mb-4">Communities</p>
+          <p className="text-xs text-gray-400 uppercase tracking-[0.2em] mb-4">Communities</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-2">
             {["Virginia Beach","Chesapeake","Suffolk","Portsmouth","Newport News","Hampton","Yorktown","Williamsburg"].map((city) => (
-              <span key={city} className="text-xs text-gray-600 uppercase tracking-wider">
+              <span key={city} className="text-xs text-gray-400 uppercase tracking-wider">
                 {city}
               </span>
             ))}
@@ -45,8 +45,8 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-dark-600/50 mt-8 pt-8">
-          <p className="text-xs text-gray-600 uppercase tracking-wider mb-1">Triumph Realty</p>
-          <p className="text-xs text-gray-600">2135 General Booth Blvd, Suite 146 &middot; Virginia Beach, VA 23454</p>
+          <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Triumph Realty</p>
+          <p className="text-xs text-gray-400">2135 General Booth Blvd, Suite 146 &middot; Virginia Beach, VA 23454</p>
         </div>
 
         <div className="border-t border-dark-600/50 mt-6 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -57,17 +57,17 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Link
               href="/privacy"
-              className="text-xs text-gray-600 uppercase tracking-wider hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 transition-colors duration-300"
+              className="text-xs text-gray-400 uppercase tracking-wider hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 transition-colors duration-300 py-2 px-1"
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="text-xs text-gray-600 uppercase tracking-wider hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 transition-colors duration-300"
+              className="text-xs text-gray-400 uppercase tracking-wider hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 transition-colors duration-300 py-2 px-1"
             >
               Terms of Service
             </Link>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-400">
               &copy; {new Date().getFullYear()} Ackiss Homes. All rights reserved.
             </p>
           </div>
