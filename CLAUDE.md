@@ -8,7 +8,7 @@
 - If no reference image: design from scratch with high craft (see guardrails below).
 
 ## Local Server
-- Start the dev server: `export PATH="/c/Users/Admin/nodejs:$PATH" && npm run dev -- --port 3000` or double-click `start-dev.bat`
+- Start the dev server: `export PATH="/c/nvm4w/nodejs:$PATH" && npm run dev -- --port 3000` or double-click `start-dev.bat`
 - If the server is already running, do not start a second instance.
 
 ## Output Defaults
@@ -50,9 +50,9 @@ Professional real estate website for Ackiss Homes. Single-page site with dark/lu
 - GitHub: yoship90/ackiss-homes
 - Production URL: https://www.ackisshomes.com
 - Vercel URL (also works): https://ackiss-homes.vercel.app
-- Node.js installed locally at C:/Users/Admin/nodejs (not in system PATH — use `export PATH="/c/Users/Admin/nodejs:$PATH"` before npm/node commands)
+- Node.js v24.x managed by nvm — path is `/c/nvm4w/nodejs`. Use `export PATH="/c/nvm4w/nodejs:$PATH"` before npm/node commands
 - GitHub CLI installed at C:/Users/Admin/gh-temp/bin/gh.exe
-- Start local dev server: `export PATH="/c/Users/Admin/nodejs:$PATH" && npm run dev -- --port 3000` or double-click `start-dev.bat`
+- Start local dev server: `export PATH="/c/nvm4w/nodejs:$PATH" && npm run dev -- --port 3000` or double-click `start-dev.bat`
 
 ## Deploying to Production (dev → master)
 

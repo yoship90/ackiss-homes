@@ -67,6 +67,14 @@ export const metadata: Metadata = {
     description:
       "Buying, selling, or investing in Virginia Beach? Ackiss Homes delivers exceptional real estate experiences with local expertise and a client-first approach.",
   },
+  icons: {
+    icon: [
+      { url: "/favicon-package/favicon.ico", sizes: "48x48" },
+      { url: "/favicon-package/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-package/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    apple: "/favicon-package/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

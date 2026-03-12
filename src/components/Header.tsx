@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -45,7 +45,26 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [communitiesOpen, setCommunitiesOpen] = useState(false);
   const [mobileCommunitiesOpen, setMobileCommunitiesOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const allLinks = [...leftNav, ...rightNav];
+    const sectionIds = allLinks.map((l) => l.href.slice(1));
+    const THRESHOLD = 120;
+    function updateActive() {
+      let current = "";
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= THRESHOLD) current = id;
+      }
+      setActiveSection(current);
+    }
+    window.addEventListener("scroll", updateActive, { passive: true });
+    updateActive();
+    return () => window.removeEventListener("scroll", updateActive);
+  }, []);
 
   function openCommunities() {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -56,7 +75,7 @@ export default function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-dark-900/90 backdrop-blur-md border-b border-dark-600/50">
+    <header className="fixed top-0 left-0 w-full z-50 bg-dark-900/90 backdrop-blur-md border-b border-dark-600/50 animate-page-reveal origin-top">
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
         <a href="/" className="flex items-center gap-3 shrink-0">
           <Image src="/logo-a-v2.svg" alt="Ackiss Homes" width={788} height={716}
@@ -85,8 +104,9 @@ export default function Header() {
         {/* Desktop nav */}
         <nav aria-label="Main navigation" className="hidden md:flex items-center gap-6 ml-8">
           {leftNav.map((link) => (
-            <a key={link.href} href={href(link.href)} className={navLinkClass}>
+            <a key={link.href} href={href(link.href)} className={`relative ${navLinkClass} ${activeSection === link.href.slice(1) ? "text-gold-400" : ""}`}>
               {link.label}
+              <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-8 h-1.5 rounded-full bg-gold-400 transition-opacity duration-300" style={{ opacity: activeSection === link.href.slice(1) ? 1 : 0 }} />
             </a>
           ))}
 
@@ -117,8 +137,9 @@ export default function Header() {
           </div>
 
           {rightNav.map((link) => (
-            <a key={link.href} href={href(link.href)} className={navLinkClass}>
+            <a key={link.href} href={href(link.href)} className={`relative ${navLinkClass} ${activeSection === link.href.slice(1) ? "text-gold-400" : ""}`}>
               {link.label}
+              <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-8 h-1.5 rounded-full bg-gold-400 transition-opacity duration-300" style={{ opacity: activeSection === link.href.slice(1) ? 1 : 0 }} />
             </a>
           ))}
 
@@ -193,7 +214,7 @@ export default function Header() {
               {communities.map((city) => (
                 <span
                   key={city}
-                  className="block py-2 text-sm uppercase tracking-widest text-gray-500"
+                  className="block py-2 text-sm uppercase tracking-widest text-gray-400"
                 >
                   {city}
                 </span>

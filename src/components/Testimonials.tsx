@@ -189,13 +189,13 @@ export default function Testimonials() {
               <button
                 key={i}
                 onClick={() => goTo(i)}
-                className={`w-2.5 h-2.5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-90 transition-[width,background-color,transform] duration-300 ${
-                  i === current
-                    ? "bg-gold-400 w-8"
-                    : "bg-dark-500 hover:bg-warm-400/40"
-                }`}
+                className="p-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-90 transition-transform duration-300"
                 aria-label={`Go to testimonial ${i + 1}`}
-              />
+              >
+                <span className={`block h-2.5 rounded-full transition-[width,background-color] duration-300 ${
+                  i === current ? "bg-gold-400 w-8" : "w-2.5 bg-dark-500 hover:bg-warm-400/40"
+                }`} />
+              </button>
             ))}
           </div>
         </ScrollReveal>
