@@ -63,11 +63,11 @@ const entries: Entry[] = [
   },
   {
     id: "review-funnel",
-    title: "Post-Closing Review Funnel (/reviews)",
-    description: "A private page to send clients after closing. They pick their agent (Amanda or Jeremy), then get directed to leave a Google review (primary) or the right Zillow profile (secondary). Noindex — not listed on the main site. The Google review link is a placeholder until the GBP is set up.",
+    title: "Post-Closing Review Funnel (/leave-a-review)",
+    description: "A private page to send clients after closing — single tap to leave a Google review. Noindex, currently password-gated. To go live: (1) set up GBP and get the Place ID from the GBP dashboard or the Places API Place ID Finder, (2) update GOOGLE_REVIEW_URL in src/app/leave-a-review/page.tsx with the real URL (format: https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID), (3) remove the PasswordGate check, (4) test on mobile. Keep noindex.",
     date: "Feb 2026",
     status: "todo",
-    link: "/reviews",
+    link: "/leave-a-review",
   },
   {
     id: "referral-page",
