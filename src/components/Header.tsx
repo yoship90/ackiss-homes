@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-const internalPages = ["/todo", "/ads", "/reviews", "/referrals"];
+const internalPages = ["/todo", "/ads", "/leave-a-review", "/referrals"];
 
 const leftNav = [
   { label: "Services", href: "#services" },
