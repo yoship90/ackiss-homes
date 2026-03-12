@@ -776,7 +776,7 @@ export default function TodoPage() {
       <Header />
 
       {/* Main */}
-      <main className="flex-1 px-6 py-14">
+      <main className="flex-1 px-6 pt-28 pb-14">
         <div className="max-w-5xl mx-auto">
 
           {/* Intro */}
