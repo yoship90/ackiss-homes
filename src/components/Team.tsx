@@ -31,8 +31,9 @@ export default function Team() {
                   src="/IMG_20260225_131337.jpg"
                   alt="Amanda and Jeremy Ackiss — Ackiss Homes real estate team"
                   fill
+                  priority
                   className="object-cover" style={{ objectPosition: "center 20%" }}
-                  sizes="(max-width: 768px) 100vw, 40vw"
+                  sizes="(max-width: 768px) 100vw, 500px"
                 />
                 {/* Gold accent bar */}
                 <div className="absolute bottom-0 left-8 right-8 h-0.5 bg-gradient-to-r from-gold-500/60 to-transparent z-10" />
