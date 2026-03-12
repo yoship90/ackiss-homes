@@ -17,7 +17,7 @@ export default function PrivacyPage() {
       <Header />
 
       {/* Content */}
-      <main className="flex-1 px-6 pt-28 pb-16">
+      <main className="flex-1 px-6 pt-20 pb-16">
         <div className="max-w-3xl mx-auto">
 
           {/* Title */}
