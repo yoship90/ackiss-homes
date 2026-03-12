@@ -122,13 +122,19 @@ export default function Header() {
             </a>
           ))}
 
-          {/* Find My Home CTA — hidden on internal pages */}
-          {!isInternal && <a
-            href={href("#property-inquiry")}
-            className="btn-shimmer ml-2 px-4 py-1.5 text-[0.75rem] uppercase tracking-widest whitespace-nowrap text-gold-400 hover:text-dark-900 border border-gold-500/70 hover:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-1 focus-visible:ring-offset-dark-900 active:scale-95 transition-[color,border-color,transform] duration-[220ms]"
-          >
-            <span className="relative z-[2]">Find My Home</span>
-          </a>}
+          {/* Find My Home CTA — or Back to Site on internal pages */}
+          {!isInternal ? (
+            <a
+              href={href("#property-inquiry")}
+              className="btn-shimmer ml-2 px-4 py-1.5 text-[0.75rem] uppercase tracking-widest whitespace-nowrap text-gold-400 hover:text-dark-900 border border-gold-500/70 hover:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-1 focus-visible:ring-offset-dark-900 active:scale-95 transition-[color,border-color,transform] duration-[220ms]"
+            >
+              <span className="relative z-[2]">Find My Home</span>
+            </a>
+          ) : (
+            <a href="/" className="ml-2 text-[0.75rem] uppercase tracking-widest whitespace-nowrap text-gray-500 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors duration-200">
+              ← Back to Site
+            </a>
+          )}
         </nav>
 
         {/* Mobile toggle */}

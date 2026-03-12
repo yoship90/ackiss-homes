@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import PasswordGate, { INTERNAL_AUTH_KEY } from "@/components/PasswordGate";
 import Header from "@/components/Header";
+import PageReveal from "@/components/PageReveal";
 
 type Stage = "form" | "submitting" | "done" | "error";
 
@@ -56,6 +57,7 @@ export default function ReferralsPage() {
   }
 
   return (
+    <PageReveal>
     <div className="min-h-screen bg-black flex flex-col">
 
       {/* Ambient gold glow */}
@@ -79,7 +81,7 @@ export default function ReferralsPage() {
           {stage === "done" ? (
             /* Success state */
             <div className="text-center">
-              <div className="flex justify-center mb-8 mt-4 md:mt-0" aria-hidden="true">
+              <div className="flex justify-center mb-8 mt-0" aria-hidden="true">
                 <div className="relative">
                   <div
                     className="absolute inset-0 blur-2xl opacity-50"
@@ -108,7 +110,7 @@ export default function ReferralsPage() {
             /* Form state */
             <>
               {/* Icon */}
-              <div className="flex justify-center mb-8 mt-4 md:mt-0" aria-hidden="true">
+              <div className="flex justify-center mb-8 mt-0" aria-hidden="true">
                 <div className="relative">
                   <div
                     className="absolute inset-0 blur-2xl opacity-50"
@@ -295,5 +297,6 @@ export default function ReferralsPage() {
         </div>
       </main>
     </div>
+    </PageReveal>
   );
 }
