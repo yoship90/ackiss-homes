@@ -39,7 +39,7 @@ export default function ReviewsPage() {
         <div className="w-full max-w-md md:max-w-lg">
 
           {/* Key icon */}
-          <div className="flex justify-center mb-8 md:mb-10" aria-hidden="true">
+          <div className="flex justify-center mb-8 md:mb-10 mt-4 md:mt-0" aria-hidden="true">
             <div className="relative">
               <div
                 className="absolute inset-0 blur-2xl opacity-50"

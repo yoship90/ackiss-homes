@@ -79,7 +79,7 @@ export default function ReferralsPage() {
           {stage === "done" ? (
             /* Success state */
             <div className="text-center">
-              <div className="flex justify-center mb-8" aria-hidden="true">
+              <div className="flex justify-center mb-8 mt-4 md:mt-0" aria-hidden="true">
                 <div className="relative">
                   <div
                     className="absolute inset-0 blur-2xl opacity-50"
@@ -108,7 +108,7 @@ export default function ReferralsPage() {
             /* Form state */
             <>
               {/* Icon */}
-              <div className="flex justify-center mb-8" aria-hidden="true">
+              <div className="flex justify-center mb-8 mt-4 md:mt-0" aria-hidden="true">
                 <div className="relative">
                   <div
                     className="absolute inset-0 blur-2xl opacity-50"
