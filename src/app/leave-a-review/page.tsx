@@ -35,11 +35,11 @@ export default function ReviewsPage() {
       <Header />
 
       {/* Main */}
-      <main className="relative z-10 flex-1 flex justify-center px-6 pt-20 pb-16">
+      <main className="relative z-10 flex-1 flex items-center justify-center px-6 pt-20 pb-16">
         <div className="w-full max-w-md md:max-w-lg">
 
           {/* Key icon */}
-          <div className="flex justify-center mb-8 md:mb-10" aria-hidden="true">
+          <div className="flex justify-center mb-8 md:mb-10 mt-4 md:mt-0" aria-hidden="true">
             <div className="relative">
               <div
                 className="absolute inset-0 blur-2xl opacity-50"
