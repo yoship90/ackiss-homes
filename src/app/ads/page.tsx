@@ -136,7 +136,7 @@ export default function AdsPage() {
 
       <Header />
 
-      <div className="max-w-5xl mx-auto px-6 pt-28 pb-14 flex gap-12">
+      <div className="max-w-5xl mx-auto px-6 pt-20 pb-14 flex gap-12">
 
         {/* Sidebar nav — desktop only */}
         <aside className="hidden lg:block w-48 shrink-0">
