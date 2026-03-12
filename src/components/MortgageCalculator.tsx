@@ -453,7 +453,7 @@ export default function MortgageCalculator() {
                 {/* Mortgage Amount — read-only */}
                 <div>
                   <label className={labelCls}>Mortgage Amount</label>
-                  <div className="w-full bg-dark-900 border border-dark-600 rounded-sm px-4 py-1.5 text-gold-400 cursor-default">
+                  <div className="w-44 bg-dark-900 border border-dark-600 rounded-sm px-4 py-1.5 text-gold-400 cursor-default">
                     ${fmtInt(mortgageAmount)}
                   </div>
                 </div>
