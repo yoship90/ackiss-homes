@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import PasswordGate, { INTERNAL_AUTH_KEY } from "@/components/PasswordGate";
+import Header from "@/components/Header";
 
 // TODO: Replace with real Google Business Profile review URL once GBP is set up
 // Format: https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID
@@ -47,24 +47,7 @@ export default function ReviewsPage() {
       {/* Grain */}
       <div className="fixed inset-0 hero-grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
-      {/* Minimal header */}
-      <header className="relative z-10 border-b border-white/5 px-6 py-4">
-        <div className="max-w-lg mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 focus-visible:outline-none focus-visible:opacity-70">
-            <Image src="/logo.png" alt="Ackiss Homes" width={36} height={33} className="opacity-90" />
-            <div>
-              <div className="text-white font-heading font-bold text-base leading-none tracking-wide">Ackiss Homes</div>
-              <div className="text-gold-500 text-[9px] uppercase tracking-[0.25em] mt-0.5">Virginia Beach &amp; Hampton Roads</div>
-            </div>
-          </Link>
-          <Link
-            href="/"
-            className="text-xs text-gray-500 uppercase tracking-widest hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors"
-          >
-            ← Home
-          </Link>
-        </div>
-      </header>
+      <Header />
 
       {/* Main */}
       <main className="relative z-10 flex-1 flex items-center justify-center px-6 py-16">
