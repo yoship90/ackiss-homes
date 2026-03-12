@@ -35,7 +35,7 @@ export default function ReviewsPage() {
       <Header />
 
       {/* Main */}
-      <main className="relative z-10 flex-1 flex items-center justify-center px-6 pt-20 pb-16">
+      <main className="relative z-10 flex-1 flex justify-center px-6 pt-20 pb-16">
         <div className="w-full max-w-md md:max-w-lg">
 
           {/* Key icon */}
