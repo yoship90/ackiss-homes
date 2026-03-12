@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import PasswordGate, { INTERNAL_AUTH_KEY } from "@/components/PasswordGate";
+import Header from "@/components/Header";
 
 /* ------------------------------------------------------------------ */
 /*  Types & Data                                                        */
@@ -772,21 +773,7 @@ export default function TodoPage() {
   return (
     <div className="min-h-screen bg-black flex flex-col">
 
-      {/* Header */}
-      <header className="border-b border-dark-600/40 px-6 py-4">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/logo.png" alt="Ackiss Homes" width={40} height={37} className="opacity-90" />
-            <div>
-              <div className="text-white font-heading font-bold text-lg leading-none tracking-wide">Ackiss Homes</div>
-              <div className="text-gold-500 text-[10px] uppercase tracking-[0.25em] mt-0.5">To Do</div>
-            </div>
-          </Link>
-          <Link href="/" className="text-xs text-gray-400 uppercase tracking-widest hover:text-gold-400 transition-colors">
-            ← Back to site
-          </Link>
-        </div>
-      </header>
+      <Header />
 
       {/* Main */}
       <main className="flex-1 px-6 py-14">
