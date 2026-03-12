@@ -2,6 +2,9 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+
+const internalPages = ["/todo", "/ads", "/reviews", "/referrals"];
 
 const leftNav = [
   { label: "Services", href: "#services" },
@@ -32,6 +35,13 @@ const Sep = () => (
 const navLinkClass = "text-[0.82rem] uppercase tracking-widest text-gray-300 hover:text-gold-400 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-[color,transform] duration-300";
 
 export default function Header() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const isInternal = internalPages.includes(pathname);
+
+  // On non-home pages, prefix hash links with "/" so they navigate back to homepage
+  const href = (hash: string) => isHome ? hash : `/${hash}`;
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [communitiesOpen, setCommunitiesOpen] = useState(false);
   const [mobileCommunitiesOpen, setMobileCommunitiesOpen] = useState(false);
@@ -48,7 +58,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-dark-900/90 backdrop-blur-md border-b border-dark-600/50">
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-        <a href="#hero" className="flex items-center gap-3 shrink-0">
+        <a href={href("#hero")} className="flex items-center gap-3 shrink-0">
           <Image src="/logo-a-v2.svg" alt="Ackiss Homes" width={788} height={716}
             className="h-14 w-auto" />
           <div className="h-7 w-px bg-gold-500/40 shrink-0" aria-hidden="true" />
@@ -75,7 +85,7 @@ export default function Header() {
         {/* Desktop nav */}
         <nav aria-label="Main navigation" className="hidden md:flex items-center gap-6 ml-8">
           {leftNav.map((link) => (
-            <a key={link.href} href={link.href} className={navLinkClass}>
+            <a key={link.href} href={href(link.href)} className={navLinkClass}>
               {link.label}
             </a>
           ))}
@@ -107,18 +117,18 @@ export default function Header() {
           </div>
 
           {rightNav.map((link) => (
-            <a key={link.href} href={link.href} className={navLinkClass}>
+            <a key={link.href} href={href(link.href)} className={navLinkClass}>
               {link.label}
             </a>
           ))}
 
-          {/* Find My Home CTA */}
-          <a
-            href="#property-inquiry"
+          {/* Find My Home CTA — hidden on internal pages */}
+          {!isInternal && <a
+            href={href("#property-inquiry")}
             className="btn-shimmer ml-2 px-4 py-1.5 text-[0.75rem] uppercase tracking-widest whitespace-nowrap text-gold-400 hover:text-dark-900 border border-gold-500/70 hover:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-1 focus-visible:ring-offset-dark-900 active:scale-95 transition-[color,border-color,transform] duration-[220ms]"
           >
             <span className="relative z-[2]">Find My Home</span>
-          </a>
+          </a>}
         </nav>
 
         {/* Mobile toggle */}
@@ -138,15 +148,15 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile CTA bar */}
-      <div className="md:hidden border-t border-dark-600/30 py-2 flex justify-center">
+      {/* Mobile CTA bar — hidden on internal pages */}
+      {!isInternal && <div className="md:hidden border-t border-dark-600/30 py-2 flex justify-center">
         <a
-          href="#property-inquiry"
+          href={href("#property-inquiry")}
           className="btn-shimmer px-6 py-1.5 text-[0.72rem] uppercase tracking-widest text-gold-400 hover:text-dark-900 border border-gold-500/70 hover:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 active:scale-95 transition-[color,border-color,transform] duration-[220ms]"
         >
           <span className="relative z-[2]">Find My Home</span>
         </a>
-      </div>
+      </div>}
 
       {/* Mobile menu */}
       {mobileOpen && (
@@ -154,7 +164,7 @@ export default function Header() {
           {leftNav.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={href(link.href)}
               onClick={() => setMobileOpen(false)}
               className="block py-3 text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors"
             >
@@ -188,7 +198,7 @@ export default function Header() {
           {rightNav.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={href(link.href)}
               onClick={() => setMobileOpen(false)}
               className="block py-3 text-sm uppercase tracking-widest text-gray-300 hover:text-gold-400 focus-visible:outline-none focus-visible:text-gold-400 active:opacity-70 transition-colors"
             >
