@@ -117,30 +117,21 @@ export async function POST(req: NextRequest) {
     ? ["website-lead", "website-referral"]
     : ["website-lead", "website-contact"];
 
-  try {
-    const eventData = await fubRes.json();
+  // Fire tag update without awaiting — doesn't block the response
+  const authHeader = `Basic ${Buffer.from(`${apiKey}:`).toString("base64")}`;
+  fubRes.json().then((eventData) => {
     const personId = eventData?.person?.id ?? eventData?.id;
-
     if (personId) {
-      const authHeader = `Basic ${Buffer.from(`${apiKey}:`).toString("base64")}`;
-
-      await fetch(`https://api.followupboss.com/v1/people/${personId}`, {
+      fetch(`https://api.followupboss.com/v1/people/${personId}`, {
         method: "PUT",
-        headers: {
-          Authorization: authHeader,
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: authHeader, "Content-Type": "application/json" },
         body: JSON.stringify({
           tags,
           customWebsiteInquiryType: formType === "inquiry" ? "Find Your Perfect Home" : formType === "referral" ? "Client Referral" : "General Inquiry",
         }),
-      });
-
+      }).catch(err => console.error("Failed to apply tags:", err));
     }
-  } catch (err) {
-    // Non-fatal — lead was created, tags/action plan just didn't apply
-    console.error("Failed to apply tags or action plan:", err);
-  }
+  }).catch(err => console.error("Failed to parse FUB response:", err));
 
   return NextResponse.json({ success: true });
 }
