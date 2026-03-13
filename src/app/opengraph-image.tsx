@@ -1,13 +1,10 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "fs/promises";
+import path from "path";
 
 export const alt = "Ackiss Homes — Virginia Beach Real Estate";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-const LOGO_URL = `${baseUrl}/logo-a-v2-optimized.png`;
 
 async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuffer | null> {
   try {
@@ -25,9 +22,11 @@ async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuff
 }
 
 export default async function Image() {
-  const [playfairBold] = await Promise.all([
+  const [playfairBold, logoBuffer] = await Promise.all([
     loadGoogleFont("Playfair Display", 700),
+    readFile(path.join(process.cwd(), "public", "logo-a-v2-optimized.png")),
   ]);
+  const logoSrc = `data:image/png;base64,${logoBuffer.toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -92,7 +91,7 @@ export default async function Image() {
           {/* A logo */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={LOGO_URL}
+            src={logoSrc}
             width={220}
             height={220}
             alt=""
