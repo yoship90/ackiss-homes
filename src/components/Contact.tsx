@@ -75,7 +75,7 @@ export default function Contact() {
         </div>
 
         {/* Contact form — full width, centered */}
-        <ScrollReveal>
+        <ScrollReveal direction="up" delay={100}>
           <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 md:p-10">
             {submitted ? (
               <div className="text-center py-8">

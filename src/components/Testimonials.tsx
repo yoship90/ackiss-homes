@@ -118,7 +118,7 @@ export default function Testimonials() {
           </SplitHeading>
         </div>
 
-        <ScrollReveal>
+        <ScrollReveal direction="up" delay={100}>
           <div
             className="relative"
             onMouseEnter={() => setIsPaused(true)}

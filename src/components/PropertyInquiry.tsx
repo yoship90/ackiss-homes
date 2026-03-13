@@ -141,7 +141,7 @@ export default function PropertyInquiry() {
   }
 
   return (
-    <section id="property-inquiry" className="py-20 px-6 relative overflow-hidden">
+    <section id="property-inquiry" className="py-20 px-6 relative overflow-hidden scroll-mt-28 md:scroll-mt-16">
       {/* Warm radial glow */}
       <div
         className="absolute inset-0 pointer-events-none"
