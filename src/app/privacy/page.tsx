@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const lastUpdated = "February 24, 2026";
+const lastUpdated = "March 13, 2026";
 
 export default function PrivacyPage() {
   return (
@@ -52,17 +52,44 @@ export default function PrivacyPage() {
                 <Li><span className="text-gray-300">Home search preferences</span> — beds, baths, price range, property type, timeline, and any notes you provide</Li>
                 <Li><span className="text-gray-300">Messages</span> — any free-text you submit through the Contact form</Li>
               </ul>
-              <p className="mt-4">
-                We do not use tracking pixels, behavioral advertising, or analytics tools that collect data about your
-                browsing activity. We do not collect payment information.
-              </p>
+              <p className="mt-4">We do not collect payment information.</p>
             </section>
 
             <Divider />
 
             {/* 2 */}
             <section>
-              <SectionHeading>2. How We Use Your Information</SectionHeading>
+              <SectionHeading>2. Analytics and Advertising Tools</SectionHeading>
+              <p className="mb-4">
+                We use the following third-party tools to understand how visitors use our website and to measure the
+                effectiveness of our advertising:
+              </p>
+              <ul className="space-y-3 pl-4">
+                <Li>
+                  <span className="text-gray-300">Google Analytics 4</span> — collects anonymized data about pages
+                  visited, time on site, and general traffic patterns. Google may use this data in accordance with their{" "}
+                  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-gold-400 hover:text-gold-300 transition-colors">Privacy Policy</a>.
+                </Li>
+                <Li>
+                  <span className="text-gray-300">Meta Pixel</span> — a cookie-based tool that helps us measure the
+                  performance of our Facebook and Instagram advertising, and build audiences for future ad campaigns.
+                  Meta may use this data in accordance with their{" "}
+                  <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener noreferrer" className="text-gold-400 hover:text-gold-300 transition-colors">Privacy Policy</a>.
+                  You can opt out of Meta&apos;s use of cookies for advertising at{" "}
+                  <a href="https://www.facebook.com/ads/preferences" target="_blank" rel="noopener noreferrer" className="text-gold-400 hover:text-gold-300 transition-colors">facebook.com/ads/preferences</a>.
+                </Li>
+              </ul>
+              <p className="mt-4">
+                These tools collect data through cookies and similar technologies. They do not have access to any
+                personal information you submit through our forms.
+              </p>
+            </section>
+
+            <Divider />
+
+            {/* 3 (was 2) */}
+            <section>
+              <SectionHeading>3. How We Use Your Information</SectionHeading>
               <p className="mb-4">We use the information you provide solely to:</p>
               <ul className="space-y-2 pl-4">
                 <Li>Respond to your inquiry or home search request</Li>
@@ -77,9 +104,9 @@ export default function PrivacyPage() {
 
             <Divider />
 
-            {/* 3 */}
+            {/* 4 */}
             <section>
-              <SectionHeading>3. How We Store and Share Your Information</SectionHeading>
+              <SectionHeading>4. How We Store and Share Your Information</SectionHeading>
               <p className="mb-4">
                 When you submit a form on this website, your information is transmitted to{" "}
                 <span className="text-gray-300">Follow Up Boss</span>, a third-party customer relationship management
@@ -102,9 +129,9 @@ export default function PrivacyPage() {
 
             <Divider />
 
-            {/* 4 */}
+            {/* 5 */}
             <section>
-              <SectionHeading>4. External Links</SectionHeading>
+              <SectionHeading>5. External Links</SectionHeading>
               <p>
                 This website contains links to Instagram video content. Clicking those links will take you to
                 Instagram's website, where{" "}
@@ -123,21 +150,21 @@ export default function PrivacyPage() {
 
             <Divider />
 
-            {/* 5 */}
+            {/* 6 */}
             <section>
-              <SectionHeading>5. Data Retention</SectionHeading>
+              <SectionHeading>6. Data Retention</SectionHeading>
               <p>
                 We retain your information in our CRM for as long as necessary to service your real estate needs or
                 maintain an ongoing client relationship. If you would like your information removed, please contact us
-                using the information in Section 7 and we will delete your records promptly.
+                using the information in Section 8 and we will delete your records promptly.
               </p>
             </section>
 
             <Divider />
 
-            {/* 6 */}
+            {/* 7 */}
             <section>
-              <SectionHeading>6. Your Rights (Virginia VCDPA)</SectionHeading>
+              <SectionHeading>7. Your Rights (Virginia VCDPA)</SectionHeading>
               <p className="mb-4">
                 Under the Virginia Consumer Data Protection Act (VCDPA), Virginia residents have the right to:
               </p>
@@ -149,16 +176,16 @@ export default function PrivacyPage() {
                 <Li>Opt out of the sale of personal data (we do not sell personal data)</Li>
               </ul>
               <p className="mt-4">
-                To exercise any of these rights, contact us using the information in Section 7. We will respond within
+                To exercise any of these rights, contact us using the information in Section 8. We will respond within
                 45 days as required by law.
               </p>
             </section>
 
             <Divider />
 
-            {/* 7 */}
+            {/* 8 */}
             <section>
-              <SectionHeading>7. Contact Us</SectionHeading>
+              <SectionHeading>8. Contact Us</SectionHeading>
               <p className="mb-4">
                 If you have questions about this Privacy Policy, want to exercise your data rights, or want to request
                 removal of your information, please contact us:
@@ -181,9 +208,9 @@ export default function PrivacyPage() {
 
             <Divider />
 
-            {/* 8 */}
+            {/* 9 */}
             <section>
-              <SectionHeading>8. Changes to This Policy</SectionHeading>
+              <SectionHeading>9. Changes to This Policy</SectionHeading>
               <p>
                 We may update this Privacy Policy from time to time. When we do, we will update the "Last updated"
                 date at the top of this page. Continued use of the website after any changes constitutes acceptance of
