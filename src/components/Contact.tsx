@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent, type ChangeEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent, type ChangeEvent } from "react";
 import ScrollReveal from "./ScrollReveal";
 import SplitHeading from "./SplitHeading";
 
@@ -16,6 +16,13 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [phone, setPhone] = useState("");
+  const confirmRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (submitted && confirmRef.current) {
+      confirmRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [submitted]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -78,7 +85,7 @@ export default function Contact() {
         <ScrollReveal direction="up" delay={100}>
           <div className="bg-dark-700 border border-dark-600/50 rounded-sm p-8 md:p-10">
             {submitted ? (
-              <div className="text-center py-8">
+              <div ref={confirmRef} className="text-center py-8">
                 <p className="text-gold-400 text-lg font-heading font-semibold mb-2">
                   Thank you!
                 </p>
