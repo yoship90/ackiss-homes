@@ -22,8 +22,9 @@ async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuff
 }
 
 export default async function Image() {
-  const [playfairBold, logoBuffer] = await Promise.all([
+  const [playfairBold, interRegular, logoBuffer] = await Promise.all([
     loadGoogleFont("Playfair Display", 700),
+    loadGoogleFont("Inter", 400),
     readFile(path.join(process.cwd(), "public", "logo-a-v2-optimized.png")),
   ]);
   const logoSrc = `data:image/png;base64,${logoBuffer.toString("base64")}`;
@@ -127,7 +128,7 @@ export default async function Image() {
               </span>
               <span
                 style={{
-                  fontFamily: "sans-serif",
+                  fontFamily: "Inter",
                   fontSize: 26,
                   fontWeight: 400,
                   color: "rgba(201,149,46,0.75)",
@@ -139,18 +140,33 @@ export default async function Image() {
                 Homes
               </span>
             </div>
-            {/* Real Estate Services — centered below */}
-            <span
-              style={{
-                fontFamily: "sans-serif",
-                fontSize: 13,
-                color: "rgba(150,150,150,0.7)",
-                letterSpacing: "0.28em",
-                textTransform: "uppercase",
-              }}
-            >
-              Real Estate Services
-            </span>
+
+            {/* Real Estate Services | Brokered by Triumph Realty */}
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <span
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: 13,
+                  color: "rgba(150,150,150,0.7)",
+                  letterSpacing: "0.28em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Real Estate Services
+              </span>
+              <div style={{ width: 1, height: 10, background: "rgba(201,149,46,0.4)", display: "flex" }} />
+              <span
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: 13,
+                  color: "rgba(150,150,150,0.7)",
+                  letterSpacing: "0.28em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Brokered by Triumph Realty
+              </span>
+            </div>
           </div>
 
           {/* Divider */}
@@ -167,7 +183,7 @@ export default async function Image() {
           {/* Geography */}
           <span
             style={{
-              fontFamily: "sans-serif",
+              fontFamily: "Inter",
               fontSize: 15,
               color: "rgba(201,149,46,0.5)",
               letterSpacing: "0.28em",
@@ -182,7 +198,8 @@ export default async function Image() {
     {
       ...size,
       fonts: [
-        ...(playfairBold ? [{ name: "Playfair", data: playfairBold, weight: 700 as const, style: "normal" as const }] : []),
+        ...(playfairBold  ? [{ name: "Playfair", data: playfairBold,  weight: 700 as const, style: "normal" as const }] : []),
+        ...(interRegular  ? [{ name: "Inter",    data: interRegular,  weight: 400 as const, style: "normal" as const }] : []),
       ],
     }
   );
