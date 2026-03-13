@@ -2,6 +2,12 @@
 
 import { useState, useEffect, useRef, type FormEvent, type ChangeEvent } from "react";
 
+function formatPrice(value: string) {
+  const digits = value.replace(/\D/g, "");
+  if (!digits) return "";
+  return parseInt(digits).toLocaleString();
+}
+
 function formatPhone(value: string) {
   const d = value.replace(/\D/g, "").slice(0, 10);
   if (d.length <= 3) return d.length ? `(${d}` : "";
@@ -217,21 +223,29 @@ export default function PropertyInquiry() {
                   <div>
                     <p className="block text-sm text-gray-400 mb-2 uppercase tracking-wider">Price Range</p>
                     <div className="flex items-center gap-3">
-                      <input
-                        type="text"
-                        value={priceMin}
-                        onChange={(e) => setPriceMin(e.target.value)}
-                        className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors text-sm"
-                        placeholder="Min (e.g. $200k)"
-                      />
+                      <div className="relative w-full">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm select-none">$</span>
+                        <input
+                          type="text"
+                          inputMode="decimal"
+                          value={priceMin}
+                          onChange={(e) => setPriceMin(formatPrice(e.target.value))}
+                          className="w-full bg-dark-800 border border-dark-600 rounded-sm pl-7 pr-3 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors text-sm"
+                          placeholder="Min"
+                        />
+                      </div>
                       <span className="text-gray-600 flex-shrink-0">–</span>
-                      <input
-                        type="text"
-                        value={priceMax}
-                        onChange={(e) => setPriceMax(e.target.value)}
-                        className="w-full bg-dark-800 border border-dark-600 rounded-sm px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors text-sm"
-                        placeholder="Max (e.g. $500k)"
-                      />
+                      <div className="relative w-full">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm select-none">$</span>
+                        <input
+                          type="text"
+                          inputMode="decimal"
+                          value={priceMax}
+                          onChange={(e) => setPriceMax(formatPrice(e.target.value))}
+                          className="w-full bg-dark-800 border border-dark-600 rounded-sm pl-7 pr-3 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 transition-colors text-sm"
+                          placeholder="Max"
+                        />
+                      </div>
                     </div>
                   </div>
 
