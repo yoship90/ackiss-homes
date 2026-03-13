@@ -45,11 +45,11 @@ export const metadata: Metadata = {
     google: "DYn3guIYiOMqOMoT4U69IonMLftkhqEHOBsFl3rBi48",
   },
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
     googleBot: {
-      index: true,
-      follow: true,
+      index: false,
+      follow: false,
     },
   },
   openGraph: {
