@@ -4,8 +4,9 @@ export const alt = "Ackiss Homes — Virginia Beach Real Estate";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 const LOGO_URL = `${baseUrl}/logo-a-v2-optimized.png`;
 
 async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuffer | null> {
