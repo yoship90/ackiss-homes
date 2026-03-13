@@ -41,7 +41,7 @@ export default function ScrollReveal({
           observer.unobserve(el);
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.2 }
     );
 
     observer.observe(el);
@@ -49,9 +49,9 @@ export default function ScrollReveal({
   }, []);
 
   const directionStyles = {
-    up: "translate-y-8",
-    left: "translate-x-8",
-    right: "-translate-x-8",
+    up: "translate-y-16",
+    left: "translate-x-16",
+    right: "-translate-x-16",
     none: "",
     scale: "scale-95",
   };
@@ -59,12 +59,12 @@ export default function ScrollReveal({
   return (
     <div
       ref={ref}
-      className={`transition-[transform,opacity] duration-700 ease-out ${
+      className={`transition-[transform,opacity] duration-900 ${
         isVisible
           ? "opacity-100 translate-y-0 translate-x-0 scale-100"
           : `opacity-0 ${directionStyles[direction]}`
       } ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ transitionDelay: `${delay}ms`, transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
       {children}
     </div>
