@@ -98,61 +98,59 @@ export default async function Image() {
             style={{ display: "flex" }}
           />
 
-          {/* Wordmark row — Ackiss + divider + Homes */}
+          {/* Wordmark */}
           <div
             style={{
               display: "flex",
+              flexDirection: "column",
               alignItems: "center",
-              gap: 20,
+              gap: 6,
               marginTop: 16,
               marginBottom: 16,
             }}
           >
-            <span
-              style={{
-                fontFamily: "Playfair",
-                fontWeight: 700,
-                fontSize: 96,
-                backgroundImage: "linear-gradient(135deg,#a06719 0%,#e1a144 20%,#f0be68 40%,#9b681a 55%,#e0a853 78%,#a06719 100%)",
-                backgroundClip: "text",
-                color: "transparent",
-                lineHeight: 1,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Ackiss
-            </span>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 8,
-              }}
-            >
+            {/* Ackiss + Homes row */}
+            <div style={{ display: "flex", alignItems: "baseline", gap: 16 }}>
+              <span
+                style={{
+                  fontFamily: "Playfair",
+                  fontWeight: 700,
+                  fontSize: 96,
+                  backgroundImage: "linear-gradient(135deg,#a06719 0%,#e1a144 20%,#f0be68 40%,#9b681a 55%,#e0a853 78%,#a06719 100%)",
+                  backgroundClip: "text",
+                  color: "transparent",
+                  lineHeight: 1,
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                Ackiss
+              </span>
               <span
                 style={{
                   fontFamily: "sans-serif",
-                  fontSize: 22,
+                  fontSize: 26,
                   fontWeight: 400,
                   color: "rgba(201,149,46,0.75)",
                   letterSpacing: "0.4em",
                   textTransform: "uppercase",
+                  paddingBottom: 6,
                 }}
               >
                 Homes
               </span>
-              <span
-                style={{
-                  fontFamily: "sans-serif",
-                  fontSize: 13,
-                  color: "rgba(150,150,150,0.7)",
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Real Estate Services
-              </span>
             </div>
+            {/* Real Estate Services — centered below */}
+            <span
+              style={{
+                fontFamily: "sans-serif",
+                fontSize: 13,
+                color: "rgba(150,150,150,0.7)",
+                letterSpacing: "0.28em",
+                textTransform: "uppercase",
+              }}
+            >
+              Real Estate Services
+            </span>
           </div>
 
           {/* Divider */}
