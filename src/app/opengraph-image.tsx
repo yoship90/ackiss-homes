@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { readFile } from "fs/promises";
 import path from "path";
 
-export const alt = "Ackiss Homes — Virginia Beach Real Estate";
+export const alt = "Ackiss Homes — Virginia Beach & Hampton Roads Real Estate";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
