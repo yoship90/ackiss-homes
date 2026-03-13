@@ -4,7 +4,8 @@ export const alt = "Ackiss Homes — Virginia Beach Real Estate";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const LOGO_URL = "https://www.ackisshomes.com/logo-a-v2-optimized.png";
+// Satori (next/og renderer) fetches images from URLs — data URLs from readFileSync don't render
+const LOGO_URL = "https://www.ackisshomes.com/logo.png";
 
 async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuffer | null> {
   try {
@@ -22,8 +23,9 @@ async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuff
 }
 
 export default async function Image() {
-  const [playfairBold] = await Promise.all([
+  const [playfairBold, playfairRegular] = await Promise.all([
     loadGoogleFont("Playfair Display", 700),
+    loadGoogleFont("Playfair Display", 400),
   ]);
 
   return new ImageResponse(
@@ -41,7 +43,7 @@ export default async function Image() {
           overflow: "hidden",
         }}
       >
-        {/* Radial gold glow */}
+        {/* Radial gold glow — centered behind logo */}
         <div
           style={{
             position: "absolute",
@@ -86,104 +88,89 @@ export default async function Image() {
             alignItems: "center",
           }}
         >
-          {/* A logo */}
+          {/* Logo — large and centered */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={LOGO_URL}
-            width={220}
-            height={220}
+            width={300}
+            height={300}
             alt=""
             style={{ display: "flex" }}
           />
 
-          {/* Wordmark row — Ackiss + divider + Homes */}
+          {/* Brand name */}
           <div
             style={{
               display: "flex",
-              alignItems: "center",
-              gap: 20,
-              marginTop: 16,
-              marginBottom: 16,
+              alignItems: "baseline",
+              gap: 18,
+              marginTop: 8,
+              marginBottom: 14,
             }}
           >
             <span
               style={{
                 fontFamily: "Playfair",
                 fontWeight: 700,
-                fontSize: 96,
-                backgroundImage: "linear-gradient(135deg,#a06719 0%,#e1a144 20%,#f0be68 40%,#9b681a 55%,#e0a853 78%,#a06719 100%)",
-                backgroundClip: "text",
-                color: "transparent",
+                fontSize: 108,
+                color: "#d4a853",
                 lineHeight: 1,
                 letterSpacing: "-0.01em",
               }}
             >
               Ackiss
             </span>
-            {/* Vertical divider */}
-            <div
+            <span
               style={{
-                width: 1,
-                height: 64,
-                background: "rgba(201,149,46,0.35)",
-                display: "flex",
-              }}
-            />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 8,
+                fontFamily: "sans-serif",
+                fontSize: 26,
+                fontWeight: 400,
+                color: "rgba(201,149,46,0.6)",
+                letterSpacing: "0.45em",
+                textTransform: "uppercase",
+                paddingBottom: 8,
               }}
             >
-              <span
-                style={{
-                  fontFamily: "sans-serif",
-                  fontSize: 22,
-                  fontWeight: 400,
-                  color: "rgba(201,149,46,0.75)",
-                  letterSpacing: "0.4em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Homes
-              </span>
-              <span
-                style={{
-                  fontFamily: "sans-serif",
-                  fontSize: 13,
-                  color: "rgba(150,150,150,0.7)",
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Real Estate Services
-              </span>
-            </div>
+              Homes
+            </span>
           </div>
-
-          {/* Divider */}
-          <div
-            style={{
-              height: 1,
-              width: 140,
-              background: "rgba(201,149,46,0.2)",
-              display: "flex",
-              marginBottom: 18,
-            }}
-          />
 
           {/* Geography */}
           <span
             style={{
               fontFamily: "sans-serif",
-              fontSize: 15,
-              color: "rgba(201,149,46,0.5)",
+              fontSize: 16,
+              color: "rgba(201,149,46,0.55)",
               letterSpacing: "0.28em",
               textTransform: "uppercase",
+              marginBottom: 20,
             }}
           >
             Virginia Beach &amp; All of Hampton Roads
+          </span>
+
+          {/* Divider */}
+          <div
+            style={{
+              height: 1,
+              width: 160,
+              background: "rgba(201,149,46,0.2)",
+              display: "flex",
+              marginBottom: 22,
+            }}
+          />
+
+          {/* Tagline */}
+          <span
+            style={{
+              fontFamily: "Playfair",
+              fontWeight: 400,
+              fontSize: 44,
+              color: "rgba(255,255,255,0.65)",
+              letterSpacing: "0.05em",
+            }}
+          >
+            Where Home Begins
           </span>
         </div>
       </div>
@@ -191,7 +178,8 @@ export default async function Image() {
     {
       ...size,
       fonts: [
-        ...(playfairBold ? [{ name: "Playfair", data: playfairBold, weight: 700 as const, style: "normal" as const }] : []),
+        ...(playfairBold    ? [{ name: "Playfair", data: playfairBold,    weight: 700 as const, style: "normal" as const }] : []),
+        ...(playfairRegular ? [{ name: "Playfair", data: playfairRegular, weight: 400 as const, style: "normal" as const }] : []),
       ],
     }
   );
