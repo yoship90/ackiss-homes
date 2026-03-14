@@ -147,7 +147,7 @@ export default async function Image() {
                 style={{
                   fontFamily: "Inter",
                   fontSize: 13,
-                  color: "rgba(150,150,150,0.7)",
+                  color: "rgba(220,220,220,0.9)",
                   letterSpacing: "0.28em",
                   textTransform: "uppercase",
                 }}
@@ -159,7 +159,7 @@ export default async function Image() {
                 style={{
                   fontFamily: "Inter",
                   fontSize: 13,
-                  color: "rgba(150,150,150,0.7)",
+                  color: "rgba(220,220,220,0.9)",
                   letterSpacing: "0.28em",
                   textTransform: "uppercase",
                 }}
@@ -185,7 +185,7 @@ export default async function Image() {
             style={{
               fontFamily: "Inter",
               fontSize: 15,
-              color: "rgba(201,149,46,0.5)",
+              color: "rgba(201,149,46,0.9)",
               letterSpacing: "0.28em",
               textTransform: "uppercase",
             }}
